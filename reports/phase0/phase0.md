@@ -4,8 +4,7 @@ An Android app that allows you to creating, testing, simplifying, and visualizin
 
 ### CRC model
 
-<https://utoronto-my.sharepoint.com/:p:/g/personal/sudo_cheng_mail_utoronto_ca/EUcEI-rGDH9Kk4xAMEZJfisBRmDbR_N4gvdK3gY3CZauiw?e=k3KpjB
->
+<https://utoronto-my.sharepoint.com/:p:/g/personal/sudo_cheng_mail_utoronto_ca/EUcEI-rGDH9Kk4xAMEZJfisBRmDbR_N4gvdK3gY3CZauiw?e=k3KpjB>
 
 
 ### Skeleton Program

@@ -1,4 +1,4 @@
-possible reference:
+possible references:
 
 ## Tier 1:
 
@@ -24,4 +24,4 @@ An C regex compiler. short and east to read.
 ## Tier 3:
 
 <https://www.bottlecaps.de/rr/ui>
-Maybe useful for visualization? idk man
+Maybe useful for visualization?

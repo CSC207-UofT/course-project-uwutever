@@ -9,4 +9,5 @@
 1. User inputs a regular expression and a text for matching on the `interface`
 2. A `RegEx` object is created
 3. `Compiler` uses `Parser` and `Lexer` to converts the `RegEx` into `FSA`
-4. `FSADisplayer` converts the `FSA` into displayable style and display it on the `interface`. This function has not implemented yet.
+4. `FSADisplayer` converts the `FSA` into displayable style and display it on the `interface`. 
+5. This function has not been implemented yet.
