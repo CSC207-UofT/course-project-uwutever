@@ -19,7 +19,7 @@ public class RegEx {
 
     }
 
-    public List matches(String testStr) {
+    public List<Match> matches(String testStr) {
         throw new UnsupportedOperationException();
     }
 }
