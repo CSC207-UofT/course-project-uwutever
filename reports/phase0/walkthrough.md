@@ -1,4 +1,4 @@
-#Feature 1: matching
+# Feature 1: matching
 1. User inputs a regular expression and a text for matching on the `interface`
 2. A `RegEx` object is created
 3. `Compiler` uses `Parser` and `Lexer` to converts the `RegEx` into `FSA`
