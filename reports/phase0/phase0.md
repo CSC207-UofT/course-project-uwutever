@@ -2,20 +2,16 @@
 
 An Android app that allows you to creating, testing, simplifying, and visualizing regular expression.
 
-### Specification
-
 ### CRC model
 
 <https://utoronto-my.sharepoint.com/:p:/g/personal/sudo_cheng_mail_utoronto_ca/EUcEI-rGDH9Kk4xAMEZJfisBRmDbR_N4gvdK3gY3CZauiw?e=k3KpjB
 >
 
-### Scenario Walk-Through
-
-A user write an regex in `UI`, together with a test text. `Regex` received the input, then call `parser` to convert string to an AST. It then call `compiler` to convert AST into FSA object. The FSA object goes into `Matcher` to return the match result of the input test text. The result returns to UI, and UI shows the matched text in color. If user wants to see the visualization of FSA, then the FSA model will draw a picture and return to UI.
-
 
 ### Skeleton Program
 
-To be upload.
+Uploaded
 
 ### Progress Report
+
+At this point, we have decided our project domain, `An Android app that allows you to creating, testing, simplifying, and visualizing regular expression.`. We have also made our CRC model consist of several entities and two use case. Our skeleton program shows how our program will be like in the future. The success of CRC model and skeleton program make us believe our design is efficient and necessary. As for phase 0, Kevin wrote the skeleton program and Choudhury wrote the test. Hanrui, Letian and Chonho made the CRC model PPT together. Moreover, Hanrui picked out a few faults in our initial CRC model and fixed it; Chonho wrote an detailed specification; Letian wrote this progress report. On the next part, Kevin, Choudhury, Yeung and Chonho will implement the algorithm part of our program and Hanrui, Letian will focus on UI design. We are really confident on our project domain since it's unique and makes learing regex easier. We are looking forward to next phase of the project.
