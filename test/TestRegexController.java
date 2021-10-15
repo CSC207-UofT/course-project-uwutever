@@ -4,18 +4,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 public class TestRegexController {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RegexController regexController = new RegexController();
     }
 

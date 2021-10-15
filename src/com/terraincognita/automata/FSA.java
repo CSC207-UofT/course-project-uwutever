@@ -4,4 +4,6 @@ import java.util.*;
 
 public interface FSA {
 
+    public void transitions();
+
 }
