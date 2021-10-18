@@ -8,6 +8,6 @@ Our software provides the following features:
     For example, the text string "a" will be in the language refined by `a|b` but "c" will not be.
     Our program will be able to correct determine this.
 
-- The underlying method of matching will be by first constructing a Finite State Automata which describes the language,
+- The underlying method of matching will be by first constructing a Finite State Automaton which accepts the same language,
   so we will also implement a way to visualize the corresponding FSA on the interface. This will include 
   the start state, every transition state, and the end state.
