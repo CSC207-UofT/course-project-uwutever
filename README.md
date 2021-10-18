@@ -1,6 +1,9 @@
-## Replace this README.md!
+## Regular expression toolkit
+### Group-030 Course Project
+This repository was originally created as a course project for **CSC207H1: Software Design**, an introductory course on
+the topic at the University of Toronto, in the Fall 2021 term.
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+Our project aims to facilitate the teaching of regular expressions in computational language theory by providing features such
+as text string and regular expression matching and Finite State Automata (*FSA*) visualization.
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+Contributors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeung, Letian Cheng
