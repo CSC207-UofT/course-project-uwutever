@@ -5,7 +5,7 @@ When a regular expression is compiled, it is converted into an equivalent Finite
 Our software provides the following features:
 - As a Regex tool, it should be able to preform matching between a given regular expression and a given text string,
   i.e. determine whether a string is in the language defined by a regular expression.  
-    For example, the text string `"a"` will be in the language refined by `"a+b"` but `"c"` will not be.
+    For example, the text string "a" will be in the language refined by `a|b` but "c" will not be.
     Our program will be able to correct determine this.
 
 - The underlying method of matching will be by first constructing a Finite State Automata which describes the language,
