@@ -4,6 +4,7 @@ import java.util.*;
 
 public interface FSA {
 
-    public void transitions();
+    void states();
+//    Should this be void, or List<FSAState> ?
 
 }
