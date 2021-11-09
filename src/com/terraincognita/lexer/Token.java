@@ -1,11 +1,52 @@
 package com.terraincognita.lexer;
 
+import com.terraincognita.errors.NotImplementedException;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class Token {
     private TokenType tokenType;
-    private String value;
+    private char value;
 
-    public Token(TokenType tokenType, String value) {
+    protected static final HashSet<Character> LEFT = new HashSet<Character>(Arrays.asList('(','[','{'));
+    protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')',')','}'));
+    protected static final HashSet<Character> OPS = new HashSet<Character>(Arrays.asList('|'));
+    protected static final HashSet<Character> QUANTIFIERS = new HashSet<>(Arrays.asList('*', '+', '?'));
+
+    private Token(TokenType tokenType, char value) {
         this.tokenType = tokenType;
         this.value = value;
+    }
+
+    public static Token createToken(char token) {
+        if (LEFT.contains(token)) {
+            return new Token(TokenType.LeftDelimiter, token);
+        }
+        else if (RIGHT.contains(token)) {
+            return new Token(TokenType.RightDelimiter, token);
+        }
+        else if (OPS.contains(token)) {
+            return new Token(TokenType.Operator, token);
+        }
+        else if (QUANTIFIERS.contains(token)) {
+            if (token == '*')
+                return new Token(TokenType.KleeneStar, token);
+            else if (token == '+')
+                return new Token(TokenType.KleenePlus, token);
+            else
+                throw new NotImplementedException("Token");
+        }
+        else {
+            return new Token(TokenType.Char, token);
+        }
+    }
+
+    public TokenType getTokenType() {
+        return this.tokenType;
+    }
+
+    public char getValue() {
+        return this.value;
     }
 }

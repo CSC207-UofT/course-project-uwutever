@@ -6,5 +6,6 @@ public enum TokenType {
     KleenePlus,
     Operator,
     Number,
-    Delimiter
+    LeftDelimiter,
+    RightDelimiter
 }
