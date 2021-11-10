@@ -1,15 +1,35 @@
 package com.terraincognita.automata;
 
-import java.util.Map;
-import java.util.Set;
-
 public class NFAState extends FSAState {
+    private final String id;
+    private final boolean isAccepting;
 
-    private Map<String, Set<NFAState>> transitions;
+    /**
+     * Constructor of NFAState with
+     * @param id the id of the state
+     * @param isAccepting whether the state is an accepting state
+     */
+    public NFAState(String id, boolean isAccepting){
+        this.id = id;
+        this.isAccepting = isAccepting;
+    }
 
-    public void addTransition(String character, NFAState state) {
-//        if (transitions.containsKey(character)) {
-//
-//        }
+    /**
+     * Return whether the state is an accepting state
+     *
+     * @return whether the state is an accepting state
+     */
+    @Override
+    public boolean isAccepting() {
+        return this.isAccepting;
+    }
+
+    /**
+     * Return the id of the state
+     *
+     * @return the id of the state
+     */
+    public String getId() {
+        return this.id;
     }
 }
