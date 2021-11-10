@@ -2,9 +2,9 @@ package com.terraincognita.automata;
 
 import java.util.*;
 
-public interface FSA {
+public abstract class FSA {
 
-    void states();
+    public abstract void states();
 //    Should this be void, or List<FSAState> ?
 
 }

@@ -1,6 +1,6 @@
 package com.terraincognita.automata;
 
-public class DFA implements FSA {
+public class DFA extends FSA {
 
     @Override
     public void states() {
