@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ThirdActivity"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/Text_MatchedPattern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="103dp" />
+
+    <!--REPLACE BELOW PART WITH VISUALIZATION METHOD-->
+    <TextView
+        android:id="@+id/Text_Visualization"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/Text_Suggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+</androidx.appcompat.widget.LinearLayoutCompat>

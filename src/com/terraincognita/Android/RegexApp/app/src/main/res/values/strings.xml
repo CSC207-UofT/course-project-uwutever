@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Regex</string>
+    <string name="Regex1">Regex1</string>
+    <string name="Regex2">Regex2</string>
+    <string name="Compile">Compile Now</string>
+    <string name="editText_Regex">Insert Your Regex Pattern Here…</string>
+    <string name="editText_Language">Insert Your Language Text Here…</string>
+</resources>

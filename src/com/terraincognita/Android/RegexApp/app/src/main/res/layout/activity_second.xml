@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Compile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SecondActivity">
+
+    <EditText
+        android:id="@+id/editText_Language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:ems="10"
+        android:hint="@string/editText_Language"
+        android:inputType="textLongMessage"
+        android:rotationX="0"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="55dp" />
+
+    <EditText
+        android:id="@+id/editText_Regex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:ems="10"
+        android:inputType="textLongMessage"
+        android:hint="@string/editText_Regex"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <Button
+        android:id="@+id/compile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="launchThirdActivity"
+        android:text="@string/Compile" />
+</androidx.appcompat.widget.LinearLayoutCompat>
