@@ -2,8 +2,7 @@ package com.terraincognita.lexer;
 
 public enum TokenType {
     Char,
-    KleeneStar,
-    KleenePlus,
+    Closure,
     Operator,
     Number,
     LeftDelimiter,

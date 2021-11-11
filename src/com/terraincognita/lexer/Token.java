@@ -31,9 +31,9 @@ public class Token {
         }
         else if (QUANTIFIERS.contains(token)) {
             if (token == '*')
-                return new Token(TokenType.KleeneStar, token);
+                return new Token(TokenType.Closure, token);
             else if (token == '+')
-                return new Token(TokenType.KleenePlus, token);
+                return new Token(TokenType.Closure, token);
             else
                 throw new NotImplementedException("Token");
         }
