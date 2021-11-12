@@ -2,7 +2,7 @@ package com.terraincognita.automata;
 
 import com.terraincognita.automata.states.NFAState;
 
-public interface NFABuilder{
+public interface NFABuilder extends FSABuilder {
     /**
      * Reset the builder
      */

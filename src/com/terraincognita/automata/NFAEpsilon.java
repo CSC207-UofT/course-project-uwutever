@@ -8,10 +8,12 @@ public class NFAEpsilon implements FSABuilder{
     private NFA nfa;
 
     /**
-     * Reset the builder
+     * Reset the builder by created a new FSA with the given id
+     *
+     * @param id the id of the new NFA
      */
     @Override
-    public void reset() {
+    public void reset(String id) {
         this.nfa = new NFA();
     }
 
@@ -20,10 +22,11 @@ public class NFAEpsilon implements FSABuilder{
      *
      * @param id the id of the start state
      * @throws IllegalArgumentException
+     * @return
      */
     //TODO create an exception for id not in states
     @Override
-    public void setStartState(String id) {
+    public boolean setStartState(String id) {
         if(!this.nfa.states.containsKey(id)){
             //TODO Throw exception
             //Temporarily: using IllegalArgumentException
@@ -31,6 +34,7 @@ public class NFAEpsilon implements FSABuilder{
         }
 
         this.nfa.startState = this.nfa.states.get(id);
+        return false;
     }
 
     /**
