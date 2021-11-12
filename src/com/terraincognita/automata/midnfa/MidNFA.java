@@ -1,15 +1,16 @@
-package com.terraincognita.automata;
+package com.terraincognita.automata.midnfa;
 
-import com.terraincognita.automata.states.NFAState;
+import com.terraincognita.automata.*;
+import com.terraincognita.automata.states.*;
 
 import java.util.*;
 
-public class NFA extends FSA<NFAState> implements NFABuilder {
+public class MidNFA extends FSA<NFAState> implements NFABuilder {
     protected Set<NFAState> states;
     protected NFAState startState;
     protected Map<String, Map<String, List<NFAState>>> transitionTable;
 
-    public NFA(){
+    public MidNFA(){
         this.states = new HashSet<>();
         this.startState = null;
         this.transitionTable = new HashMap<>();

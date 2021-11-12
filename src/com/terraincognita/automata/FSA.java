@@ -1,17 +1,25 @@
 package com.terraincognita.automata;
 
-import java.util.*;
+import com.terraincognita.automata.states.FSAState;
 
-public abstract class FSA {
+public abstract class FSA <T extends FSAState>{
+    /**
+     * Return the start state of the FSA
+     */
+    public abstract T getStartState();
 
-    Set<FSAState> states;
+    /**
+     * Run the FSA from the start state with a given string
+     * @param alphabets a given string to run the FSA
+     * @return the reached state(s)
+     */
+    public abstract Object transitions(String alphabets);
 
-    public Set<FSAState> states() {
-        return this.states;
-    };
-
-    public void addState(FSAState state) {
-        states.add(state);
-    }
+    /**
+     * Return whether the input string is accepted by the FSA
+     * @param alphabets the string to be tested
+     * @return whether the input string is accepted by the FSA
+     */
+    public abstract boolean accept(String alphabets);
 
 }

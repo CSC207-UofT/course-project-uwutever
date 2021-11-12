@@ -4,57 +4,15 @@ import com.terraincognita.automata.states.NFAState;
 
 import java.util.*;
 
-public class NFA extends FSA<NFAState> implements NFABuilder {
-    protected Set<NFAState> states;
-    protected NFAState startState;
-    protected Map<String, Map<String, List<NFAState>>> transitionTable;
-
-    public NFA(){
-        this.states = new HashSet<>();
-        this.startState = null;
-        this.transitionTable = new HashMap<>();
-    }
+public class NFAUnion implements NFABuilder{
+    private NFA nfa;
 
     /**
-     * Return the start state of the FSA
+     * Reset the builder
      */
-    @Override
-    public NFAState getStartState() {
-        return this.startState;
-    }
-
-    /**
-     * Run the FSA from the start state with a given string
-     *
-     * @param alphabets a given string to run the FSA
-     * @return the reached state(s)
-     */
-    @Override
-    public List<NFAState> transitions(String alphabets) {
-        //TODO
-        return null;    }
-
-    /**
-     * Return whether the input string is accepted by the FSA
-     *
-     * @param alphabets the string to be tested
-     * @return whether the input string is accepted by the FSA
-     */
-    @Override
-    public boolean accept(String alphabets) {
-        for(NFAState state:transitions(alphabets)){
-            if (state.isAccepting()){
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void reset() {
-        this.states = new HashSet<>();
-        this.startState = null;
-        this.transitionTable = new HashMap<>();
+        this.nfa = new NFA();
     }
 
     /**
@@ -65,13 +23,13 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
      */
     //TODO create an exception for id not in states
     public void setStartState(NFAState state) {
-        if(!this.states.contains(state)){
+        if(!this.nfa.states.contains(state)){
             //TODO Throw exception
             //Temporarily: using IllegalArgumentException
             throw new IllegalArgumentException("Invalid id for state.");
         }
 
-        this.startState = state;
+        this.nfa.startState = state;
     }
 
     /**
@@ -80,13 +38,14 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
      * @param state the id of the state
      * @throws IllegalArgumentException
      */
+    @Override
     public void addState(NFAState state, String id) {
-        if(this.states.contains(state)){
+        if(this.nfa.states.contains(state)){
             //TODO throw exception
             //Temporarily: using IllegalArgumentException
             throw new IllegalArgumentException("Invalid id for state.");
         }
-        this.states.add(new NFAState(id, false));
+        this.nfa.states.add(new NFAState(id, false));
     }
 
     /**
@@ -96,8 +55,9 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
      * @param id          the id of the state
      * @param isAccepting whether the state is an accepting state
      */
+    @Override
     public void addState(NFAState state, String id, boolean isAccepting) {
-        this.states.add(state);
+        this.nfa.states.add(state);
     }
 
     /**
@@ -107,8 +67,9 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
      * @param alphabet the alphabet of the transition
      * @param toState the to-state of the transition
      */
+    @Override
     public void addTransition(NFAState fromState, String alphabet, NFAState toState) {
-        if (!this.states.contains(fromState) || !this.states.contains(toState)){
+        if (!this.nfa.states.contains(fromState) || !this.nfa.states.contains(toState)){
             //TODO throw exception
         }
 
@@ -123,4 +84,10 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         }
     }
 
+    /**
+     * Return the NFA from builder
+     */
+    public NFA getResult(){
+        return this.nfa;
+    }
 }
