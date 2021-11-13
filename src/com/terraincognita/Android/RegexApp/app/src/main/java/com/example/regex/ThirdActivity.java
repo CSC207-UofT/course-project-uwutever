@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ThirdActivity extends AppCompatActivity {
@@ -23,5 +24,12 @@ public class ThirdActivity extends AppCompatActivity {
 
         TextView Suggestion = findViewById(R.id.Text_Suggestion);
         Suggestion.setText("Suggestion:\n" + message);
+    }
+
+    public void CallBackMainActivity(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        // save database here
+
+        startActivity(intent);
     }
 }
