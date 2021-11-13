@@ -12,13 +12,13 @@ public class RegexRepository {
     private RegexDao mRegexDao;
     private LiveData<List<RegexObj>> mAllRegex;
 
-    RegexRepository(Application application) {
+    public RegexRepository(Application application) {
        RegexRoomDatabase db = RegexRoomDatabase.getDatabase(application);
        mRegexDao = db.RegexDao();
        mAllRegex = mRegexDao.getAllRegex();
     }
 
-    LiveData<List<RegexObj>> getAllWords() {
+    public LiveData<List<RegexObj>> getAllRegex() {
        return mAllRegex;
     }
 

@@ -1,12 +1,13 @@
 package com.example.regex.db;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-import com.example.regex.db.RegexObj;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {RegexObj.class}, version = 1, exportSchema = false)
 public abstract class RegexRoomDatabase extends RoomDatabase {
@@ -24,10 +25,41 @@ public abstract class RegexRoomDatabase extends RoomDatabase {
                              // if no Migration object.
                             // Migration is not part of this practical.
                            .fallbackToDestructiveMigration()
+                           .addCallback(sRoomDatabaseCallback)
                            .build();
                }
            }
        }
        return INSTANCE;
    }
+
+   private static RoomDatabase.Callback sRoomDatabaseCallback =
+       new RoomDatabase.Callback(){
+       @Override
+       public void onOpen (@NonNull SupportSQLiteDatabase db){
+           super.onOpen(db);
+           new PopulateDbAsync(INSTANCE).execute();
+       }
+   };
+
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final RegexDao mDao;
+        String[] RegexObjs = {"[0,1]*", "colou?r"}; // example
+
+        PopulateDbAsync(RegexRoomDatabase db) {
+            mDao = db.RegexDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            mDao.deleteAll();
+
+            for (int i = 0; i <= RegexObjs.length - 1; i++) {
+                RegexObj Regex = new RegexObj(RegexObjs[i]);
+                mDao.insert(Regex);
+            }
+            return null;
+        }
+    }
 }
