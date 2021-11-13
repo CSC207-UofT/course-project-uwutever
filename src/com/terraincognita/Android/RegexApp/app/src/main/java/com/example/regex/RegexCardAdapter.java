@@ -32,7 +32,7 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
             RegexObj currentRegex = mRegexObjs.get(position);
             holder.RegexItemView.setText(currentRegex.getRegex());
         } else {
-            holder.RegexItemView.setText("No Regex Now");
+            holder.RegexItemView.setText("Create your first regex");
         }
     }
 

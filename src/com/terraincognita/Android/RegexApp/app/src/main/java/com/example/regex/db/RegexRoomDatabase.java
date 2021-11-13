@@ -45,14 +45,14 @@ public abstract class RegexRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final RegexDao mDao;
-        String[] RegexObjs = {"[0,1]*", "colou?r"}; // example
+        String[] RegexObjs = {"[0,1]*", "sample*"}; // example
 
         PopulateDbAsync(RegexRoomDatabase db) {
             mDao = db.RegexDao();
         }
 
         @Override
-        protected Void doInBackground(final Void... params) {
+        protected Void doInBackground(final Void... params) { // reset db whenever app is started.
             mDao.deleteAll();
 
             for (int i = 0; i <= RegexObjs.length - 1; i++) {

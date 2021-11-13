@@ -3,6 +3,7 @@ package com.example.regex;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mRegexViewModel = ViewModelProviders.of(this).get(RegexViewModel.class);
+//        mRegexViewModel = ViewModelProviders.of(this).get(RegexViewModel.class); //deprecated
+        mRegexViewModel = new ViewModelProvider(this).get(RegexViewModel.class);
         mRegexViewModel.getAllRegex().observe(this, new Observer<List<RegexObj>>() {
             @Override
             public void onChanged(@Nullable final List<RegexObj> RegexObjs) {
