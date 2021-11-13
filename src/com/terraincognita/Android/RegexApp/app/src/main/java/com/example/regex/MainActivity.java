@@ -1,5 +1,6 @@
 package com.example.regex;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         final RegexCardAdapter adapter = new RegexCardAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (getIntent().getExtras() != null) {
+            String RegexStr = getIntent().getExtras().getString("RegexStr");
+            String SampleText = getIntent().getExtras().getString("SampleText");
+            mRegexViewModel.insert(new RegexObj(RegexStr));
+        }
 
 //        mRegexViewModel = ViewModelProviders.of(this).get(RegexViewModel.class); //deprecated
         mRegexViewModel = new ViewModelProvider(this).get(RegexViewModel.class);

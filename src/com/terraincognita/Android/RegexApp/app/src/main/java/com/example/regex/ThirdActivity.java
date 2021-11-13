@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.regex.db.RegexObj;
+
 public class ThirdActivity extends AppCompatActivity {
 
     @Override
@@ -14,7 +16,7 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
         Intent intent = getIntent();
-        String message = intent.getStringExtra(SecondActivity.EXTRA_MESSAGE);
+        String message = "Hello World!"; // need to replace with the algorithm object
 
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
         Matched_Pattern.setText("Matched_Pattern:\n" + message);
@@ -27,9 +29,17 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     public void CallBackMainActivity(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        // save database here
 
+//        String RegexStr, SampleText;
+
+//        if(bundle != null){
+//            RegexStr = (String) bundle.get("RegexStr");
+//            SampleText = (String) bundle.get("SampleText");
+//        }
+
+        // jump to main activity
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(getIntent().getExtras()); // send Regex pattern and sample text to main activity
         startActivity(intent);
     }
 }

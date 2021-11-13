@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 
 public class SecondActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.regex.extra.MESSAGE";
     private EditText mMessageEditText;
 
     @Override
@@ -20,8 +19,10 @@ public class SecondActivity extends AppCompatActivity {
 
     public void launchThirdActivity(View view){
         Intent intent = new Intent(this, ThirdActivity.class);
-        String message = mMessageEditText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        String RegexStr = mMessageEditText.getText().toString(); // regex string
+        String SampleText = ((EditText) findViewById(R.id.editText_Language)).getText().toString(); // sample text
+        intent.putExtra("RegexStr", RegexStr);
+        intent.putExtra("SampleText", SampleText);
         startActivity(intent);
     }
 }
