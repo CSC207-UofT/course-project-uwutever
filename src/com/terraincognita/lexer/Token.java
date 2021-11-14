@@ -9,8 +9,8 @@ public class Token {
     private TokenType tokenType;
     private char value;
 
-    protected static final HashSet<Character> LEFT = new HashSet<Character>(Arrays.asList('(','[','{'));
-    protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')',')','}'));
+    protected static final HashSet<Character> LEFT = new HashSet<Character>(Arrays.asList('(', '[', '{'));
+    protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')', ')', '}'));
     protected static final HashSet<Character> OPS = new HashSet<Character>(Arrays.asList('|'));
     protected static final HashSet<Character> QUANTIFIERS = new HashSet<>(Arrays.asList('*', '+', '?'));
 
@@ -22,22 +22,18 @@ public class Token {
     public static Token createToken(char token) {
         if (LEFT.contains(token)) {
             return new Token(TokenType.LeftDelimiter, token);
-        }
-        else if (RIGHT.contains(token)) {
+        } else if (RIGHT.contains(token)) {
             return new Token(TokenType.RightDelimiter, token);
-        }
-        else if (OPS.contains(token)) {
+        } else if (OPS.contains(token)) {
             return new Token(TokenType.Operator, token);
-        }
-        else if (QUANTIFIERS.contains(token)) {
+        } else if (QUANTIFIERS.contains(token)) {
             if (token == '*')
                 return new Token(TokenType.Closure, token);
             else if (token == '+')
                 return new Token(TokenType.Closure, token);
             else
                 throw new NotImplementedException("Token");
-        }
-        else {
+        } else {
             return new Token(TokenType.Char, token);
         }
     }
