@@ -1,6 +1,7 @@
 package com.terraincognita.automata;
 
 import com.terraincognita.automata.states.FSAState;
+import com.terraincognita.errors.NullStartStateException;
 import com.terraincognita.errors.UnknownAlphabetException;
 
 import java.util.Collection;
@@ -40,13 +41,13 @@ public abstract class FSA <T extends FSAState>{
      * @param alphabets a given string to run the FSA
      * @return the reached state(s)
      */
-    public abstract Object transitions(String alphabets);
+    public abstract Object transitions(String alphabets) throws NullStartStateException;
 
     /**
      * Return whether the input string is accepted by the FSA
      * @param alphabets the string to be tested
      * @return whether the input string is accepted by the FSA
      */
-    public abstract boolean accept(String alphabets);
+    public abstract boolean accept(String alphabets) throws NullStartStateException;
 
 }

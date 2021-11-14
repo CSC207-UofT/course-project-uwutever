@@ -1,14 +1,9 @@
 package com.terraincognita.automata.dfa;
+
+import com.terraincognita.errors.NullStartStateException;
 import com.terraincognita.errors.UnknownAlphabetException;
-
-
 import com.terraincognita.automata.FSA;
-import com.terraincognita.automata.states.FSAState;
-//
 import java.util.Collection;
-//
-//public class DFA extends FSA {
-//=======
 import com.terraincognita.automata.states.DFAState;
 import com.terraincognita.errors.UnknownIdException;
 
@@ -93,7 +88,11 @@ public class DFA extends FSA<DFAState> {
      * @return the reached state(s)
      */
     @Override
-    public DFAState transitions(String alphabets) {
+    public DFAState transitions(String alphabets) throws NullStartStateException {
+        if(this.startState == null){
+            throw new NullStartStateException();
+        }
+
         DFAState curr = this.startState;
         for(int i = 0; i < alphabets.length(); i++){
             curr = delta(curr, String.valueOf(alphabets.charAt(i)));
@@ -108,10 +107,10 @@ public class DFA extends FSA<DFAState> {
      * @return whether the input string is accepted by the FSA
      */
     @Override
-    public boolean accept(String alphabets) {
+    public boolean accept(String alphabets) throws NullStartStateException {
         try{
             return transitions(alphabets).isAccepting();
-        } catch (IllegalArgumentException e){
+        } catch (UnknownAlphabetException e){
             return false;
         }
     }
