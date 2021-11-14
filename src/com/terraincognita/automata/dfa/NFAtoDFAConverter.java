@@ -16,9 +16,9 @@ public class NFAtoDFAConverter {
      * 4. Draw the transition between the subsets
      *
      * DFA ID policy:
-     * The return DFA has states which IDs Binary Strings from 00...0 to 11...1 (same length as NFA.states)
+     * The return DFA has states which IDs are Binary Strings from 00...0 to 11...1 (same length as NFA.states)
      * The DFA State ID represents which NFA states are included in the subset
-     * For instance if the char at position i in the ID is 1, the NFAStates[i] is included in this DFA state
+     * For instance if the char at position i in the ID is 1, then NFAStates[i] is included in this DFA state
      * (NFAStates is the ordered list obtained from step 1)
      *
      * @param nfa the NFA to be converted to DFA
@@ -105,7 +105,7 @@ public class NFAtoDFAConverter {
 
     /**
      * Helper method of addSubsetState
-     * Given an integer state id which indicates which states in the NFA is present when interpreted in binary
+     * Given a Binary String DFA state id indicating which states in the NFA are present
      * return whether the state is accepting in the DFA
      *
      * @param statusString a binary string representing which DFA state is present
@@ -130,14 +130,14 @@ public class NFAtoDFAConverter {
      * @return the indexes of the accepting states in orderedStates
      */
     private static List<Integer> getAcceptingPosition(List<NFAState> orderedStates){
-        List<Integer> accpetingPos = new ArrayList<>();
+        List<Integer> acceptingPos = new ArrayList<>();
 
         for (int i = 0; i < orderedStates.size(); i++){
             if(orderedStates.get(i).isAccepting()){
-                accpetingPos.add(i);
+                acceptingPos.add(i);
             }
         }
-        return accpetingPos;
+        return acceptingPos;
     }
 
     /**
