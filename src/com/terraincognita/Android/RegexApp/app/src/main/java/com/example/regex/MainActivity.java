@@ -77,6 +77,6 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
 
         String message = mRegexObjs.get(position).getRegex();
         intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        startActivityForResult(intent, NEW_REGEX_ACTIVITY_REQUEST_CODE);
     }
 }
