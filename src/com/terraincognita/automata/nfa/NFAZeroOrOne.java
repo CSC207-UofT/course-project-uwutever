@@ -1,13 +1,12 @@
 package com.terraincognita.automata.nfa;
 
-import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.automata.states.NFAState;
 
 import java.util.*;
 
-public class NFAChar extends NFA {
+public class NFAZeroOrOne extends NFA {
 
-    public NFAChar(String character, boolean terminating, Integer counter) {
+    public NFAZeroOrOne(String character, boolean terminating, Integer counter) {
         this.states = new HashSet<>();
         String id1 = counter.toString();
         counter += 1;
@@ -42,7 +41,7 @@ public class NFAChar extends NFA {
         this.maxCount = counter + 1;
     }
 
-    public NFAChar(NFA midNFA, boolean terminating, Integer counter) {
+    public NFAZeroOrOne(NFA midNFA, boolean terminating, Integer counter) {
         // Create first state
         this.states = new HashSet<>();
         String id = counter.toString();
@@ -54,11 +53,9 @@ public class NFAChar extends NFA {
         this.startState = state1;
 
         // Second state is starting state of midNFA
-        NFAState state2 = midNFA.startState;
-
         // Add epsilon transition from first state to second state
         Set<NFAState> transition = new HashSet<>();
-        transition.add(state2);
+        transition.add(midNFA.startState);
         state1.stateTransitions.put("epsilon", transition);
 
         // Update state set
@@ -66,7 +63,7 @@ public class NFAChar extends NFA {
 
         // Create fourth state
         id = counter.toString();
-        state2 = new NFAState(id, terminating);
+        NFAState state2 = new NFAState(id, terminating);
         this.states.add(state2);
 
         // Make fourth state ending state
@@ -75,6 +72,11 @@ public class NFAChar extends NFA {
         // Add epsilon transition from third state to fourth state
         transition = new HashSet<>();
         transition.add(state2);
+        midNFA.endState.stateTransitions.put("epsilon", transition);
+
+        // Add epsilon transition from third state to second state
+        transition = new HashSet<>();
+        transition.add(midNFA.startState);
         midNFA.endState.stateTransitions.put("epsilon", transition);
 
         // TODO

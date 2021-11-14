@@ -2,6 +2,7 @@ package com.terraincognita.automata.nfa;
 
 import com.terraincognita.automata.FSA;
 import com.terraincognita.automata.states.NFAState;
+import com.terraincognita.errors.InvalidStateException;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     protected NFAState startState;
     protected NFAState endState;
     protected Map<String, Map<String, List<NFAState>>> transitionTable;
+    protected int maxCount;
 
     public NFA(){
         this.states = new HashSet<>();
@@ -77,6 +79,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     public void reset() {
         this.states = new HashSet<>();
         this.startState = null;
+        this.endState = null;
         this.transitionTable = new HashMap<>();
     }
 
@@ -107,7 +110,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         if(this.states.contains(state)){
             //TODO throw exception
             //Temporarily: using IllegalArgumentException
-            throw new IllegalArgumentException("Invalid id for state.");
+            throw new InvalidStateException(state);
         }
         this.states.add(new NFAState(id, false));
     }
@@ -147,14 +150,6 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     }
 
     @Override
-    public void reset(String id) {
-        this.states = null;
-        this.startState = null;
-        this.endState = null;
-        this.transitionTable = null;
-    }
-
-    @Override
     public boolean setStartState(String id) {
         return false;
     }
@@ -172,5 +167,9 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     @Override
     public void addTransition(String from, String alphabet, String to) {
 
+    }
+
+    public int getMaxCount() {
+        return maxCount;
     }
 }

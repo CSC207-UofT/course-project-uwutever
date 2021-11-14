@@ -7,8 +7,6 @@ import java.util.*;
 
 public class NFAUnion extends NFA {
 
-    private final int maxCount;
-
     public NFAUnion(String character1, String character2, boolean terminating, Integer counter) {
         // Create first state
         this.states = new HashSet<>();

@@ -7,8 +7,6 @@ import java.util.*;
 
 public class NFAConcat extends NFA {
 
-    private final int maxCount;
-
     public NFAConcat(String character1, String character2, boolean terminating, Integer counter) {
         // Create first state
         this.states = new HashSet<>();
@@ -111,9 +109,5 @@ public class NFAConcat extends NFA {
         // TODO
         this.transitionTable = new HashMap<>();
         this.maxCount = counter + 1;
-    }
-
-    public int getMaxCount() {
-        return maxCount;
     }
 }

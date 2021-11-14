@@ -7,8 +7,6 @@ import java.util.*;
 
 public class NFAEpsilon extends NFA {
 
-    private final int maxCount;
-
     public NFAEpsilon(boolean terminating, Integer counter) {
         // Create first state
         this.states = new HashSet<>();
@@ -33,9 +31,5 @@ public class NFAEpsilon extends NFA {
         // TODO
         this.transitionTable = new HashMap<>();
         this.maxCount = counter + 1;
-    }
-
-    public int getMaxCount() {
-        return maxCount;
     }
 }

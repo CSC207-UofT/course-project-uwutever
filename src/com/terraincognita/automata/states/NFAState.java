@@ -1,5 +1,7 @@
 package com.terraincognita.automata.states;
 
+import com.terraincognita.automata.NFAStateTransition;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -7,7 +9,7 @@ import java.util.Set;
 public class NFAState implements FSAState {
     private final String id;
     private final boolean isAccepting;
-    public Map<String, Set<NFAState>> stateTransitions;
+    public NFAStateTransition stateTransitions;
 
     /**
      * Constructor of NFAState with
@@ -17,7 +19,7 @@ public class NFAState implements FSAState {
     public NFAState(String id, boolean isAccepting){
         this.id = id;
         this.isAccepting = isAccepting;
-        this.stateTransitions = new HashMap<String, Set<NFAState>>();
+        this.stateTransitions = new NFAStateTransition();
     }
 
 

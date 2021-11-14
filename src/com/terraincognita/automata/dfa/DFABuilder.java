@@ -28,14 +28,16 @@ public class DFABuilder implements FSABuilder {
      *
      * @param id the id of the start state
      * @throws UnknownIdException if the given id is not in FSA
+     * @return
      */
     @Override
-    public void setStartState(String id) {
+    public boolean setStartState(String id) {
         if(this.dfa.states.containsKey(id)){
             this.dfa.startState = this.dfa.states.get(id);
         }else {
             throw new UnknownIdException(id);
         }
+        return false;
     }
 
     /**

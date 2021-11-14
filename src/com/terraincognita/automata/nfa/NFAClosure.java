@@ -7,8 +7,6 @@ import java.util.*;
 
 public class NFAClosure extends NFA {
 
-    private final int maxCount;
-
     public NFAClosure(String character, boolean terminating, Integer counter) {
         // Create first state
         this.states = new HashSet<>();
