@@ -1,18 +1,17 @@
 package com.terraincognita.automata;
 
-import com.terraincognita.automata.states.FSAState;
-
 public interface FSABuilder{
     /**
-     * Reset the builder
+     * Reset the builder by created a new FSA with the given id
      */
-    void reset();
+    void reset(String id);
 
     /**
      * Set the start state of the FSA by index
      * @param id the id of the start state
+     * @return true if the start state is set successfully
      */
-    void setStartState(String id);
+    boolean setStartState(String id);
 
     /**
      * Add a state to the FSA with a given id

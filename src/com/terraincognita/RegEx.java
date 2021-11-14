@@ -1,6 +1,6 @@
 package com.terraincognita;
 
-import com.terraincognita.automata.NFA;
+import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.errors.RegexSyntaxException;
 
 import java.util.List;

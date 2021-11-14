@@ -141,4 +141,28 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         }
     }
 
+    @Override
+    public void reset(String id) {
+
+    }
+
+    @Override
+    public boolean setStartState(String id) {
+        return false;
+    }
+
+    @Override
+    public void addState(String id) {
+
+    }
+
+    @Override
+    public void addState(String id, boolean isAccepting) {
+
+    }
+
+    @Override
+    public void addTransition(String from, String alphabet, String to) {
+
+    }
 }
