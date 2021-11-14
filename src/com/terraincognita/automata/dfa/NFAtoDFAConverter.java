@@ -30,7 +30,7 @@ public class NFAtoDFAConverter {
         List<NFAState> orderedStates = (List<NFAState>) nfa.getStates(); //get the ordered states list of the NFA
         addSubsetState(dfaBuilder, orderedStates); //add states for each subset
 
-        dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState())), orderedStates);
+        dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState()), orderedStates));
         //set start state as epsilon of the nfa start state
 
         Set<String> alphabets = new HashSet<>(nfa.getAlphabets());

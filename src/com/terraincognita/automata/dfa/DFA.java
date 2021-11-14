@@ -62,7 +62,7 @@ public class DFA extends FSA<DFAState> {
      * Return the set of alphabets of the FSA
      */
     @Override
-    public Collection<String> getAlphabets() {
+    public Set<String> getAlphabets() {
         return this.alphabets;
     }
 
@@ -76,6 +76,8 @@ public class DFA extends FSA<DFAState> {
     @Override
     public DFAState delta(DFAState fromState, String alphabet) {
         String fromStateId = fromState.getId();
+
+        // TODO throw errors if the alphabet is not in this.alphabets
         return this.transitionTable.get(fromStateId).get(alphabet);
     }
 

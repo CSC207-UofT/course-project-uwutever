@@ -24,54 +24,62 @@ public class DFABuilder implements FSABuilder {
 
     /**
      * Set the start state of the FSA by id.
-     * Return true if id is set successfully, return false otherwise
      *
      * @param id the id of the start state
-     * @return true if id is set successfully
+     * @throws IllegalArgumentException if the given id is not in FSA
      */
     @Override
-    public boolean setStartState(String id) {
-        for(DFAState state: this.dfa.getStates()){
-            if(state.getId().equals(id)){
-                this.dfa.startState = state;
-                return true;
-            }
+    public void setStartState(String id) {
+        if(this.dfa.states.containsKey(id)){
+            this.dfa.startState = this.dfa.states.get(id);
+        }else {
+            throw new IllegalArgumentException("This State ID is not in the DFA");
         }
-        return false;
     }
 
     /**
-     * Add a non-accepting state to the FSA with a given id
-     *
+     * Add a state to the DFA with a given id
      * @param id the id of the state
+     * @throws IllegalArgumentException if the ID is already occupied in the DFA
      */
     @Override
     public void addState(String id) {
-        DFAState newState = new DFAState(id, false);
-        this.dfa.states.put(id, newState);
+        if(this.dfa.states.containsKey(id)){
+            throw new IllegalArgumentException("This ID is occupied in this DFA");
+        } else{
+            DFAState newState = new DFAState(id, false);
+            this.dfa.states.put(id, newState);
+        }
     }
 
     /**
-     * Add a state to the FSA while indicating whether it is an accepting state
-     *
-     * @param id          the id of the state
+     * Add a state to the DFA while indicating whether it is an accepting state
+     * @param id the id of the state
      * @param isAccepting whether the state is an accepting state
+     * @throws IllegalArgumentException if the ID is already occupied in the DFA
      */
     @Override
     public void addState(String id, boolean isAccepting) {
-        DFAState newState = new DFAState(id, false);
-        this.dfa.states.put(id, newState);
+        if(this.dfa.states.containsKey(id)){
+            throw new IllegalArgumentException("This ID is occupied in this DFA");
+        } else{
+            DFAState newState = new DFAState(id, false);
+            this.dfa.states.put(id, newState);
+        }
     }
 
     /**
      * Add a transition to the FSA
-     *
-     * @param fromId the id of the start state of the transition
+     * @param fromId the ID of the start of the transition
      * @param alphabet the alphabet of the transition
-     * @param toId the id of the end state of the transition
+     * @param toId the ID of the end of the transition
+     * @throws IllegalArgumentException if either fromId or toId is not in the FSA
      */
     @Override
     public void addTransition(String fromId, String alphabet, String toId) {
+        if(!this.dfa.states.containsKey(fromId) || !this.dfa.states.containsKey(toId)){
+            throw new IllegalArgumentException("The given start/end points are not in the DFA");
+        }
         DFAState toState = this.dfa.states.get(toId);
         this.dfa.alphabets.add(alphabet);
         this.dfa.transitionTable.get(fromId).put(alphabet, toState);
