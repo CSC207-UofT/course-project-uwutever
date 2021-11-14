@@ -7,4 +7,5 @@
     <string name="editText_Language">Insert Your Language Text Here…</string>
     <string name="Act3_save_button">save</string>
     <string name="empty_not_saved">Regex not saved because it is empty.</string>
+    <string name="duplicate_not_saved">Regex not saved because it is duplicated.</string>
 </resources>

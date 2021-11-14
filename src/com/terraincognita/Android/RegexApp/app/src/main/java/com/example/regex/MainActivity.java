@@ -53,9 +53,24 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        boolean no_duplicated_regex = true;
+
         if (requestCode == NEW_REGEX_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-           RegexObj regex = new RegexObj(data.getStringExtra(ThirdActivity.EXTRA_REPLY));
-           mRegexViewModel.insert(regex);
+            String new_regex_text = data.getStringExtra(ThirdActivity.EXTRA_REPLY);
+            for (RegexObj regexobj: mRegexObjs){
+                if (regexobj.getRegex().equals(new_regex_text)) {
+                    Toast.makeText( // show toast warning
+                            getApplicationContext(),
+                            R.string.duplicate_not_saved,
+                            Toast.LENGTH_LONG).show();
+                    no_duplicated_regex = false;
+                    break;
+                }
+            }
+            if (no_duplicated_regex){
+                RegexObj regex = new RegexObj(new_regex_text);
+                mRegexViewModel.insert(regex);
+            }
         } else {
            Toast.makeText( // show toast warning
                    getApplicationContext(),
