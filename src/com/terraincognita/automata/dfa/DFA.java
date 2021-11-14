@@ -1,4 +1,5 @@
 package com.terraincognita.automata.dfa;
+import com.terraincognita.errors.UnknownAlphabetException;
 
 
 import com.terraincognita.automata.FSA;
@@ -9,6 +10,7 @@ import java.util.Collection;
 //public class DFA extends FSA {
 //=======
 import com.terraincognita.automata.states.DFAState;
+import com.terraincognita.errors.UnknownIdException;
 
 import java.util.*;
 
@@ -72,7 +74,7 @@ public class DFA extends FSA<DFAState> {
      *
      * @param fromState the state where the transition starts
      * @param alphabet  the alphabet for the transition
-     * @throws IllegalArgumentException if the alphabet is not in the alphabets set
+     * @throws UnknownAlphabetException if the alphabet is not in the alphabets set
      */
     @Override
     public DFAState delta(DFAState fromState, String alphabet) {
@@ -80,7 +82,7 @@ public class DFA extends FSA<DFAState> {
         if(this.alphabets.contains(alphabet)){
             return this.transitionTable.get(fromStateId).get(alphabet);
         } else{
-            throw new IllegalArgumentException("Unknown alphabet");
+            throw new UnknownIdException(alphabet);
         }
     }
 

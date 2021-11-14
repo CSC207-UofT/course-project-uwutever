@@ -1,6 +1,7 @@
 package com.terraincognita.automata;
 
 import com.terraincognita.automata.states.FSAState;
+import com.terraincognita.errors.UnknownAlphabetException;
 
 import java.util.Collection;
 
@@ -30,6 +31,7 @@ public abstract class FSA <T extends FSAState>{
      * Transition function of a given state and alphabet
      * @param fromState the state where the transition starts
      * @param alphabet the alphabet for the transition
+     * @throws UnknownAlphabetException if the input alphabet is not in the alphabets set
      */
     public abstract Object delta(T fromState, String alphabet);
 

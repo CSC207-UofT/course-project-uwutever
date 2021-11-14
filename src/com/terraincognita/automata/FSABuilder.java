@@ -1,4 +1,5 @@
 package com.terraincognita.automata;
+import com.terraincognita.errors.*;
 
 public interface FSABuilder{
     /**
@@ -9,14 +10,14 @@ public interface FSABuilder{
     /**
      * Set the start state of the FSA by index
      * @param id the id of the start state
-     * @throws IllegalArgumentException if the given ID is not in the FSA
+     * @throws UnknownIdException if the given ID is not in the FSA
      */
     void setStartState(String id);
 
     /**
      * Add a state to the FSA with a given id
      * @param id the id of the state
-     * @throws IllegalArgumentException if the ID is already occupied in the FSA
+     * @throws OccupiedIdException if the ID is already occupied in the FSA
      */
     void addState(String id);
 
@@ -24,7 +25,7 @@ public interface FSABuilder{
      * Add a state to the FSA while indicating whether it is an accepting state
      * @param id the id of the state
      * @param isAccepting whether the state is an accepting state
-     * @throws IllegalArgumentException if the ID is already occupied in the FSA
+     * @throws OccupiedIdException if the ID is already occupied in the FSA
      */
     void addState(String id, boolean isAccepting);
 
@@ -33,7 +34,7 @@ public interface FSABuilder{
      * @param fromId the ID of the start of the transition
      * @param alphabet the alphabet of the transition
      * @param toId the ID of the end of the transition
-     * @throws IllegalArgumentException if either fromId or toId is not in the FSA
+     * @throws UnknownIdException if either fromId or toId is not in the FSA
      */
     void addTransition(String fromId, String alphabet, String toId);
 }
