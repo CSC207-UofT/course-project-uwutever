@@ -68,6 +68,51 @@ public class NFAConcat extends NFA {
         this.maxCount = counter + 1;
     }
 
+    public NFAConcat(NFA midNFA1, NFA midNFA2, boolean terminating, Integer counter) {
+        // Create first state
+        this.states = new HashSet<>();
+        String id = counter.toString();
+        counter += 1;
+        NFAState state1 = new NFAState(id, false);
+        this.states.add(state1);
+
+        // Set starting state
+        this.startState = state1;
+
+        // Second state is starting state of midNFA1
+
+        // Add epsilon transition from first state to second state
+        Set<NFAState> transition = new HashSet<>();
+        transition.add(midNFA1.startState);
+        state1.stateTransitions.put("epsilon", transition);
+
+        // Add epsilon transition from ending state of midNFA1 to starting state of midNFA2
+        transition = new HashSet<>();
+        transition.add(midNFA2.startState);
+        midNFA1.endState.stateTransitions.put("epsilon", transition);
+
+        // Update state set
+        this.states.addAll(midNFA1.states);
+        this.states.addAll(midNFA2.states);
+
+        // Create fourth state
+        id = counter.toString();
+        NFAState state2 = new NFAState(id, terminating);
+        this.states.add(state2);
+
+        // Make fourth state ending state
+        this.endState = state2;
+
+        // Add epsilon transition from ending state of midNFA2 to fourth state
+        transition = new HashSet<>();
+        transition.add(state2);
+        midNFA2.endState.stateTransitions.put("epsilon", transition);
+
+        // TODO
+        this.transitionTable = new HashMap<>();
+        this.maxCount = counter + 1;
+    }
+
     public int getMaxCount() {
         return maxCount;
     }

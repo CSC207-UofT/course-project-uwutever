@@ -37,6 +37,11 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     }
 
     @Override
+    public Collection<String> getAlphabets() {
+        return null;
+    }
+
+    @Override
     public Object delta(NFAState fromState, String alphabet) {
         return null;
     }
@@ -143,7 +148,10 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     @Override
     public void reset(String id) {
-
+        this.states = null;
+        this.startState = null;
+        this.endState = null;
+        this.transitionTable = null;
     }
 
     @Override

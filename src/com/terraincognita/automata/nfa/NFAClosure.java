@@ -74,7 +74,6 @@ public class NFAClosure extends NFA {
         // Second state is starting state of midNFA
         NFAState state2 = midNFA.startState;
 
-
         // Add epsilon transition from first state to second state
         Set<NFAState> transition = new HashSet<>();
         transition.add(state2);
@@ -85,20 +84,21 @@ public class NFAClosure extends NFA {
         transition.add(midNFA.startState);
         midNFA.endState.stateTransitions.put("epsilon", transition);
 
-        // Add epsilon transition from third state to second state
-        transition = new HashSet<>();
-        transition.add(state2);
-        state1.stateTransitions.put("epsilon", transition);
+        // Update state set
+        this.states.addAll(midNFA.states);
 
         // Create fourth state
         id = counter.toString();
         state2 = new NFAState(id, terminating);
         this.states.add(state2);
 
+        // Make fourth state ending state
+        this.endState = state2;
+
         // Add epsilon transition from third state to fourth state
         transition = new HashSet<>();
         transition.add(state2);
-        state1.stateTransitions.put("epsilon", transition);
+        midNFA.endState.stateTransitions.put("epsilon", transition);
 
         // TODO
         this.transitionTable = new HashMap<>();
