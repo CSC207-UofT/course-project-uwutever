@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
     private EditText mMessageEditRegex;
     private EditText mMessageEditSample;
+    private EditText mMessageEditText;
 
+    public static final String EXTRA_MESSAGE = "com.example.regex.extra.MESSAGE";
     public final static String EXTRA_REGEX = "com.example.android.Regex.REGEX";
     public final static String EXTRA_SAMPLE = "com.example.android.Regex.SAMPLE";
 
@@ -18,6 +21,13 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        // Setup SecondScreen with card information
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(SecondActivity.EXTRA_MESSAGE);
+        TextView Regex_input = findViewById(R.id.editText_Regex);
+        Regex_input.setText(message);
+
         mMessageEditRegex = findViewById(R.id.editText_Regex); // Need to replace with method from Regex Calculation Part
         mMessageEditSample = findViewById(R.id.editText_Language);
     }

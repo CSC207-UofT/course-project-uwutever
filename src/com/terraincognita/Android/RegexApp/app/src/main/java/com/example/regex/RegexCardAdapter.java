@@ -16,14 +16,18 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
 
     private final LayoutInflater mInflater;
     private List<RegexObj> mRegexObjs;
+    private OnRegexListener mOnRegexListener;
 
-    RegexCardAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    RegexCardAdapter(Context context, OnRegexListener onRegexListener) {
+        mInflater = LayoutInflater.from(context);
+        mOnRegexListener = onRegexListener;
+    }
 
     @NonNull
     @Override
     public RegexViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_regex, parent, false);
-        return new RegexViewHolder(itemView);
+        return new RegexViewHolder(itemView, mOnRegexListener);
     }
 
     @Override
@@ -36,9 +40,10 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
         }
     }
 
-    void setRegexObjs(List<RegexObj> RegexObjs){
+    List<RegexObj> setRegexObjs(List<RegexObj> RegexObjs){
         mRegexObjs = RegexObjs;
         notifyDataSetChanged();
+        return RegexObjs;
     }
 
     @Override
@@ -48,12 +53,25 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
         else return 0;
     }
 
-    class RegexViewHolder extends RecyclerView.ViewHolder {
+    class RegexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView RegexItemView;
+        OnRegexListener onRegexListener;
 
-        private RegexViewHolder(View itemView) {
+        private RegexViewHolder(View itemView, OnRegexListener onRegexListener) {
             super(itemView);
             RegexItemView = itemView.findViewById(R.id.RegexCard);
+            this.onRegexListener = onRegexListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onRegexListener.onRegexClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnRegexListener{
+        void onRegexClick(int position);
     }
 }
