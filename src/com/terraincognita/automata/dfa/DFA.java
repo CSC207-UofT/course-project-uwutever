@@ -72,13 +72,16 @@ public class DFA extends FSA<DFAState> {
      *
      * @param fromState the state where the transition starts
      * @param alphabet  the alphabet for the transition
+     * @throws IllegalArgumentException if the alphabet is not in the alphabets set
      */
     @Override
     public DFAState delta(DFAState fromState, String alphabet) {
         String fromStateId = fromState.getId();
-
-        // TODO throw errors if the alphabet is not in this.alphabets
-        return this.transitionTable.get(fromStateId).get(alphabet);
+        if(this.alphabets.contains(alphabet)){
+            return this.transitionTable.get(fromStateId).get(alphabet);
+        } else{
+            throw new IllegalArgumentException("Unknown alphabet");
+        }
     }
 
     /**
@@ -104,6 +107,10 @@ public class DFA extends FSA<DFAState> {
      */
     @Override
     public boolean accept(String alphabets) {
-        return transitions(alphabets).isAccepting();
+        try{
+            return transitions(alphabets).isAccepting();
+        } catch (IllegalArgumentException e){
+            return false;
+        }
     }
 }
