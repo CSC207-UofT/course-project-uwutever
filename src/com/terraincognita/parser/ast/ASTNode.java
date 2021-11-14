@@ -45,7 +45,6 @@ public abstract class ASTNode {
         }
         return null;
     }
-
     public Token getOperator() {
         return this.operator;
     }
