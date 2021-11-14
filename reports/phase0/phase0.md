@@ -4,8 +4,7 @@ An Android app that allows you to creating, testing, simplifying, and visualizin
 
 ### CRC model
 
-<https://utoronto-my.sharepoint.com/:p:/g/personal/sudo_cheng_mail_utoronto_ca/EUcEI-rGDH9Kk4xAMEZJfisBRmDbR_N4gvdK3gY3CZauiw?e=k3KpjB
->
+<https://utoronto-my.sharepoint.com/:p:/g/personal/sudo_cheng_mail_utoronto_ca/EUcEI-rGDH9Kk4xAMEZJfisBRmDbR_N4gvdK3gY3CZauiw?e=k3KpjB>
 
 
 ### Skeleton Program
@@ -64,10 +63,10 @@ modified certain parts of the skeleton code,
 such as the structure for the automata. 
 
 The CRC model was sketched out in a group meeting, 
-and Hanrui, Letian and Chonho share the credit for 
+and Hanrui, Letian and Brian (Man Chon) share the credit for 
 taking the responsibility of completing the CRC 
 model presentation together. In particular, we credit
-Hanrui and Chonho for identifying some faults in our 
+Hanrui and Brian for identifying some faults in our 
 initial CRC model and proposing appropriate solutions.
 
 Chonho also wrote a detailed specification, which
@@ -76,7 +75,7 @@ goals to work towards achieving.
 
 This progress report was jointly created by Letian and Arkaprava.
 
-In the next phase(s), Kevin, Arkaprava, Yeung and Chonho
+In the next phase(s), Kevin, Arkaprava, Franklin and Brian
 will implement the algorithm part of our program
 and Hanrui, Letian will focus on UI design.
 
