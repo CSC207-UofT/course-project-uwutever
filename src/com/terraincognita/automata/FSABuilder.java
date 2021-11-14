@@ -4,7 +4,7 @@ public interface FSABuilder{
     /**
      * Reset the builder by created a new FSA with the given id
      */
-    void reset(String id);
+    void reset();
 
     /**
      * Set the start state of the FSA by index
@@ -29,5 +29,5 @@ public interface FSABuilder{
     /**
      * Add a transition to the FSA
      */
-    void addTransition(String from, String alphabet, String to);
+    void addTransition(String fromId, String alphabet, String toId);
 }

@@ -13,30 +13,20 @@ import com.terraincognita.automata.states.DFAState;
 import java.util.*;
 
 public class DFA extends FSA<DFAState> {
-    private final String id;
-
     protected Map<String, DFAState> states;
     protected DFAState startState;
+    protected Set<String> alphabets;
     protected Map<String, Map<String, DFAState>> transitionTable;
     /**
      * Constructor DFA
-     * @param id the id of this DFA
      */
-    public DFA(String id){
-        this.id = id;
+    public DFA(){
         this.states = new HashMap<>();
         this.startState = null;
+        this.alphabets = new HashSet<>();
         this.transitionTable = new HashMap<>();
     }
 
-    /**
-     * Getter method of id
-     */
-    public String getId(){
-        return this.id;
-    }
-
-//>>>>>>> 9b195620092c18eef28c7fe46d85a5e7860bd80c:src/com/terraincognita/automata/DFA.java
     /**
      * Return the start state of the FSA
      */
@@ -66,6 +56,14 @@ public class DFA extends FSA<DFAState> {
     @Override
     public Collection<DFAState> getStates() {
         return this.states.values();
+    }
+
+    /**
+     * Return the set of alphabets of the FSA
+     */
+    @Override
+    public Collection<String> getAlphabets() {
+        return this.alphabets;
     }
 
     /**

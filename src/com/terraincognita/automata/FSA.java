@@ -21,6 +21,11 @@ public abstract class FSA <T extends FSAState>{
     public abstract Collection<T> getStates();
 
     /**
+     * Return the set of alphabets of the FSA
+     */
+    public abstract Collection<String> getAlphabets();
+
+    /**
      * The delta function of the FSA
      * Transition function of a given state and alphabet
      * @param fromState the state where the transition starts
