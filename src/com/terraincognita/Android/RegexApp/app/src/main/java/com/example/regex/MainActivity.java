@@ -12,12 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.regex.db.RegexObj;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int NEW_REGEX_ACTIVITY_REQUEST_CODE = 1;
+
     private RegexViewModel mRegexViewModel;
 
     @Override
@@ -30,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        if (getIntent().getExtras() != null) {
-            String RegexStr = getIntent().getExtras().getString("RegexStr");
-            String SampleText = getIntent().getExtras().getString("SampleText");
-            mRegexViewModel.insert(new RegexObj(RegexStr));
-        }
 
 //        mRegexViewModel = ViewModelProviders.of(this).get(RegexViewModel.class); //deprecated
         mRegexViewModel = new ViewModelProvider(this).get(RegexViewModel.class);
@@ -46,9 +44,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_REGEX_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+           RegexObj regex = new RegexObj(data.getStringExtra(ThirdActivity.EXTRA_REPLY));
+           mRegexViewModel.insert(regex);
+        } else {
+           Toast.makeText( // show toast warning
+                   getApplicationContext(),
+                   R.string.empty_not_saved,
+                   Toast.LENGTH_LONG).show();
+        }
+    }
 
     public void launchSecondActivity(View view) {
         Intent intent = new Intent(this, SecondActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, NEW_REGEX_ACTIVITY_REQUEST_CODE);
     }
 }

@@ -37,9 +37,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Act3_button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="CallBackMainActivity"
-        android:text="save" />
+        android:text="@string/Act3_save_button" />
 </androidx.appcompat.widget.LinearLayoutCompat>

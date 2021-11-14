@@ -5,4 +5,6 @@
     <string name="Compile">Compile Now</string>
     <string name="editText_Regex">Insert Your Regex Pattern Here…</string>
     <string name="editText_Language">Insert Your Language Text Here…</string>
+    <string name="Act3_save_button">save</string>
+    <string name="empty_not_saved">Regex not saved because it is empty.</string>
 </resources>
