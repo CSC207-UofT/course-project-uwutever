@@ -1,12 +1,15 @@
-package com.terraincognita.automata;
+package com.terraincognita.automata.nfa;
 
+import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.automata.states.NFAState;
 
 import java.util.*;
 
-public class NFAChar extends NFA{
+public class NFAChar extends NFA {
 
-    public NFAChar(String character, boolean terminating, boolean start, Integer counter) {
+    private final int maxCount;
+
+    public NFAChar(String character, boolean terminating, Integer counter) {
         this.states = new HashSet<>();
         String id1 = counter.toString();
         counter += 1;
@@ -27,16 +30,21 @@ public class NFAChar extends NFA{
         this.states.add(state3);
         Set<NFAState> transition2 = new HashSet<>();
         transition2.add(state3);
-        state1.stateTransitions.put(character, transition2);
+        state2.stateTransitions.put(character, transition2);
 
         String id4 = counter.toString();
         NFAState state4 = new NFAState(id4, terminating);
         this.states.add(state4);
         Set<NFAState> transition3 = new HashSet<>();
         transition3.add(state4);
-        state1.stateTransitions.put("epsilon", transition3);
+        state3.stateTransitions.put("epsilon", transition3);
 
         // TODO
         this.transitionTable = new HashMap<>();
+        this.maxCount = counter + 1;
+    }
+
+    public int getMaxCount() {
+        return maxCount;
     }
 }

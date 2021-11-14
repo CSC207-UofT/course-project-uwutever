@@ -1,4 +1,4 @@
-package com.terraincognita.automata;
+package com.terraincognita.automata.nfa;
 
 import com.terraincognita.automata.states.NFAState;
 

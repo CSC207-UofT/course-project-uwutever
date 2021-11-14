@@ -1,6 +1,9 @@
-package com.terraincognita.automata;
+package com.terraincognita.automata.dfa;
 
+import com.terraincognita.automata.FSA;
 import com.terraincognita.automata.states.FSAState;
+
+import java.util.Collection;
 
 public class DFA extends FSA {
     /**
@@ -8,6 +11,21 @@ public class DFA extends FSA {
      */
     @Override
     public FSAState getStartState() {
+        return null;
+    }
+
+    @Override
+    public Collection getAcceptingStates() {
+        return null;
+    }
+
+    @Override
+    public Collection getStates() {
+        return null;
+    }
+
+    @Override
+    public Object delta(FSAState fromState, String alphabet) {
         return null;
     }
 
