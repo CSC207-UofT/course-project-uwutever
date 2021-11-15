@@ -23,6 +23,11 @@ public abstract class FSA <T extends FSAState>{
     public abstract Collection<T> getStates();
 
     /**
+     * Return the set of IDs of states of the FSA
+     */
+    public abstract Collection<String> getStatesID();
+
+    /**
      * Return the set of alphabets of the FSA
      */
     public abstract Collection<String> getAlphabets();
