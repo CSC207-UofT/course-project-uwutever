@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Stack;
 
 public class Parser {
+    /***
+     * HashMap storing the precedence of operators.
+     */
     private final HashMap<Character, Integer> OP_PREC = new HashMap<>() {{
         put('?', 3);
         put('+', 3);
@@ -21,14 +24,26 @@ public class Parser {
     private Hashtable<String, String> config = new Hashtable<String, String>();
     private List<Token> tokens;
 
+    /**
+     * Create a <code>Parser</code> object.
+     * @param tokens    The list of tokens to be parsed
+     * @param config    The configuration of the <code>Parser</code>
+     */
     public Parser(List<Token> tokens, Hashtable<String, String> config) {
         this.tokens = tokens;
         this.config = config;
     }
 
+    /**
+     * Run the parser.
+     * @return Abstract syntax tree from parsing the tokens
+     */
     public ASTNode parse() {
+        // Create operator and operand stack
         Stack<Token> operators = new Stack<>();
         Stack<ASTNode> operands = new Stack<>();
+        // Read the tokens sequentially and construct the AST similar
+        // to the process of converting an expression into Reversed Polish Notation
         for (int i = 0; i < this.tokens.size(); i++) {
             Token currToken = this.tokens.get(i);
             if (currToken.getTokenType() == TokenType.LeftDelimiter) {
@@ -38,6 +53,7 @@ public class Parser {
             else if (currToken.getTokenType() == TokenType.RightDelimiter) {
                 if (currToken.getValue() == ')') {
                     Token operatorTop = operators.pop();
+                    // Keep popping from the operator stack until a open parenthesis is found
                     while (operatorTop.getValue() != '(' && !operators.empty()) {
                         operands.push(ASTNode.createASTNode(operatorTop, operands));
                         operatorTop = operators.pop();
@@ -63,6 +79,7 @@ public class Parser {
                 operands.push(new CharNode(currToken.getValue()));
             }
         }
+        // Output the remaining operands
         while (!operators.empty()) {
             Token operatorTop = operators.pop();
             operands.push(ASTNode.createASTNode(operatorTop, operands));
