@@ -1,14 +1,16 @@
-import com.terraincognita.*;
+package test;
+
+import com.terraincognita.lexer.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class TestMatch {
+public class TestLexer {
 
 
     @Before
@@ -25,6 +27,11 @@ public class TestMatch {
         expected.add(new Token(TokenType.LeftDelimiter, '('));
         expected.add(new Token(TokenType.RightDelimiter, ')'));
         expected.add(new Token(TokenType.RightDelimiter, ')'));
-        assert lexer.getTokens.equals(expected);
+        assert lexer.getTokens().equals(expected);
+    }
+
+    @After
+    public void throwDown() throws Exception {
+
     }
 }

@@ -6,15 +6,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class Token {
-    private TokenType tokenType;
-    private char value;
+    private final TokenType tokenType;
+    private final char value;
 
     protected static final HashSet<Character> LEFT = new HashSet<Character>(Arrays.asList('(', '[', '{'));
     protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')', ')', '}'));
     protected static final HashSet<Character> OPS = new HashSet<Character>(Arrays.asList('|'));
     protected static final HashSet<Character> QUANTIFIERS = new HashSet<>(Arrays.asList('*', '+', '?'));
 
-    private Token(TokenType tokenType, char value) {
+    public Token(TokenType tokenType, char value) {
         this.tokenType = tokenType;
         this.value = value;
     }
