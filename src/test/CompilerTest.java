@@ -1,6 +1,6 @@
 import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.automata.states.NFAState;
-import com.terraincognita.compiler.Compiler;
+import com.terraincognita.compiler.ASTtoNFACompiler;
 import com.terraincognita.lexer.Lexer;
 import com.terraincognita.lexer.TokenType;
 import com.terraincognita.parser.Parser;
