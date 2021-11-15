@@ -1,90 +1,73 @@
 package com.terraincognita.automata.nfa;
 
-import com.terraincognita.automata.states.NFAState;
-
 import java.util.*;
 
-public class NFAZeroOrOne extends NFA {
+public class NFAZeroOrOne extends NFAOperations {
+    /**
+     * Return an NFA that accept 0 or 1 character
+     *       _______________ e
+     *      /               \
+     * -> s1 -> s2 -> s3 -> s4
+     *       e    char   e
+     *
+     */
+    public static NFA build(String character, boolean terminating, Integer counter) {
+        NFABuilder nfaBuilder = new NFABuilder();
+        nfaBuilder.reset();
 
-    public NFAZeroOrOne(String character, boolean terminating, Integer counter) {
-        this.states = new HashSet<>();
         String id1 = counter.toString();
+        nfaBuilder.addState(id1, false);
+        nfaBuilder.setStartState(id1);
         counter += 1;
-        NFAState state1 = new NFAState(id1, false);
-        this.states.add(state1);
-
-        this.startState = state1;
 
         String id2 = counter.toString();
-        NFAState state2 = new NFAState(id2, false);
-        this.states.add(state2);
-        Set<NFAState> transition1 = new HashSet<>();
-        transition1.add(state2);
-        state1.stateTransitions.put("epsilon", transition1);
+        nfaBuilder.addState(id2, false);
+        nfaBuilder.addTransition(id1, "epsilon", id2);
+        counter += 1;
 
         String id3 = counter.toString();
-        NFAState state3 = new NFAState(id3, false);
-        this.states.add(state3);
-        Set<NFAState> transition2 = new HashSet<>();
-        transition2.add(state3);
-        state2.stateTransitions.put(character, transition2);
+        nfaBuilder.addState(id3, false);
+        nfaBuilder.addTransition(id2, character, id3);
+        counter += 1;
 
         String id4 = counter.toString();
-        NFAState state4 = new NFAState(id4, terminating);
-        this.states.add(state4);
-        Set<NFAState> transition3 = new HashSet<>();
-        transition3.add(state4);
-        state3.stateTransitions.put("epsilon", transition3);
+        nfaBuilder.addState(id4, terminating);
+        nfaBuilder.setEndState(id4);
+        nfaBuilder.addTransition(id3, "epsilon", id4);
 
-        // TODO
-        this.transitionTable = new HashMap<>();
-        this.maxCount = counter + 1;
+        nfaBuilder.addTransition(id1, "epsilon", id4);
+
+        nfaBuilder.getResult().setMaxCount(counter + 1);
+
+        return nfaBuilder.getResult();
     }
 
-    public NFAZeroOrOne(NFA midNFA, boolean terminating, Integer counter) {
-        // Create first state
-        this.states = new HashSet<>();
-        String id = counter.toString();
+    public static NFA build(NFA midNFA, boolean terminating, Integer counter) {
+        NFABuilder nfaBuilder = new NFABuilder();
+        nfaBuilder.reset();
+
+        String id1 = counter.toString();
+        nfaBuilder.addState(id1, false);
+        nfaBuilder.setStartState(id1);
         counter += 1;
-        NFAState state1 = new NFAState(id, false);
-        this.states.add(state1);
 
-        // Set starting state
-        this.startState = state1;
+        List<String> midNFAStartEnd = appendMidNFA(nfaBuilder, midNFA, counter);
+        counter += midNFA.getStates().size();
 
-        // Second state is starting state of midNFA
-        // Add epsilon transition from first state to second state
-        Set<NFAState> transition = new HashSet<>();
-        transition.add(midNFA.startState);
-        state1.stateTransitions.put("epsilon", transition);
+        nfaBuilder.addTransition(id1,"epsilon", midNFAStartEnd.get(0));
 
-        // Update state set
-        this.states.addAll(midNFA.states);
+        String id4 = counter.toString();
+        nfaBuilder.addState(id4, terminating);
+        nfaBuilder.setEndState(id4);
 
-        // Create fourth state
-        id = counter.toString();
-        NFAState state2 = new NFAState(id, terminating);
-        this.states.add(state2);
+        // midnfa end to id4
+        nfaBuilder.addTransition(midNFAStartEnd.get(1), "epsilon", id4);
 
-        // Make fourth state ending state
-        this.endState = state2;
+        //id 1 to id 4
+        nfaBuilder.addTransition(id1, "epsilon", id4);
 
-        // Add epsilon transition from third state to fourth state
-        transition = new HashSet<>();
-        transition.add(state2);
-        midNFA.endState.stateTransitions.put("epsilon", transition);
+        nfaBuilder.getResult().setMaxCount(counter + 1);
 
-        // Add epsilon transition from third state to second state
-        transition = new HashSet<>();
-        transition.add(midNFA.startState);
-        midNFA.endState.stateTransitions.put("epsilon", transition);
-
-        // TODO
-        this.transitionTable = new HashMap<>();
-        this.maxCount = counter + 1;
-    }
-
-    public int getMaxCount() {
-        return maxCount;
+        return nfaBuilder.getResult();
     }
 }
