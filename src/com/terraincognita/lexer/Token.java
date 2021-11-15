@@ -14,7 +14,7 @@ public class Token {
     protected static final HashSet<Character> OPS = new HashSet<Character>(Arrays.asList('|'));
     protected static final HashSet<Character> QUANTIFIERS = new HashSet<>(Arrays.asList('*', '+', '?'));
 
-    public Token(TokenType tokenType, char value) {
+    private Token(TokenType tokenType, char value) {
         this.tokenType = tokenType;
         this.value = value;
     }
@@ -49,4 +49,15 @@ public class Token {
     public char getValue() {
         return this.value;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Token t) {
+            if (t.getTokenType() == this.getTokenType() && t.getValue() == this.getValue())
+                return true;
+            return false;
+        }
+        return false;
+    }
+
 }

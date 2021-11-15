@@ -1,12 +1,11 @@
-import com.terraincognita.lexer.*;
-
+import com.terraincognita.errors.RegexSyntaxException;
+import com.terraincognita.lexer.Lexer;
+import com.terraincognita.lexer.Token;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class TestLexer {
 
@@ -17,15 +16,23 @@ public class TestLexer {
     }
 
     @Test
-    public void testUnmatchedDelim() {
+    public void testMatchedDelim() {
         String inputRegex = "(())";
         Lexer lexer = new Lexer(inputRegex);
+        lexer.tokenize();
         ArrayList<Token> expected = new ArrayList<Token>();
-        expected.add(new Token(TokenType.LeftDelimiter, '('));
-        expected.add(new Token(TokenType.LeftDelimiter, '('));
-        expected.add(new Token(TokenType.RightDelimiter, ')'));
-        expected.add(new Token(TokenType.RightDelimiter, ')'));
+        expected.add(Token.createToken('('));
+        expected.add(Token.createToken('('));
+        expected.add(Token.createToken(')'));
+        expected.add(Token.createToken(')'));
         assert lexer.getTokens().equals(expected);
+    }
+
+    @Test(expected = RegexSyntaxException.class)
+    public void testUnmatchedDelim() {
+        String inputRegex = "(()";
+        Lexer lexer = new Lexer(inputRegex);
+        lexer.tokenize();
     }
 
     @After
