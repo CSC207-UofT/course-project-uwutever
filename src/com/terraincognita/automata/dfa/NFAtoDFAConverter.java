@@ -27,7 +27,8 @@ public class NFAtoDFAConverter {
     public static DFA convert(NFA nfa) {
         DFABuilder dfaBuilder = new DFABuilder();
 
-        List<NFAState> orderedStates = (List<NFAState>) nfa.getStates(); //get the ordered states list of the NFA
+        List<NFAState> orderedStates = new ArrayList<>(nfa.getStates()); //get the ordered states list of the NFA
+
         addSubsetState(dfaBuilder, orderedStates); //add states for each subset
 
         dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState()), orderedStates));
