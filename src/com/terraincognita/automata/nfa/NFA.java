@@ -11,7 +11,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     protected NFAState startState;
     protected NFAState endState;
     protected Set<String> alphabets;
-    protected Map<String, Map<String, List<NFAState>>> transitionTable;
+    protected Map<String, Map<String, Set<NFAState>>> transitionTable;
     protected int maxCount;
 
     public NFA(){
@@ -49,16 +49,48 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     @Override
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
-
+        if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
+            String fromID = fromState.getId();
+            return this.transitionTable.get(fromID).get(alphabet);
+        } else{
+            throw new UnknownAlphabetException(alphabet);
+        }
     }
 
     @Override
-    public List<NFAState> transitions(String alphabets) {
-        //TODO
-        return null;    }
+    public Set<NFAState> transitions(String alphabets) throws NullStartStateException {
+        if(this.startState == null){
+            throw new NullStartStateException();
+        }
+
+        // starts from the epsilon of startState
+        Set<NFAState> fromStates = new HashSet<>(epsilon(this.startState));
+
+        // traverse every char in alphabets
+        for(int i = 0; i < alphabets.length(); i++){
+
+            // for each alphabet, loop fromStates set and get all the toStates set
+            // also include the epsilon of elements in toStates
+            Set<NFAState> reached = new HashSet<>();
+            for(NFAState fromState: fromStates){
+                Set<NFAState> toStates = delta(fromState, String.valueOf(alphabets.charAt(i)));
+                for(NFAState toState : toStates){
+                    reached.addAll(epsilon(toState));
+                }
+            }
+            // reached states are the from states of next iteration
+            fromStates = reached;
+        }
+
+        return fromStates;
+    }
 
     @Override
-    public boolean accept(String alphabets) {
+    public boolean accept(String alphabets) throws NullStartStateException {
+        if(this.startState == null){
+            throw new NullStartStateException();
+        }
+
         for(NFAState state:transitions(alphabets)){
             if (state.isAccepting()){
                 return true;
