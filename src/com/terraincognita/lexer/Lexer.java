@@ -21,6 +21,11 @@ public class Lexer {
         }
     }
 
+    /**
+     * Initialize a <code>Lexer</code>. Note that this constructor only constructs the <code>Lexer</code>
+     * without actually tokenize the input.
+     * @param input     The expression in plain string.
+     */
     public Lexer(String input) {
         this.inputStr = input;
     }
@@ -71,6 +76,13 @@ public class Lexer {
         }
     }
 
+    /**
+     * Insert the concatenation operators between every pair of characters and between the right
+     * parenthesis and characters.
+     * <p>
+     * For example, an expression of "(ab)c" will become "(a.b).c" after inserting the concatenation
+     * operators.
+     */
     private void insertConcat() {
         for (int i = this.tokens.size() - 1; i > 0; i-=2) {
             if (tokens.get(i).getTokenType() == TokenType.Char &&
@@ -84,6 +96,10 @@ public class Lexer {
         }
     }
 
+    /**
+     * Get the tokens as a list.
+     * @return <code>List</code> containing all tokens
+     */
     public List<Token> getTokens() {
         return this.tokens;
     }

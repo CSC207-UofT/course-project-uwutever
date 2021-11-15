@@ -1,6 +1,6 @@
 ## Regular expression toolkit
 ### Group-030 Course Project
-This repository was originally created as a course project for **CSC207H1: Software Design**, an introductory course on
+This repository was originally created as a course project for **[CSC207H1: Software Design](https://artsci.calendar.utoronto.ca/course/csc207h1)**, an introductory course on
 the topic at the University of Toronto, in the Fall 2021 term.
 
 Our project aims to facilitate the teaching of regular expressions in computational language theory by providing features such

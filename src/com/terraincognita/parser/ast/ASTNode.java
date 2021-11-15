@@ -14,53 +14,84 @@ public abstract class ASTNode {
     public ASTNode exp;
     public Token operator;
 
+    /**
+     * Get the children of the given <code>ASTNode</code>
+     * @return The children as an <code>ArrayList</code> of <code>ASTNode</code>
+     */
     public abstract ArrayList<ASTNode> getChildren();
 
+    /**
+     * Create the appropriate AST node given the operator.
+     * @param operator  The operator used to create the <code>ASTNode</code>
+     * @param operandStack  The operand stack, which may be modified while creating the <code>ASTNode</code>
+     * @return  An object of one of the subclasses of  <code>ASTNode</code>
+     */
     public static ASTNode createASTNode(Token operator, Stack<ASTNode> operandStack) {
         if (operator.getValue() == '|') {
-            AlternationNode alt = new AlternationNode();
-            alt.left = operandStack.pop();
-            alt.right = operandStack.pop();
+            ASTNode left = operandStack.pop();
+            ASTNode right = operandStack.pop();
+            AlternationNode alt = new AlternationNode(left, right);
             alt.children.add(alt.left);
             alt.children.add(alt.right);
             return alt;
         }
         else if (operator.getValue() == '.') {
-            ConcatenationNode concat = new ConcatenationNode();
-            concat.left = operandStack.pop();
-            concat.right = operandStack.pop();
+            ASTNode left = operandStack.pop();
+            ASTNode right = operandStack.pop();
+            ConcatenationNode concat = new ConcatenationNode(left, right);
             concat.children.add(concat.left);
             concat.children.add(concat.right);
             return concat;
         }
         else if (operator.getValue() == '*') {
-            ZeroOrMoreNode star = new ZeroOrMoreNode();
-            star.exp = operandStack.pop();
+            ASTNode exp = operandStack.pop();
+            ZeroOrMoreNode star = new ZeroOrMoreNode(exp);
             star.children.add(star.exp);
             return star;
         }
         else if (operator.getValue() == '+') {
-            OneOrMoreNode plus = new OneOrMoreNode();
-            plus.exp = operandStack.pop();
+            ASTNode exp = operandStack.pop();
+            OneOrMoreNode plus = new OneOrMoreNode(exp);
             plus.children.add(plus.exp);
             return plus;
         }
         else if (operator.getValue() == '?') {
-            ZeroOrOneNode question = new ZeroOrOneNode();
-            question.exp = operandStack.pop();
+            ASTNode exp = operandStack.pop();
+            ZeroOrOneNode question = new ZeroOrOneNode(exp);
             question.children.add(question.exp);
             return question;
         }
         return null;
     }
+
+    /**
+     * Get the operator associated with this node (if this is not a CharNode)
+     * @return The operator
+     */
     public Token getOperator() {
         return this.operator;
     }
 
+    /**
+     * Generate a string representation of this AST.
+     * @return The AST represented as a string.
+     */
     public String prettyPrintAST() {
         return this.prettyPrintAST(new StringBuilder(), "", "");
     }
-    // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
+
+    /**
+     * Generate a string representation of this AST. This implementation is adapted from
+     * <a href="https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java">
+     *     StackOverflow
+     * </a>
+     * with some modifications.
+     *
+     * @param stringBuilder
+     * @param prefix
+     * @param childrenPrefix
+     * @return The string representation of this AST
+     */
     private String prettyPrintAST(StringBuilder stringBuilder, String prefix, String childrenPrefix) {
         if (stringBuilder == null) {
             stringBuilder = new StringBuilder();
