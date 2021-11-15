@@ -1,5 +1,3 @@
-package test;
-
 import com.terraincognita.automata.dfa.DFABuilder;
 import com.terraincognita.errors.*;
 import com.terraincognita.lexer.*;

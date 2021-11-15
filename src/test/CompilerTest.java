@@ -1,5 +1,3 @@
-package test;
-
 import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.automata.states.NFAState;
 import com.terraincognita.compiler.Compiler;

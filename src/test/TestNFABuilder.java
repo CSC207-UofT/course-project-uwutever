@@ -1,5 +1,3 @@
-package test;
-
 import com.terraincognita.automata.nfa.NFABuilder;
 import com.terraincognita.errors.*;
 import com.terraincognita.lexer.*;

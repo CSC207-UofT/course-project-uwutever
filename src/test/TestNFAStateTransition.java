@@ -1,5 +1,3 @@
-package test;
-
 import com.terraincognita.lexer.*;
 
 import org.junit.After;
