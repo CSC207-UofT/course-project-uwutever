@@ -12,6 +12,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     protected NFAState endState;
     protected Map<String, Map<String, List<NFAState>>> transitionTable;
     protected int maxCount;
+    protected Set<String> alphabet;
 
     public NFA(){
         this.states = new HashSet<>();
@@ -40,7 +41,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     @Override
     public Collection<String> getAlphabets() {
-        return null;
+        return this.alphabet;
     }
 
     @Override
