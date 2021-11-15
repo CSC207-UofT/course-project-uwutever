@@ -19,6 +19,10 @@ public class Token {
         this.value = value;
     }
 
+    public static Token createConcat() {
+        return new Token(TokenType.Operator, '.');
+    }
+
     public static Token createToken(char token) {
         if (LEFT.contains(token)) {
             return new Token(TokenType.LeftDelimiter, token);

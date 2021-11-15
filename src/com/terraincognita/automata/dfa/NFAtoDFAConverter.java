@@ -27,7 +27,8 @@ public class NFAtoDFAConverter {
     public static DFA convert(NFA nfa) {
         DFABuilder dfaBuilder = new DFABuilder();
 
-        List<NFAState> orderedStates = (List<NFAState>) nfa.getStates(); //get the ordered states list of the NFA
+        List<NFAState> orderedStates = new ArrayList<>(nfa.getStates()); //get the ordered states list of the NFA
+
         addSubsetState(dfaBuilder, orderedStates); //add states for each subset
 
         dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState()), orderedStates));
@@ -35,6 +36,7 @@ public class NFAtoDFAConverter {
 
         Set<String> alphabets = new HashSet<>(nfa.getAlphabets());
         alphabets.remove("epsilon"); // remove epsilon in case it is in the alphabets
+        alphabets.remove("");// remove the empty string in case it is in the alphabets
         addDFATransitions(dfaBuilder, alphabets, nfa, orderedStates); // draw the new transitions
 
         return dfaBuilder.getResult();

@@ -11,9 +11,8 @@ public interface FSABuilder{
      * Set the start state of the FSA by index
      * @param id the id of the start state
      * @throws UnknownIdException if the given ID is not in the FSA
-     * @return
      */
-    boolean setStartState(String id);
+    void setStartState(String id);
 
     /**
      * Add a state to the FSA with a given id

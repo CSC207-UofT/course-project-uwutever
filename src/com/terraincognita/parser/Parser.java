@@ -37,28 +37,30 @@ public class Parser {
             }
             else if (currToken.getTokenType() == TokenType.RightDelimiter) {
                 if (currToken.getValue() == ')') {
-                    while (!operators.empty()) {
-                        Token operatorTop = operators.pop();
-                        if (operatorTop.getValue() != '(' &&
-                                OP_PREC.get(currToken.getValue()) <= OP_PREC.get(operatorTop.getValue())) {
-                            operands.push(ASTNode.createASTNode(operatorTop, operands));
-                        }
-                        else {
-                            operators.push(operatorTop);
-                            break;
-                        }
+                    Token operatorTop = operators.pop();
+                    while (operatorTop.getValue() != '(' && !operators.empty()) {
+                        operands.push(ASTNode.createASTNode(operatorTop, operands));
+                        operatorTop = operators.pop();
                     }
-                    operators.push(currToken);
                 }
             }
-            else if (currToken.getTokenType() == TokenType.Closure) {
-
-            }
-            else if (currToken.getTokenType() == TokenType.Operator) {
-
+            else if (currToken.getTokenType() == TokenType.Closure ||
+                    currToken.getTokenType() == TokenType.Operator) {
+                while (!operators.empty()) {
+                    Token operatorTop = operators.pop();
+                    if (operatorTop.getValue() != '(' &&
+                            OP_PREC.get(currToken.getValue()) <= OP_PREC.get(operatorTop.getValue())) {
+                        operands.push(ASTNode.createASTNode(operatorTop, operands));
+                    }
+                    else {
+                        operators.push(operatorTop);
+                        break;
+                    }
+                }
+                operators.push(currToken);
             }
             else if (currToken.getTokenType() == TokenType.Char) {
-                operands.push(new CharNode());
+                operands.push(new CharNode(currToken.getValue()));
             }
         }
         while (!operators.empty()) {
