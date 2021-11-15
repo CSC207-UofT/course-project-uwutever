@@ -130,12 +130,9 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         this.transitionTable = new HashMap<>();
     }
 
-    //TODO create an exception for id not in states
     public void setStartState(NFAState state) {
         if(!this.states.contains(state)){
-            //TODO Throw exception
-            //Temporarily: using IllegalArgumentException
-            throw new IllegalArgumentException("Invalid id for state.");
+            throw new InvalidStateException(state);
         }
 
         this.startState = state;
@@ -143,8 +140,6 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     public void addState(NFAState state, String id) {
         if(this.states.contains(state)){
-            //TODO throw exception
-            //Temporarily: using IllegalArgumentException
             throw new InvalidStateException(state);
         }
         this.states.add(new NFAState(id, false));
@@ -164,15 +159,15 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         if(fromState.stateTransitions.containsKey(alphabet)){
             fromState.stateTransitions.get(alphabet).add(toState);
         } else{
-            Set<NFAState> transitionSet = new HashSet<NFAState>();
+            Set<NFAState> transitionSet = new HashSet<>();
             transitionSet.add(toState);
             fromState.stateTransitions.put(alphabet, transitionSet);
         }
     }
 
     @Override
-    public boolean setStartState(String id) {
-        return false;
+    public void setStartState(String id) {
+
     }
 
     @Override
