@@ -122,7 +122,7 @@ and without using a separate class to store the states. In turn, the results of 
 
 We even had
 
-Frontend...
+Frontend: We don't have refactoring for now.
 
 ## Code Organization
 Add stuff about packaging strategy
@@ -134,3 +134,4 @@ We use the “by component” packaging strategy, right? Because we divided pack
 ## Future Plans
  - Pattern matching;
  - Increased data persistence: Providing the user with an option to store regex “snippets” which they feel will be frequently searched for.
+ - beautifying the UI;
