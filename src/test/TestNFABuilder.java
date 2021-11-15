@@ -1,12 +1,9 @@
 import com.terraincognita.automata.nfa.NFABuilder;
 import com.terraincognita.errors.*;
-import com.terraincognita.lexer.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +16,7 @@ public class TestNFABuilder {
     private NFABuilder nfaBuilder;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         nfaBuilder = new NFABuilder();
         nfaBuilder.reset();
         nfaBuilder.addState("1");
@@ -56,7 +53,7 @@ public class TestNFABuilder {
     }
 
     @After
-    public void throwDown() throws Exception {
+    public void throwDown() {
 
     }
 }

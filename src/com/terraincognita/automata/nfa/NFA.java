@@ -52,6 +52,12 @@ public class NFA extends FSA<NFAState>{
         return this.alphabets;
     }
 
+    /**
+     *
+     * @param fromState the state where the transition starts
+     * @param alphabet the alphabet for the transition
+     * @return the set of possible
+     */
     @Override
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
         if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){

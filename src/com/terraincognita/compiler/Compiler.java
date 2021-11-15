@@ -17,6 +17,12 @@ public class Compiler {
     public NFA constructNFA(ASTNode T, boolean terminating, Integer counter) {
         NFA nfa = new NFA();
 
+        if (T.operator == null) {
+            CharNode node = (CharNode) T;
+            nfa = NFAChar.build(Character.toString(node.getLiteral()), true, counter);
+            return nfa;
+        }
+
         if (T.operator.getValue() == '|') {
             NFA midnfa1 = constructNFA(T.left, false, counter);
             counter = midnfa1.getMaxCount() + 1;
