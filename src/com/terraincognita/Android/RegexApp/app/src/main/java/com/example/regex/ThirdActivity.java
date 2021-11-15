@@ -11,6 +11,17 @@ import android.widget.TextView;
 
 import com.example.regex.db.RegexObj;
 
+/**
+ * ThirdActivity: Show the result of the regex match.
+ * 
+ * @param RegexStr: The regex string.
+ * @param SampleText: The sample text.
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class ThirdActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "com.example.android.Regex.REPLY";
     private String RegexStr;

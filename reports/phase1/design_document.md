@@ -92,8 +92,9 @@ We manually resolved merge conflicts and gradle issues arising from trying to me
 automatic system of GitHub was unsuccessful in the merging of the branches/forks.
 
 ## Code Style and Documentation
-So far throughout the entire project, we have only received two style warnings by IntelliJ. One style warning pertains to
-an unchecked casting in one of the DFA classes, which can be easily remedied given minimal extra time.
+So far throughout the entire project, we have only received two style warnings and several deprecation warnings 
+by IntelliJ. One style warning pertains to an unchecked casting in one of the DFA classes, which can be easily remedied 
+given minimal extra time.
 
 In terms of documentation, Javadoc has been provided for all public methods and some private methods whose functionalities
 are not as immediately obvious.
@@ -110,10 +111,13 @@ project code. Most prominently, we wish to replace the various subclasses of the
 that uses only two Reader and Builder objects to complete the necessary construction.
 
 ## Testing
-**TODO!!!!!!!!**
 
-Currently, since we have not yet integrated the backend of the project with the Android UI, the two parts have their own 
+Currently, since we have not yet integrated the backend of the project with the Android UI, the two parts have their own
 testing packages.
+
+FrontEnd: We manually test our UI.
+
+Back-end: **TODO!**
 
 ## Refactoring
 Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 
@@ -131,14 +135,25 @@ and without using a separate class to store the states. In turn, the results of 
 We even had to refactor the NFA class with the builder pattern, as seen in the pull request by *bbrianh* titled `NFA 
 builder implementation`.
 
-## Code Organization
-Add stuff about packaging strategy
+Frontend: We don't have refactoring for now.
 
-We use the “by component” packaging strategy, right? Because we divided packages into lexer, parsing, automaton classes, compiling automaton, and finally (but most importantly), the android development part.
+## Code Organization
+We use the “by component” packaging strategy for our project, similar to the packaging strategy used by JavaShell. 
+This can be noticed by observing that we have divided packages based on which component of the code they pertain to, 
+rather than which features they are responsible for. We have thus identified and broken up our project into a lexer 
+component, a parser, several classes regarding the construction of various types of automata, a compiler, and finally 
+(but most visible aspect) the android development part.
+
+We have further sub-divided each of the above packages depending on the level of complexity involved in creating those
+objects.
 
 ## Functionality
 
+**TODO!**
+
 ## Future Plans
  - Pattern matching;
+ - Use Factory method for Compiler
  - Increased data persistence: Providing the user with an option to store regex “snippets” which they feel will be frequently searched for.
  - Integrating UI and backend; any necessary refactoring involved in the integration process
+ - beautifying the UI;

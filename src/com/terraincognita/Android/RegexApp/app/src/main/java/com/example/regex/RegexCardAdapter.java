@@ -11,7 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
+/**
+ * RegexCardAdapter: returns a view for each item in the list
+ * 
+ * @param mInflater The LayoutInflater object that can be used to inflate any views in the adapter
+ * @param List<RegexObj> A list of Regex object.
+ * @param OnRegexClickListener An interface to respond to click events
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHolder> {
 
     private final LayoutInflater mInflater;

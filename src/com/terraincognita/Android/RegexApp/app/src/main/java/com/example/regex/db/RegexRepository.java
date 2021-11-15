@@ -7,6 +7,16 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+/**
+ * RegexRepository: A class that handles the database operations.
+ * 
+ * @param RegexDao: the DAO of database for RegexApp.
+ * @param LiveData<List<Regex>>: the LiveData of the list of Regex.
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 public class RegexRepository {
 
     private RegexDao mRegexDao;

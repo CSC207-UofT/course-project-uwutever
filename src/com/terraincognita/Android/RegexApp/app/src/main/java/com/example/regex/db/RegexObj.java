@@ -5,6 +5,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * The RegexObj class is a data class that represents a Regex object.
+ * need to be replaced by the implementation of the algorithm team.
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 @Entity(tableName = "regex_table")
 public class RegexObj {
 

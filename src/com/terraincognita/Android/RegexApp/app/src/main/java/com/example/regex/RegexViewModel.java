@@ -10,7 +10,15 @@ import com.example.regex.db.RegexRepository;
 
 import java.util.List;
 
-
+/**
+ * AndroidViewModel for RegexApp.
+ * @param mRepository Repository for RegexApp.
+ * @param LiveData<List<RegexObj>> mAllRegexes LiveData of all Regexes.
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 public class RegexViewModel extends AndroidViewModel {
 
     private RegexRepository mRepository;

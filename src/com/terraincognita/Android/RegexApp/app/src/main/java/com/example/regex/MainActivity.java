@@ -21,6 +21,19 @@ import com.example.regex.db.RegexObj;
 
 import java.util.List;
 
+/**
+ * MainActivity
+ * A main activity that displays a list of Regex objects.
+ * 
+ * @param List<RegexObj> A list of Regex object.
+ * @param RecyclerView A recycler view that displays the list of Regex objects.
+ * 
+ *
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class MainActivity extends AppCompatActivity implements RegexCardAdapter.OnRegexListener {
     public static final int NEW_REGEX_ACTIVITY_REQUEST_CODE = 1;
 

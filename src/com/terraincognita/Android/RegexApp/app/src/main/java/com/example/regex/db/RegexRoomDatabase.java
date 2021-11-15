@@ -9,6 +9,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ * RegexRoomDatabase is the database that stores the Regex objects.
+ * 
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 @Database(entities = {RegexObj.class}, version = 1, exportSchema = false)
 public abstract class RegexRoomDatabase extends RoomDatabase {
 
