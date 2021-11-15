@@ -26,15 +26,31 @@ public class NFABuilder implements FSABuilder {
     }
 
     /**
-     * Set the start state of the FSA by index
+     * Set the start state of the FSA by id
      *
      * @param id the id of the start state
      * @throws UnknownIdException if the given ID is not in the FSA
      */
     @Override
     public void setStartState(String id) {
-        if(!this.nfa.states.containsKey(id)){
-            throw new UnknownAlphabetException(id);
+        if(this.nfa.states.containsKey(id)){
+            this.nfa.startState = this.nfa.states.get(id);
+        }else {
+            throw new UnknownIdException(id);
+        }
+    }
+
+    /**
+     * Set the end state of the NFA by id
+     *
+     * @param id the id of the end state
+     * @throws UnknownIdException if the given ID is not in the NFA
+     */
+    public void setEndState(String id){
+        if(this.nfa.states.containsKey(id)){
+            this.nfa.endState = this.nfa.states.get(id);
+        }else {
+            throw new UnknownIdException(id);
         }
     }
 

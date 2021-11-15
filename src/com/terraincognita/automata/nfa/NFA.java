@@ -12,6 +12,7 @@ public class NFA extends FSA<NFAState>{
     protected NFAState endState;
     protected Set<String> alphabets;
     protected Map<String, Map<String, Set<NFAState>>> transitionTable;
+    protected int maxCount;
 
     public NFA(){
         this.states = new HashMap<>();
@@ -82,6 +83,22 @@ public class NFA extends FSA<NFAState>{
         }
 
         return fromStates;
+    }
+
+    /**
+     * Getter method of maxCount
+     * @return integer maxCount
+     */
+    public int getMaxCount(){
+        return this.maxCount;
+    }
+
+    /**
+     * Setter method of maxCount
+     * @param maxCount integer maxCount
+     */
+    public void setMaxCount(int maxCount){
+        this.maxCount = maxCount;
     }
 
     @Override
