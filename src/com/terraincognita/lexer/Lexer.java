@@ -25,6 +25,9 @@ public class Lexer {
         this.inputStr = input;
     }
 
+    /**
+     * Tokenize the string input into a list of tokens.
+     */
     public void tokenize() {
         Stack<Token> stack = new Stack<Token>();
         this.tokens = new ArrayList<Token>();
@@ -61,9 +64,23 @@ public class Lexer {
                 default:
                     this.tokens.add(currentToken);
             }
+            this.insertConcat();
         }
         if (!stack.empty()) {
             throw new RegexSyntaxException(this.inputStr, this.inputStr.length()-1);
+        }
+    }
+
+    private void insertConcat() {
+        for (int i = this.tokens.size() - 1; i > 0; i-=2) {
+            if (tokens.get(i).getTokenType() == TokenType.Char &&
+                    tokens.get(i-1).getTokenType() == TokenType.Char) {
+                tokens.add(i, Token.createConcat());
+            }
+            else if (tokens.get(i).getTokenType() == TokenType.Char &&
+                    tokens.get(i-1).getTokenType() == TokenType.RightDelimiter) {
+                tokens.add(i, Token.createConcat());
+            }
         }
     }
 

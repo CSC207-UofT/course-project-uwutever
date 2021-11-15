@@ -4,7 +4,6 @@ public enum TokenType {
     Char,
     Closure,
     Operator,
-    Number,
     LeftDelimiter,
-    RightDelimiter
+    RightDelimiter,
 }

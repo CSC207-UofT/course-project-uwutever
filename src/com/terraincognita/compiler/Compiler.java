@@ -19,44 +19,44 @@ public class Compiler {
 
     public NFA constructNFA(ASTNode T, boolean terminating, Integer counter) {
         NFA nfa = new NFA();
+        if (T.operator != null) {
+            if (T.operator.getValue() == '|') {
+                NFA midNFA1 = constructNFA(T.left, false, counter);
+                counter = midNFA1.getMaxCount() + 1;
+                NFA midNFA2 = constructNFA(T.right, false, counter);
+                counter = midNFA2.getMaxCount() + 1;
 
-        if (T.operator.getValue() == '|') {
-            NFA midnfa1 = constructNFA(T.left, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = constructNFA(T.right, false, counter);
-            counter = midnfa2.getMaxCount() + 1;
+                nfa = new NFAUnion(midNFA1, midNFA2, terminating, counter);
+            }
+            else if (this.tree.operator.getValue() == '.') {
+                NFA midNFA1 = constructNFA(T.left, false, counter);
+                counter = midNFA1.getMaxCount() + 1;
+                NFA midNFA2 = constructNFA(T.right, false, counter);
+                counter = midNFA2.getMaxCount() + 1;
 
-            nfa = new NFAUnion(midnfa1, midnfa2, terminating, counter);
-        }
-        else if (this.tree.operator.getValue() == '.') {
-            NFA midnfa1 = constructNFA(T.left, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = constructNFA(T.right, false, counter);
-            counter = midnfa2.getMaxCount() + 1;
+                nfa = new NFAConcat(midNFA1, midNFA2, terminating, counter);
+            }
+            else if (this.tree.operator.getValue() == '*') {
+                NFA midNFA1 = constructNFA(T.exp, false, counter);
+                counter = midNFA1.getMaxCount() + 1;
+                NFA midNFA2 = new NFAEpsilon(false, counter);
+                counter = midNFA2.getMaxCount() + 1;
+                NFA midNFA3 = new NFAClosure(midNFA1, false, counter);
+                counter = midNFA3.getMaxCount() + 1;
 
-            nfa = new NFAConcat(midnfa1, midnfa2, terminating, counter);
+                nfa = new NFAUnion(midNFA1, midNFA2, terminating, counter);
+            }
+            else if (this.tree.operator.getValue() == '+') {
+                NFA midNFA = constructNFA(T.exp, false, counter);
+                counter = midNFA.getMaxCount() + 1;
+                nfa = new NFAClosure(midNFA, terminating, counter);
+            }
+            else if (this.tree.operator.getValue() == '?') {
+                NFA midNFA = constructNFA(T.exp, false, counter);
+                counter = midNFA.getMaxCount() + 1;
+                nfa = new NFAZeroOrOne(midNFA, terminating, counter);
+            }
         }
-        else if (this.tree.operator.getValue() == '*') {
-            NFA midnfa1 = constructNFA(T.exp, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = new NFAEpsilon(false, counter);
-            counter = midnfa2.getMaxCount() + 1;
-            NFA midnfa3 = new NFAClosure(midnfa1, false, counter);
-            counter = midnfa3.getMaxCount() + 1;
-
-            nfa = new NFAUnion(midnfa1, midnfa2, terminating, counter);
-        }
-        else if (this.tree.operator.getValue() == '+') {
-            NFA midnfa = constructNFA(T.exp, false, counter);
-            counter = midnfa.getMaxCount() + 1;
-            nfa = new NFAClosure(midnfa, terminating, counter);
-        }
-        else if (this.tree.operator.getValue() == '?') {
-            NFA midNFA = constructNFA(T.exp, false, counter);
-            counter = midNFA.getMaxCount() + 1;
-            nfa = new NFAZeroOrOne(midNFA, terminating, counter);
-        }
-
         return nfa;
     }
 
