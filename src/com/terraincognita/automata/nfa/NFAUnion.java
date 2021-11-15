@@ -49,13 +49,13 @@ public class NFAUnion extends NFA {
         // Add epsilon transition from first state to second state
         Set<NFAState> transition = new HashSet<>();
         transition.add(midNFA1.startState);
-        state1.stateTransitions.put("epsilon", transition);
+        state1.stateTransitions.put("", transition);
 
         // Third state is starting state of midNFA
         // Add epsilon transition from first state to second state
         Set<NFAState> transition2 = new HashSet<>();
         transition.add(midNFA2.startState);
-        this.startState.stateTransitions.put("epsilon", transition2);
+        this.startState.stateTransitions.put("", transition2);
 
         // Update state set
         this.states.addAll(midNFA1.states);
@@ -72,12 +72,12 @@ public class NFAUnion extends NFA {
         // Add epsilon transition from second state to fourth state
         HashSet<NFAState> transition3 = new HashSet<>();
         transition3.add(state2);
-        midNFA1.endState.stateTransitions.put("epsilon", transition3);
+        midNFA1.endState.stateTransitions.put("", transition3);
 
         // Add epsilon transition from third state to fourth state
         HashSet<NFAState> transition4 = new HashSet<>();
         transition4.add(state2);
-        midNFA2.endState.stateTransitions.put("epsilon", transition4);
+        midNFA2.endState.stateTransitions.put("", transition4);
 
         // TODO
         this.transitionTable = new HashMap<>();

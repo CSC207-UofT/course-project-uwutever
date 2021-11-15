@@ -2,7 +2,7 @@ package com.terraincognita.automata.nfa;
 
 import com.terraincognita.automata.FSA;
 import com.terraincognita.automata.states.NFAState;
-import com.terraincognita.errors.InvalidStateException;
+import com.terraincognita.errors.*;
 
 import java.util.*;
 
@@ -10,9 +10,9 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     protected Set<NFAState> states;
     protected NFAState startState;
     protected NFAState endState;
-    protected Map<String, Map<String, List<NFAState>>> transitionTable;
+    protected Set<String> alphabets;
+    protected Map<String, Map<String, Set<NFAState>>> transitionTable;
     protected int maxCount;
-    protected Set<String> alphabet;
 
     public NFA(){
         this.states = new HashSet<>();
@@ -21,9 +21,6 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         this.transitionTable = new HashMap<>();
     }
 
-    /**
-     * Return the start state of the FSA
-     */
     @Override
     public NFAState getStartState() {
         return this.startState;
@@ -31,49 +28,98 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     @Override
     public Collection<NFAState> getAcceptingStates() {
-        return null;
+        Set<NFAState> ret = new HashSet<>();
+        for(NFAState state: this.states){
+            if(state.isAccepting()){
+                ret.add(state);
+            }
+        }
+        return ret;
     }
 
     @Override
-    public Collection<NFAState> getStates() {
-        return null;
+    public Set<NFAState> getStates() {
+        return this.states;
     }
 
     @Override
-    public Collection<String> getAlphabets() {
-        return this.alphabet;
+    public Set<String> getAlphabets() {
+        return this.alphabets;
     }
 
     @Override
-    public Object delta(NFAState fromState, String alphabet) {
-        return null;
+    public Set<NFAState> delta(NFAState fromState, String alphabet) {
+        if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
+            String fromID = fromState.getId();
+            return this.transitionTable.get(fromID).get(alphabet);
+        } else{
+            throw new UnknownAlphabetException(alphabet);
+        }
     }
 
-    /**
-     * Run the FSA from the start state with a given string
-     *
-     * @param alphabets a given string to run the FSA
-     * @return the reached state(s)
-     */
     @Override
-    public List<NFAState> transitions(String alphabets) {
-        //TODO
-        return null;    }
+    public Set<NFAState> transitions(String alphabets) throws NullStartStateException {
+        if(this.startState == null){
+            throw new NullStartStateException();
+        }
 
-    /**
-     * Return whether the input string is accepted by the FSA
-     *
-     * @param alphabets the string to be tested
-     * @return whether the input string is accepted by the FSA
-     */
+        // starts from the epsilon of startState
+        Set<NFAState> fromStates = new HashSet<>(epsilon(this.startState));
+
+        // traverse every char in alphabets
+        for(int i = 0; i < alphabets.length(); i++){
+
+            // for each alphabet, loop fromStates set and get all the toStates set
+            // also include the epsilon of elements in toStates
+            Set<NFAState> reached = new HashSet<>();
+            for(NFAState fromState: fromStates){
+                Set<NFAState> toStates = delta(fromState, String.valueOf(alphabets.charAt(i)));
+                for(NFAState toState : toStates){
+                    reached.addAll(epsilon(toState));
+                }
+            }
+            // reached states are the from states of next iteration
+            fromStates = reached;
+        }
+
+        return fromStates;
+    }
+
     @Override
-    public boolean accept(String alphabets) {
+    public boolean accept(String alphabets) throws NullStartStateException {
+        if(this.startState == null){
+            throw new NullStartStateException();
+        }
+
         for(NFAState state:transitions(alphabets)){
             if (state.isAccepting()){
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Given a certain state, return a set of NFAStates that can be reached by epsilon transitions
+     * @param state the given NFAState
+     * @return a set of NFAStates that can be reached by epsilon transitions
+     */
+    public Set<NFAState> epsilon(NFAState state){
+        Set<NFAState> reached = new HashSet<>();
+
+        //DFS search
+        Stack<NFAState> stack = new Stack<>();
+        stack.add(state);
+        while (!stack.isEmpty()){
+            NFAState top = stack.pop();
+            if(!reached.contains(top)){
+                Set<NFAState> epsilonStates = delta(top, "epsilon");
+                reached.addAll(epsilonStates);
+                stack.addAll(epsilonStates);
+            }
+        }
+        reached.add(state);
+        return reached;
     }
 
     @Override
@@ -84,12 +130,6 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         this.transitionTable = new HashMap<>();
     }
 
-    /**
-     * Set the start state of the FSA by index
-     *
-     * @param state the start state
-     * @throws IllegalArgumentException
-     */
     //TODO create an exception for id not in states
     public void setStartState(NFAState state) {
         if(!this.states.contains(state)){
@@ -101,12 +141,6 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         this.startState = state;
     }
 
-    /**
-     * Add a state to the FSA with a given id
-     *
-     * @param state the id of the state
-     * @throws IllegalArgumentException
-     */
     public void addState(NFAState state, String id) {
         if(this.states.contains(state)){
             //TODO throw exception
@@ -116,27 +150,13 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         this.states.add(new NFAState(id, false));
     }
 
-    /**
-     * Add a state to the FSA while indicating whether it is an accepting state
-     *
-     * @param state       the state
-     * @param id          the id of the state
-     * @param isAccepting whether the state is an accepting state
-     */
     public void addState(NFAState state, String id, boolean isAccepting) {
         this.states.add(state);
     }
 
-    /**
-     * Add a transition to the FSA
-     *
-     * @param fromState the from-state of the transition
-     * @param alphabet the alphabet of the transition
-     * @param toState the to-state of the transition
-     */
     public void addTransition(NFAState fromState, String alphabet, NFAState toState) {
         if (!this.states.contains(fromState) || !this.states.contains(toState)){
-            //TODO throw exception
+            throw new InvalidStateException("Sta");
         }
 
         // if the alphabet is in the transitionTable, add the to state into the value list
@@ -157,12 +177,12 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
 
     @Override
     public void addState(String id) {
-
+        this.states.add(new NFAState(id, false));
     }
 
     @Override
     public void addState(String id, boolean isAccepting) {
-
+        this.states.add(new NFAState(id, false));
     }
 
     @Override

@@ -26,7 +26,7 @@ public class NFAEpsilon extends NFA {
         // Add epsilon transition from first state to second state
         Set<NFAState> transition1 = new HashSet<>();
         transition1.add(state2);
-        state1.stateTransitions.put("epsilon", transition1);
+        state1.stateTransitions.put("", transition1);
 
         // TODO
         this.transitionTable = new HashMap<>();

@@ -1,11 +1,8 @@
 package com.terraincognita.automata.dfa;
 
-import com.terraincognita.errors.NullStartStateException;
-import com.terraincognita.errors.UnknownAlphabetException;
 import com.terraincognita.automata.FSA;
-import java.util.Collection;
 import com.terraincognita.automata.states.DFAState;
-import com.terraincognita.errors.UnknownIdException;
+import com.terraincognita.errors.*;
 
 import java.util.*;
 
@@ -14,6 +11,7 @@ public class DFA extends FSA<DFAState> {
     protected DFAState startState;
     protected Set<String> alphabets;
     protected Map<String, Map<String, DFAState>> transitionTable;
+
     /**
      * Constructor DFA
      */

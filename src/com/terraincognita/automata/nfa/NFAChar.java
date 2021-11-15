@@ -7,6 +7,10 @@ import java.util.*;
 
 public class NFAChar extends NFA {
 
+    /**
+     * Constructor NFA
+     * @param character
+     */
     public NFAChar(String character, boolean terminating, Integer counter) {
         this.states = new HashSet<>();
         String id1 = counter.toString();
@@ -21,7 +25,7 @@ public class NFAChar extends NFA {
         this.states.add(state2);
         Set<NFAState> transition1 = new HashSet<>();
         transition1.add(state2);
-        state1.stateTransitions.put("epsilon", transition1);
+        state1.stateTransitions.put("", transition1);
 
         String id3 = counter.toString();
         NFAState state3 = new NFAState(id3, false);
@@ -35,7 +39,7 @@ public class NFAChar extends NFA {
         this.states.add(state4);
         Set<NFAState> transition3 = new HashSet<>();
         transition3.add(state4);
-        state3.stateTransitions.put("epsilon", transition3);
+        state3.stateTransitions.put("", transition3);
 
         // TODO
         this.transitionTable = new HashMap<>();
@@ -59,7 +63,7 @@ public class NFAChar extends NFA {
         // Add epsilon transition from first state to second state
         Set<NFAState> transition = new HashSet<>();
         transition.add(state2);
-        state1.stateTransitions.put("epsilon", transition);
+        state1.stateTransitions.put("", transition);
 
         // Update state set
         this.states.addAll(midNFA.states);
@@ -75,7 +79,7 @@ public class NFAChar extends NFA {
         // Add epsilon transition from third state to fourth state
         transition = new HashSet<>();
         transition.add(state2);
-        midNFA.endState.stateTransitions.put("epsilon", transition);
+        midNFA.endState.stateTransitions.put("", transition);
 
         // TODO
         this.transitionTable = new HashMap<>();
