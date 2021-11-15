@@ -119,8 +119,6 @@ FrontEnd: We manually test our UI.
 
 Back-end: **TODO!**
 
-Back-end: **TODO!**
-
 ## Refactoring
 Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 
 looking at the pull requests. This is because we kept all moments of uncertainty leading up to potential refactoring 
@@ -151,7 +149,12 @@ objects.
 
 ## Functionality
 
-**TODO!**
+As far as functionality goes, we have been able to achieve text matching, that is, checking whether a given input string
+is in the language described by the regular expression. 
+
+The front-end part of the project is basically finished, but we have yet to integrate the back-end with it, we expect the
+functionality of controlling the program using the Android interface can be completed very soon. In the future, we hope
+to improve upon the front end to make it more visually appealing and user-friendly.
 
 ## Future Plans
  - Pattern matching;
