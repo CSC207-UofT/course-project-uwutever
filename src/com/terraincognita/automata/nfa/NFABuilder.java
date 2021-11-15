@@ -1,35 +1,112 @@
 package com.terraincognita.automata.nfa;
 
-import com.terraincognita.automata.states.NFAState;
 import com.terraincognita.automata.*;
+import com.terraincognita.automata.states.DFAState;
+import com.terraincognita.automata.states.NFAState;
+import com.terraincognita.errors.*;
 
-public interface NFABuilder extends FSABuilder {
+import java.util.HashSet;
+import java.util.Set;
+
+public class NFABuilder implements FSABuilder {
+    private NFA nfa;
     /**
-     * Reset the builder
+     * Get the NFA from the builder
      */
-    void reset();
+    public NFA getResult(){
+        return this.nfa;
+    }
+
+    /**
+     * Reset the builder by created a new FSA with the given id
+     */
+    @Override
+    public void reset() {
+        this.nfa = new NFA();
+    }
 
     /**
      * Set the start state of the FSA by index
-     * @param state the start state
+     *
+     * @param id the id of the start state
+     * @throws UnknownIdException if the given ID is not in the FSA
      */
-    void setStartState(NFAState state);
+    @Override
+    public void setStartState(String id) {
+        if(!this.nfa.states.containsKey(id)){
+            throw new UnknownAlphabetException(id);
+        }
+    }
 
     /**
      * Add a state to the FSA with a given id
-     * @param state the state to be added
+     *
+     * @param id the id of the state
+     * @throws OccupiedIdException if the ID is already occupied in the FSA
      */
-    void addState(NFAState state, String id);
+    @Override
+    public void addState(String id) {
+        if(this.nfa.states.containsKey(id)){
+            throw new OccupiedIdException(id);
+        } else{
+            NFAState newState = new NFAState(id, false);
+            this.nfa.states.put(id, newState);
+        }
+
+    }
 
     /**
      * Add a state to the FSA while indicating whether it is an accepting state
-     * @param state the state
+     *
+     * @param id          the id of the state
      * @param isAccepting whether the state is an accepting state
+     * @throws OccupiedIdException if the ID is already occupied in the FSA
      */
-    void addState(NFAState state, String id, boolean isAccepting);
+    @Override
+    public void addState(String id, boolean isAccepting) {
+        if(this.nfa.states.containsKey(id)){
+            throw new OccupiedIdException(id);
+        } else{
+            NFAState newState = new NFAState(id, isAccepting);
+            this.nfa.states.put(id, newState);
+        }
+    }
 
     /**
      * Add a transition to the FSA
+     *
+     * @param fromId   the ID of the start of the transition
+     * @param alphabet the alphabet of the transition
+     * @param toId     the ID of the end of the transition
+     * @throws UnknownIdException if either fromId or toId is not in the FSA
+     * @throws IllegalAlphabetException if the given alphabet is illegal
      */
-    void addTransition(NFAState from, String alphabet, NFAState to);
+    @Override
+    public void addTransition(String fromId, String alphabet, String toId) {
+        if(!this.nfa.states.containsKey(fromId)){
+            throw new UnknownIdException(fromId);
+        }
+
+        if(!this.nfa.states.containsKey(toId)){
+            throw new UnknownIdException(toId);
+        }
+
+        if(!alphabet.equals("epsilon") && alphabet.length() > 1){
+            throw new IllegalAlphabetException(alphabet);
+        }
+
+        if(!alphabet.equals("epsilon")){
+            this.nfa.alphabets.add(alphabet);
+        }
+
+        NFAState toState = nfa.states.get(toId);
+
+        if(this.nfa.transitionTable.get(fromId).containsKey(alphabet)){
+            this.nfa.transitionTable.get(fromId).get(alphabet).add(toState);
+        } else{
+            Set<NFAState> newToStates = new HashSet<>();
+            newToStates.add(toState);
+            this.nfa.transitionTable.get(fromId).put(alphabet, newToStates);
+        }
+    }
 }

@@ -75,6 +75,7 @@ public class DFABuilder implements FSABuilder {
      * @param alphabet the alphabet of the transition
      * @param toId the ID of the end of the transition
      * @throws UnknownIdException if either fromId or toId is not in the FSA
+     * @throws IllegalAlphabetException if the given alphabet is illegal
      */
     @Override
     public void addTransition(String fromId, String alphabet, String toId) {
@@ -84,6 +85,10 @@ public class DFABuilder implements FSABuilder {
 
         if(!this.dfa.states.containsKey(toId)){
             throw new UnknownIdException(toId);
+        }
+
+        if(alphabet.length() > 1){
+            throw new IllegalAlphabetException(alphabet);
         }
 
         DFAState toState = this.dfa.states.get(toId);

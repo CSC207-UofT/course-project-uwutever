@@ -6,16 +6,15 @@ import com.terraincognita.errors.*;
 
 import java.util.*;
 
-public class NFA extends FSA<NFAState> implements NFABuilder {
-    protected Set<NFAState> states;
+public class NFA extends FSA<NFAState>{
+    protected Map<String, NFAState> states;
     protected NFAState startState;
     protected NFAState endState;
     protected Set<String> alphabets;
     protected Map<String, Map<String, Set<NFAState>>> transitionTable;
-    protected int maxCount;
 
     public NFA(){
-        this.states = new HashSet<>();
+        this.states = new HashMap<>();
         this.startState = null;
         this.endState = null;
         this.transitionTable = new HashMap<>();
@@ -29,7 +28,7 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     @Override
     public Collection<NFAState> getAcceptingStates() {
         Set<NFAState> ret = new HashSet<>();
-        for(NFAState state: this.states){
+        for(NFAState state: this.states.values()){
             if(state.isAccepting()){
                 ret.add(state);
             }
@@ -38,8 +37,8 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
     }
 
     @Override
-    public Set<NFAState> getStates() {
-        return this.states;
+    public Collection<NFAState> getStates() {
+        return this.states.values();
     }
 
     @Override
@@ -122,70 +121,4 @@ public class NFA extends FSA<NFAState> implements NFABuilder {
         return reached;
     }
 
-    @Override
-    public void reset() {
-        this.states = new HashSet<>();
-        this.startState = null;
-        this.endState = null;
-        this.transitionTable = new HashMap<>();
-    }
-
-    public void setStartState(NFAState state) {
-        if(!this.states.contains(state)){
-            throw new InvalidStateException(state);
-        }
-
-        this.startState = state;
-    }
-
-    public void addState(NFAState state, String id) {
-        if(this.states.contains(state)){
-            throw new InvalidStateException(state);
-        }
-        this.states.add(new NFAState(id, false));
-    }
-
-    public void addState(NFAState state, String id, boolean isAccepting) {
-        this.states.add(state);
-    }
-
-    public void addTransition(NFAState fromState, String alphabet, NFAState toState) {
-        if (!this.states.contains(fromState) || !this.states.contains(toState)){
-            throw new InvalidStateException("Sta");
-        }
-
-        // if the alphabet is in the transitionTable, add the to state into the value list
-        // else put (alphabet, [to-state]) pair into the table
-        if(fromState.stateTransitions.containsKey(alphabet)){
-            fromState.stateTransitions.get(alphabet).add(toState);
-        } else{
-            Set<NFAState> transitionSet = new HashSet<>();
-            transitionSet.add(toState);
-            fromState.stateTransitions.put(alphabet, transitionSet);
-        }
-    }
-
-    @Override
-    public void setStartState(String id) {
-
-    }
-
-    @Override
-    public void addState(String id) {
-        this.states.add(new NFAState(id, false));
-    }
-
-    @Override
-    public void addState(String id, boolean isAccepting) {
-        this.states.add(new NFAState(id, false));
-    }
-
-    @Override
-    public void addTransition(String from, String alphabet, String to) {
-
-    }
-
-    public int getMaxCount() {
-        return maxCount;
-    }
 }
