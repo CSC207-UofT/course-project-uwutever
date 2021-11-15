@@ -10,7 +10,6 @@ public class Compiler {
     protected int maxStates;
 
     //    Construct a NFA from a corresponding AST
-
     public Compiler(ASTNode T) {
         this.tree = T;
         this.nfa = this.constructNFA(T, true, 1);
@@ -26,7 +25,7 @@ public class Compiler {
             NFA midnfa2 = constructNFA(T.right, false, counter);
             counter = midnfa2.getMaxCount() + 1;
 
-            nfa = new NFAUnion(midnfa1, midnfa2, terminating, counter);
+            nfa = NFAUnion.build(midnfa1, midnfa2, terminating, counter);
         }
         else if (this.tree.operator.getValue() == '.') {
             NFA midnfa1 = constructNFA(T.left, false, counter);
@@ -34,27 +33,27 @@ public class Compiler {
             NFA midnfa2 = constructNFA(T.right, false, counter);
             counter = midnfa2.getMaxCount() + 1;
 
-            nfa = new NFAConcat(midnfa1, midnfa2, terminating, counter);
+            nfa = NFAConcat.build(midnfa1, midnfa2, terminating, counter);
         }
         else if (this.tree.operator.getValue() == '*') {
             NFA midnfa1 = constructNFA(T.exp, false, counter);
             counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = new NFAEpsilon(false, counter);
+            NFA midnfa2 = NFAEpsilon.build(false, counter);
             counter = midnfa2.getMaxCount() + 1;
-            NFA midnfa3 = new NFAClosure(midnfa1, false, counter);
+            NFA midnfa3 = NFAClosure.build(midnfa1, false, counter);
             counter = midnfa3.getMaxCount() + 1;
 
-            nfa = new NFAUnion(midnfa1, midnfa2, terminating, counter);
+            nfa = NFAUnion.build(midnfa1, midnfa2, terminating, counter);
         }
         else if (this.tree.operator.getValue() == '+') {
             NFA midnfa = constructNFA(T.exp, false, counter);
             counter = midnfa.getMaxCount() + 1;
-            nfa = new NFAClosure(midnfa, terminating, counter);
+            nfa = NFAClosure.build(midnfa, terminating, counter);
         }
         else if (this.tree.operator.getValue() == '?') {
             NFA midNFA = constructNFA(T.exp, false, counter);
             counter = midNFA.getMaxCount() + 1;
-            nfa = new NFAZeroOrOne(midNFA, terminating, counter);
+            nfa = NFAZeroOrOne.build(midNFA, terminating, counter);
         }
 
         return nfa;
