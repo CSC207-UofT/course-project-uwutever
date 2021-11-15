@@ -8,7 +8,7 @@ import com.terraincognita.parser.ast.ASTNode;
 
 import java.util.Set;
 
-public class CompilerTest {
+public class ParserDemo {
     public static void main(String[] args) {
         Lexer lexer = new Lexer("(a|b)cd*");
         lexer.tokenize();
