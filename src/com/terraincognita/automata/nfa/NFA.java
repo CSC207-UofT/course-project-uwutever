@@ -43,6 +43,11 @@ public class NFA extends FSA<NFAState>{
     }
 
     @Override
+    public Collection<String> getStatesID() {
+        return this.states.keySet();
+    }
+
+    @Override
     public Set<String> getAlphabets() {
         return this.alphabets;
     }

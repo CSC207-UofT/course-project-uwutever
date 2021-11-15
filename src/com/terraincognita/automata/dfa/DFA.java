@@ -54,6 +54,14 @@ public class DFA extends FSA<DFAState> {
     }
 
     /**
+     * Return the set of IDs of states of the FSA
+     */
+    @Override
+    public Collection<String> getStatesID() {
+        return this.states.keySet();
+    }
+
+    /**
      * Return the set of alphabets of the FSA
      */
     @Override
