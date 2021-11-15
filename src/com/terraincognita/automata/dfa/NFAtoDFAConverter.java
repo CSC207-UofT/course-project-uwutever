@@ -35,6 +35,7 @@ public class NFAtoDFAConverter {
 
         Set<String> alphabets = new HashSet<>(nfa.getAlphabets());
         alphabets.remove("epsilon"); // remove epsilon in case it is in the alphabets
+        alphabets.remove("");// remove the empty string in case it is in the alphabets
         addDFATransitions(dfaBuilder, alphabets, nfa, orderedStates); // draw the new transitions
 
         return dfaBuilder.getResult();
