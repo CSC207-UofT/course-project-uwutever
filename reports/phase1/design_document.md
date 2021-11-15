@@ -17,15 +17,15 @@ In terms of the user interface, each of the activities (each screen) has a singl
 that screen. We have separate view models for UI patterns.
 
 ### Open/Closed Principle
-Backend: We have created subclasses for the nodes in the AST and subclasses for different `NFA`'s (based on their construction),
+Back-end: We have created subclasses for the nodes in the AST and subclasses for different `NFA`'s (based on their construction),
 if needed, more subclasses can be created and added without affecting the behaviour of the existing ones.
   
-Frontend: Since our UI is split into different activities, we can easily add new functions to each activity without 
+Front-end: Since our UI is split into different activities, we can easily add new functions to each activity without 
 having to modify other activities. Also, We use callback for buttons, so we can easily add functions 
 in object for new functions.
 
 ### Liskov Substitution Principle
-Backend: We must have that any object of a particular type must be replaceable with an object of its superclass, 
+Back-end: We must have that any object of a particular type must be replaceable with an object of its superclass, 
 if such a superclass exists. Indeed, in our implementation of the algorithm, we have multiple such cases of subclasses, 
 which we shall now see, case-by-case.
 
@@ -35,7 +35,7 @@ of the `FSA` class. Even though each of the subclasses of NFA also represents an
 of inheritance in order to preserve the property of utilizing any subclass instead of its superclass without encountering 
 any errors. A similar example holds true for the case of the `ASTNode` abstract superclass and its subclasses.
 
-Frontend: We extended many of the classes in the Android framework to implement our own functionality without breaking 
+Front-end: We extended many of the classes in the Android framework to implement our own functionality without breaking 
 the system (such as `RegexRoomDatabase extends RoomDataBase`, which is a system super class.)
 
 ### Interface Segregation Principle
@@ -62,9 +62,10 @@ since we don’t need to get data from the internet for now. In Database, we got
 interface for database accessing. Then, the `RegexRoomDatabase` implements the details of accessing.
 
 ## Design Patterns
-Backend: We used the **Builder** design pattern in `FSA` and `FSAState`, and we used inheritance between `NFA`, `DFA`, and `FSA`.
+Back-end: 
+We used the **Builder** design pattern in `FSA` and `FSAState`, and we used inheritance between `NFA`, `DFA`, and `FSA`.
 
-FrontEnd:  
+Front-end:  
 - We used the **Observer** Design Pattern, the whole process is that we set up an observer on the datalist which looked 
 for insertion of any new LiveData storing (`Regex`) to the database and update the datalist. The observer is then used 
 to notify that there is a change and has a method onChanged() when changes happen. This method will call `RegexCardAdapter`
@@ -115,9 +116,11 @@ that uses only two Reader and Builder objects to complete the necessary construc
 Currently, since we have not yet integrated the backend of the project with the Android UI, the two parts have their own
 testing packages.
 
-FrontEnd: We manually test our UI.
+Front-end: We manually test our UI.
 
-Back-end: **TODO!**
+Back-end: We have a unittest for most of the classes we created, including the automata and the two Builders, and so far
+no issues have been found with our code. In the coming weeks we aim to added more test to increase both their breadth 
+and depth.
 
 ## Refactoring
 Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 
@@ -132,10 +135,10 @@ example of refactoring; Here, we experimented with two vastly different methods 
 and without using a separate class to store the states. In turn, the results of such refactoring is visible in the branch
 *phase1*. NOTE: Point to specific commits.
 
-We even had to refactor the NFA class with the builder pattern, as seen in the pull request by *bbrianh* titled `NFA 
-builder implementation`.
+We even had to refactor the NFA class with the builder pattern, as seen in the pull request by Brian titled **NFA 
+builder implementation**.
 
-Frontend: We don't have refactoring for now.
+Frontend: We have not done any refactoring for now, we will do so if we deem it necessary in the future.
 
 ## Code Organization
 We use the “by component” packaging strategy for our project, similar to the packaging strategy used by JavaShell. 
@@ -157,8 +160,9 @@ functionality of controlling the program using the Android interface can be comp
 to improve upon the front end to make it more visually appealing and user-friendly.
 
 ## Future Plans
- - Pattern matching;
+Below is a summary of our plans in the future:
+ - Implement pattern matching, which looks for substring that are in the described language in addition to just looking at the string as a whole.
  - Use Factory method for Compiler
- - Increased data persistence: Providing the user with an option to store regex “snippets” which they feel will be frequently searched for.
- - Integrating UI and backend; any necessary refactoring involved in the integration process
- - beautifying the UI;
+ - Increased data persistence: Provide the user with an option to store regex “snippets” which they feel will be frequently searched for.
+ - Integrating UI and backend; + any necessary refactoring involved in the integration process
+ - Beautifying the UI;
