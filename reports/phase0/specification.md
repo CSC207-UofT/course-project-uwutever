@@ -1,3 +1,5 @@
+## Specification
+
 We intend to build a tool for providing assistance in learning Regular Expression in computational language theory.
 
 When a regular expression is compiled, it is converted into an equivalent Finite State Automata (FSA) which is an abstract concept yet can be easily visualized.
