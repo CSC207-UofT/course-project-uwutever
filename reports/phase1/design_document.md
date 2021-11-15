@@ -92,19 +92,28 @@ We manually resolved merge conflicts and gradle issues arising from trying to me
 automatic system of GitHub was unsuccessful in the merging of the branches/forks.
 
 ## Code Style and Documentation
-So far throughout the entire project, we have only received two style warnings.
+So far throughout the entire project, we have only received two style warnings by IntelliJ. One style warning pertains to
+an unchecked casting in one of the DFA classes, which can be easily remedied given minimal extra time.
 
 In terms of documentation, Javadoc has been provided for all public methods and some private methods whose functionalities
 are not as immediately obvious.
 
 The names of the great majority of the classes and methods are quite suggestive of their purpose. Along with the Javadoc,
 our code should be very easy to understand. Methods that contain specific algorithms have comments accompanying each step
-in the algorithm that explain how the algorithm works.
+in the algorithm that explain how the algorithm works. The authors feel confident that the structure of the code is 
+sufficiently intuitive such that the intent of any member class can be understood by a Java programmer via the name of 
+the class and documentation provided.
 
-The structure of the code is such that ...
+However, the code is not without its flaws. Admittedly, the construction of the NFA class does not make full use of the 
+builder design pattern, and we can note the existence of certain code smells such as duplicated code in some parts of the 
+project code. Most prominently, we wish to replace the various subclasses of the NFA superclass with an implementation 
+that uses only two Reader and Builder objects to complete the necessary construction.
 
 ## Testing
 **TODO!!!!!!!!**
+
+Currently, since we have not yet integrated the backend of the project with the Android UI, the two parts have their own 
+testing packages.
 
 ## Refactoring
 Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 
@@ -119,9 +128,8 @@ example of refactoring; Here, we experimented with two vastly different methods 
 and without using a separate class to store the states. In turn, the results of such refactoring is visible in the branch
 *phase1*. NOTE: Point to specific commits.
 
-We even had
-
-Frontend...
+We even had to refactor the NFA class with the builder pattern, as seen in the pull request by *bbrianh* titled `NFA 
+builder implementation`.
 
 ## Code Organization
 Add stuff about packaging strategy
@@ -133,3 +141,4 @@ We use the “by component” packaging strategy, right? Because we divided pack
 ## Future Plans
  - Pattern matching;
  - Increased data persistence: Providing the user with an option to store regex “snippets” which they feel will be frequently searched for.
+ - Integrating UI and backend; any necessary refactoring involved in the integration process
