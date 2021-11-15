@@ -1,6 +1,5 @@
 package com.terraincognita.automata.dfa;
 
-
 import com.terraincognita.automata.nfa.NFA;
 import com.terraincognita.automata.states.DFAState;
 import com.terraincognita.automata.states.NFAState;
