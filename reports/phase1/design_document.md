@@ -92,7 +92,7 @@ We manually resolved merge conflicts and gradle issues arising from trying to me
 automatic system of GitHub was unsuccessful in the merging of the branches/forks.
 
 ## Code Style and Documentation
-So far throughout the entire project, we have only received two style warnings.
+So far throughout the entire project, we have only received two style warnings and several deprecation warnings.
 
 In terms of documentation, Javadoc has been provided for all public methods and some private methods whose functionalities
 are not as immediately obvious.
@@ -104,7 +104,8 @@ in the algorithm that explain how the algorithm works.
 The structure of the code is such that ...
 
 ## Testing
-**TODO!!!!!!!!**
+
+FrontEnd: We manually test our UI.
 
 ## Refactoring
 Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 

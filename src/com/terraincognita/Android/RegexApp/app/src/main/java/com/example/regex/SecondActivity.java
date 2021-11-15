@@ -8,6 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * SecondActivity: Let user input a regular expression.
+ * 
+ * @param mMessageEditRegex: Regex of user input.
+ * @param mMessageEditSample: Sample text of user input.
+ * 
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 public class SecondActivity extends AppCompatActivity {
     private EditText mMessageEditRegex;
     private EditText mMessageEditSample;

@@ -8,6 +8,13 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * the DAO of database for RegexApp.
+ * 
+ * @author HanruiJerryFan, RealFakeAccount
+ * @version 1.0
+ * @since 1.0
+ */
 @Dao
 public interface RegexDao {
 
