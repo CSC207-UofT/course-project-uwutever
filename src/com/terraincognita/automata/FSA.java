@@ -6,6 +6,10 @@ import com.terraincognita.errors.UnknownAlphabetException;
 
 import java.util.Collection;
 
+/** Abstract class repersenting a FSA
+ * @author Man Chon (Brian) Ho
+ * @author Arkaprava Choudhury
+ */
 public abstract class FSA <T extends FSAState>{
     /**
      * Return the start state of the FSA

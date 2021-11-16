@@ -6,14 +6,40 @@ import com.terraincognita.errors.*;
 
 import java.util.*;
 
+/** Represents a NFA
+ * @author Arkaprava Choudhury
+ * @author Man Chon (Brian) Ho
+ */
 public class NFA extends FSA<NFAState>{
+
+    /** Represents the set of all states in the NFA.
+     */
     protected Map<String, NFAState> states;
+
+    /** Represents the start state of the NFA.
+     */
     protected NFAState startState;
+
+    /** Represents the final state of the NFA.
+     * In our implementation, we always have a unique final state.
+     */
     protected NFAState endState;
+
+    /** Represents the alphabets which can have a transition to the final state.
+     * Any character (or string) not included in this set is not accepted.
+     */
     protected Set<String> alphabets;
+
+    /** Represents all the transitions in the NFA.
+     */
     protected Map<String, Map<String, Set<NFAState>>> transitionTable;
+
+    /** Represents the maximum among all IDs of states in the NFA.
+     */
     protected int maxCount;
 
+    /** Initializes an empty NFA with no states.
+     */
     public NFA(){
         this.states = new HashMap<>();
         this.startState = null;
@@ -21,6 +47,9 @@ public class NFA extends FSA<NFAState>{
         this.transitionTable = new HashMap<>();
     }
 
+    /** Gets the start state of the NFA
+     * @return the initial state
+     */
     @Override
     public NFAState getStartState() {
         return this.startState;

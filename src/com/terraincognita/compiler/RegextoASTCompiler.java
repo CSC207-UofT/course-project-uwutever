@@ -6,7 +6,7 @@ import com.terraincognita.parser.ast.ASTNode;
 
 public class RegextoASTCompiler implements Compiler{
     private Lexer lexer;
-    private Parser parser;
+    private final Parser parser;
     private ASTNode ast;
 
     public RegextoASTCompiler(String regex){
@@ -21,5 +21,9 @@ public class RegextoASTCompiler implements Compiler{
             this.ast = this.parser.parse();
         }
         return this.ast;
+    }
+
+    public ASTNode getAST() {
+        return ast;
     }
 }

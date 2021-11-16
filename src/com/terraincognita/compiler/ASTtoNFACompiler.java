@@ -70,4 +70,8 @@ public class ASTtoNFACompiler implements Compiler{
 
         return nfa;
     }
+
+    public NFA getNFA() {
+        return nfa;
+    }
 }

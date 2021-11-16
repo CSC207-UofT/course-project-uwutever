@@ -8,6 +8,9 @@ import com.terraincognita.errors.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/** Builder class for NFA
+ * @author Man Chon (Brian) Ho
+ */
 public class NFABuilder implements FSABuilder {
     private NFA nfa;
     /**
