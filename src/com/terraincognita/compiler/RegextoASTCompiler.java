@@ -4,6 +4,11 @@ import com.terraincognita.lexer.Lexer;
 import com.terraincognita.parser.Parser;
 import com.terraincognita.parser.ast.ASTNode;
 
+/** Compiling AST from Lexer
+ * @author Brian Ho
+ * @author Kevin Gao
+ */
+
 public class RegextoASTCompiler implements Compiler{
     private Lexer lexer;
     private final Parser parser;

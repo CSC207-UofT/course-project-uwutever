@@ -5,11 +5,7 @@ import com.terraincognita.automata.dfa.*;
 import com.terraincognita.automata.states.NFAState;
 import com.terraincognita.compiler.*;
 import com.terraincognita.errors.NullStartStateException;
-import com.terraincognita.lexer.Lexer;
-import com.terraincognita.parser.Parser;
 import com.terraincognita.parser.ast.ASTNode;
-
-import java.util.Set;
 
 /** Demo for back-end for Phase 1
  * @author Arkaprava Choudhury

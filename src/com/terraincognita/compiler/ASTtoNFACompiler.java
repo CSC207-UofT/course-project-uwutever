@@ -3,6 +3,11 @@ package com.terraincognita.compiler;
 import com.terraincognita.parser.ast.*;
 import com.terraincognita.automata.nfa.*;
 
+/** Compiling NFA from AST
+ * @author Arkaprava Choudhury
+ * @author Brian Ho
+ */
+
 public class ASTtoNFACompiler implements Compiler{
 
     private final ASTNode ast;
