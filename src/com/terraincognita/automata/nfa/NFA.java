@@ -8,7 +8,7 @@ import java.util.*;
 
 /** Represents a NFA
  * @author Arkaprava Choudhury
- * @author Man Chon (Brian) Ho
+ * @author Brian Ho
  */
 public class NFA extends FSA<NFAState>{
 
@@ -44,6 +44,7 @@ public class NFA extends FSA<NFAState>{
         this.states = new HashMap<>();
         this.startState = null;
         this.endState = null;
+        this.alphabets = new HashSet<>();
         this.transitionTable = new HashMap<>();
     }
 
@@ -91,7 +92,11 @@ public class NFA extends FSA<NFAState>{
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
         if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
             String fromID = fromState.getId();
-            return this.transitionTable.get(fromID).get(alphabet);
+            if(this.transitionTable.get(fromID).get(alphabet) != null){
+                return this.transitionTable.get(fromID).get(alphabet);
+            } else{
+                return new HashSet<>();
+            }
         } else{
             throw new UnknownAlphabetException(alphabet);
         }
