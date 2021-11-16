@@ -182,4 +182,43 @@ public class NFA extends FSA<NFAState>{
         reached.add(state);
         return reached;
     }
+
+    /**
+     * NFA pretty print
+     */
+    public void prettyPrint(){
+        // print state ids
+        List<String> statesID = new ArrayList<>();
+        for(NFAState state : getStates()){
+            statesID.add(state.getId());
+        }
+        System.out.println("States: " + statesID);
+
+        // print start state id
+        System.out.println("Start State: " + getStartState().getId());
+
+        // print accepting state ID
+        List<String> acceptingStateID = new ArrayList<>();
+        for(NFAState state : getAcceptingStates()){
+            statesID.add(state.getId());
+        }
+        System.out.println("Accepting States: " + acceptingStateID);
+
+        // print alphabet
+        System.out.println("Alphabets: " + getAlphabets());
+
+        //print transition table
+        System.out.println("Transitions: ");
+        for(String fromID : this.transitionTable.keySet()){
+            System.out.println("From "+fromID);
+
+            for(String alphabet : this.transitionTable.get(fromID).keySet()){
+                List<String> toList = new ArrayList<>();
+                for(NFAState toState : this.transitionTable.get(fromID).get(alphabet)){
+                    toList.add(toState.getId());
+                }
+                System.out.println("\t" + alphabet + ": " + toList);
+            }
+        }
+    }
 }
