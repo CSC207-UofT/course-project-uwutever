@@ -8,6 +8,7 @@ as matching between text strings and  a regular expression, and visualization of
 
 Contributors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeung, Letian Cheng
 
+<<<<<<< HEAD
 ## Phase 1 instructions:
 
 #### Back-end
@@ -23,3 +24,4 @@ To see the back-end demo, please visit src/test/demo/DemoPhase1 and follow the i
 ![UI demo 4](reports/phase1/img/State4.png "State 4")
 
 Phase 2 plans: implementing pattern matching to meet specifications, and visualizing ASTs, FSAs in GUI.
+
