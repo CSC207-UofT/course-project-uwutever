@@ -57,8 +57,8 @@ public class NFA extends FSA<NFAState>{
     }
 
     @Override
-    public Collection<NFAState> getAcceptingStates() {
-        Set<NFAState> ret = new HashSet<>();
+    public List<NFAState> getAcceptingStates() {
+        List<NFAState> ret = new ArrayList<>();
         for(NFAState state: this.states.values()){
             if(state.isAccepting()){
                 ret.add(state);
@@ -92,7 +92,7 @@ public class NFA extends FSA<NFAState>{
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
         if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
             String fromID = fromState.getId();
-            if(this.transitionTable.get(fromID).get(alphabet) != null){
+            if(this.transitionTable.get(fromID).containsKey(alphabet)){
                 return this.transitionTable.get(fromID).get(alphabet);
             } else{
                 return new HashSet<>();
@@ -175,11 +175,11 @@ public class NFA extends FSA<NFAState>{
             NFAState top = stack.pop();
             if(!reached.contains(top)){
                 Set<NFAState> epsilonStates = delta(top, "epsilon");
-                reached.addAll(epsilonStates);
+                reached.add(top);
                 stack.addAll(epsilonStates);
             }
         }
-        reached.add(state);
+//        reached.add(state);
         return reached;
     }
 
@@ -200,7 +200,7 @@ public class NFA extends FSA<NFAState>{
         // print accepting state ID
         List<String> acceptingStateID = new ArrayList<>();
         for(NFAState state : getAcceptingStates()){
-            statesID.add(state.getId());
+            acceptingStateID.add(state.getId());
         }
         System.out.println("Accepting States: " + acceptingStateID);
 

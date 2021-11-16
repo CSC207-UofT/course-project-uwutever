@@ -1,5 +1,6 @@
 import com.terraincognita.automata.nfa.NFABuilder;
 import com.terraincognita.automata.nfa.NFAOperations;
+import com.terraincognita.automata.states.NFAState;
 
 public class TestNFAOperation {
     public static void main(String[] args) {
@@ -7,7 +8,6 @@ public class TestNFAOperation {
         nfaBuilder.reset();
         nfaBuilder.addState("1", true);
         nfaBuilder.setStartState("1");
-        nfaBuilder.setEndState("1");
 
         NFABuilder nfaBuilder1 = new NFABuilder();
         nfaBuilder1.reset();
