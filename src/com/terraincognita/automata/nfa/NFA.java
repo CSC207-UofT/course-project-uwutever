@@ -8,7 +8,7 @@ import java.util.*;
 
 /** Represents a NFA
  * @author Arkaprava Choudhury
- * @author Man Chon (Brian) Ho
+ * @author Brian Ho
  */
 public class NFA extends FSA<NFAState>{
 
