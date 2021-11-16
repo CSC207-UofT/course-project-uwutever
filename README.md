@@ -10,7 +10,7 @@ Contributors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeu
 
 ### UI Demo:
 
-![UI demo 1](img/State1.png "State 1")
-![UI demo 2](img/State2.png "State 2")
-![UI demo 3](img/State3.png "State 3")
-![UI demo 4](img/State4.png "State 4")
+![UI demo 1](reports/phase1/img/State1.png "State 1")
+![UI demo 2](reports/phase1/img/State2.png "State 2")
+![UI demo 3](reports/phase1/img/State3.png "State 3")
+![UI demo 4](reports/phase1/img/State4.png "State 4")
