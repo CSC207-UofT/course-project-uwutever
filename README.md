@@ -7,3 +7,10 @@ Our project aims to facilitate the teaching of regular expressions in computatio
 as matching between text strings and  a regular expression, and visualization of Finite State Automata (*FSA*).
 
 Contributors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeung, Letian Cheng
+
+### UI Demo:
+
+![UI demo 1](img/State1.png "State 1")
+![UI demo 2](img/State2.png "State 2")
+![UI demo 3](img/State3.png "State 3")
+![UI demo 4](img/State4.png "State 4")
