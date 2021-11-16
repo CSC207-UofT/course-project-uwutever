@@ -5,9 +5,13 @@ import com.terraincognita.automata.states.DFAState;
 import com.terraincognita.automata.states.NFAState;
 import com.terraincognita.errors.*;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/** Builder class for NFA
+ * @author Brian Ho
+ */
 public class NFABuilder implements FSABuilder {
     private NFA nfa;
     /**
@@ -67,6 +71,7 @@ public class NFABuilder implements FSABuilder {
         } else{
             NFAState newState = new NFAState(id, false);
             this.nfa.states.put(id, newState);
+            this.nfa.transitionTable.put(id, new HashMap<>());
         }
 
     }
@@ -85,6 +90,7 @@ public class NFABuilder implements FSABuilder {
         } else{
             NFAState newState = new NFAState(id, isAccepting);
             this.nfa.states.put(id, newState);
+            this.nfa.transitionTable.put(id, new HashMap<>());
         }
     }
 

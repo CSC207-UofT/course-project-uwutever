@@ -6,29 +6,59 @@ import com.terraincognita.errors.*;
 
 import java.util.*;
 
+/** Represents a NFA
+ * @author Arkaprava Choudhury
+ * @author Brian Ho
+ */
 public class NFA extends FSA<NFAState>{
+
+    /** Represents the set of all states in the NFA.
+     */
     protected Map<String, NFAState> states;
+
+    /** Represents the start state of the NFA.
+     */
     protected NFAState startState;
+
+    /** Represents the final state of the NFA.
+     * In our implementation, we always have a unique final state.
+     */
     protected NFAState endState;
+
+    /** Represents the alphabets which can have a transition to the final state.
+     * Any character (or string) not included in this set is not accepted.
+     */
     protected Set<String> alphabets;
+
+    /** Represents all the transitions in the NFA.
+     */
     protected Map<String, Map<String, Set<NFAState>>> transitionTable;
+
+    /** Represents the maximum among all IDs of states in the NFA.
+     */
     protected int maxCount;
 
+    /** Initializes an empty NFA with no states.
+     */
     public NFA(){
         this.states = new HashMap<>();
         this.startState = null;
         this.endState = null;
+        this.alphabets = new HashSet<>();
         this.transitionTable = new HashMap<>();
     }
 
+    /** Gets the start state of the NFA
+     * @return the initial state
+     */
     @Override
     public NFAState getStartState() {
         return this.startState;
     }
 
     @Override
-    public Collection<NFAState> getAcceptingStates() {
-        Set<NFAState> ret = new HashSet<>();
+    public List<NFAState> getAcceptingStates() {
+        List<NFAState> ret = new ArrayList<>();
         for(NFAState state: this.states.values()){
             if(state.isAccepting()){
                 ret.add(state);
@@ -52,11 +82,21 @@ public class NFA extends FSA<NFAState>{
         return this.alphabets;
     }
 
+    /**
+     *
+     * @param fromState the state where the transition starts
+     * @param alphabet the alphabet for the transition
+     * @return the set of possible
+     */
     @Override
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
         if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
             String fromID = fromState.getId();
-            return this.transitionTable.get(fromID).get(alphabet);
+            if(this.transitionTable.get(fromID).containsKey(alphabet)){
+                return this.transitionTable.get(fromID).get(alphabet);
+            } else{
+                return new HashSet<>();
+            }
         } else{
             throw new UnknownAlphabetException(alphabet);
         }
@@ -135,11 +175,50 @@ public class NFA extends FSA<NFAState>{
             NFAState top = stack.pop();
             if(!reached.contains(top)){
                 Set<NFAState> epsilonStates = delta(top, "epsilon");
-                reached.addAll(epsilonStates);
+                reached.add(top);
                 stack.addAll(epsilonStates);
             }
         }
-        reached.add(state);
+//        reached.add(state);
         return reached;
+    }
+
+    /**
+     * NFA pretty print
+     */
+    public void prettyPrint(){
+        // print state ids
+        List<String> statesID = new ArrayList<>();
+        for(NFAState state : getStates()){
+            statesID.add(state.getId());
+        }
+        System.out.println("States: " + statesID);
+
+        // print start state id
+        System.out.println("Start State: " + getStartState().getId());
+
+        // print accepting state ID
+        List<String> acceptingStateID = new ArrayList<>();
+        for(NFAState state : getAcceptingStates()){
+            acceptingStateID.add(state.getId());
+        }
+        System.out.println("Accepting States: " + acceptingStateID);
+
+        // print alphabet
+        System.out.println("Alphabets: " + getAlphabets());
+
+        //print transition table
+        System.out.println("Transitions: ");
+        for(String fromID : this.transitionTable.keySet()){
+            System.out.println("From "+fromID);
+
+            for(String alphabet : this.transitionTable.get(fromID).keySet()){
+                List<String> toList = new ArrayList<>();
+                for(NFAState toState : this.transitionTable.get(fromID).get(alphabet)){
+                    toList.add(toState.getId());
+                }
+                System.out.println("\t" + alphabet + ": " + toList);
+            }
+        }
     }
 }

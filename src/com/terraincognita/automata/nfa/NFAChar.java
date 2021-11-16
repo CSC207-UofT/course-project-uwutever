@@ -2,8 +2,11 @@ package com.terraincognita.automata.nfa;
 
 import java.util.*;
 
+/** Represents a NFA which accepts a single character, or alternatively, has a single sub-NFA to accept
+ */
 public class NFAChar extends NFAOperations{
-    public NFA build(String character, boolean terminating, Integer counter) {
+
+    public static NFA build(String character, boolean terminating, Integer counter) {
         NFABuilder nfaBuilder = new NFABuilder();
         nfaBuilder.reset();
 

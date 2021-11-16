@@ -42,6 +42,7 @@ public class NFAClosure extends NFAOperations {
         String id1 = counter.toString();
         nfaBuilder.addState(id1, terminating);
         nfaBuilder.setStartState(id1);
+        nfaBuilder.setEndState(id1);
         counter += 1;
 
         List<String> midNFAStartEnd = appendMidNFA(nfaBuilder, midNFA, counter);
