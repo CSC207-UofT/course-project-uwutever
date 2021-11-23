@@ -1,4 +1,4 @@
-package com.example.regex.db;
+package com.uwutever.RegexApp.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

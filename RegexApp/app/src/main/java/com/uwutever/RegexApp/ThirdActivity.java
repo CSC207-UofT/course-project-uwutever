@@ -1,4 +1,4 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,13 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.regex.db.RegexObj;
-
 /**
  * ThirdActivity: Show the result of the regex match.
- * 
- * @param RegexStr: The regex string.
- * @param SampleText: The sample text.
+ *
  * 
  * @author HanruiJerryFan, RealFakeAccount
  * @version 1.0

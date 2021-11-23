@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.regex"
+        applicationId "com.uwutever.RegexApp"
         minSdk 29
         targetSdk 31
         versionCode 1

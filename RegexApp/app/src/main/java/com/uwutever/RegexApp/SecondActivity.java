@@ -1,4 +1,4 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 /**
  * SecondActivity: Let user input a regular expression.
- * 
- * @param mMessageEditRegex: Regex of user input.
- * @param mMessageEditSample: Sample text of user input.
+ *
  * 
  * 
  * @author HanruiJerryFan, RealFakeAccount

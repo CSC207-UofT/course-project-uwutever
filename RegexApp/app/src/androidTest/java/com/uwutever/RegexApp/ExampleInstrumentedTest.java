@@ -1,4 +1,4 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import android.content.Context;
 

@@ -1,11 +1,11 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.regex.db.RegexObj;
+import com.uwutever.RegexApp.db.RegexObj;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 /**
  * RegexCardAdapter: returns a view for each item in the list
- * 
- * @param mInflater The LayoutInflater object that can be used to inflate any views in the adapter
- * @param List<RegexObj> A list of Regex object.
- * @param OnRegexClickListener An interface to respond to click events
+ *
  * 
  * @author HanruiJerryFan, RealFakeAccount
  * @version 1.0

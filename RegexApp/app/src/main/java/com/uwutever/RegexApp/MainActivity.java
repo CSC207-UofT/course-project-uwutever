@@ -1,8 +1,7 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -17,17 +16,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.regex.db.RegexObj;
+import com.uwutever.RegexApp.db.RegexObj;
 
 import java.util.List;
 
 /**
  * MainActivity
  * A main activity that displays a list of Regex objects.
- * 
- * @param List<RegexObj> A list of Regex object.
- * @param RecyclerView A recycler view that displays the list of Regex objects.
- * 
+ *
  *
  * @author HanruiJerryFan, RealFakeAccount
  * @version 1.0

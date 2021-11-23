@@ -1,4 +1,4 @@
-package com.example.regex.db;
+package com.uwutever.RegexApp.db;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -9,9 +9,7 @@ import java.util.List;
 
 /**
  * RegexRepository: A class that handles the database operations.
- * 
- * @param RegexDao: the DAO of database for RegexApp.
- * @param LiveData<List<Regex>>: the LiveData of the list of Regex.
+ *
  * 
  * @author HanruiJerryFan, RealFakeAccount
  * @version 1.0

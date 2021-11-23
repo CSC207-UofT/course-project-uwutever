@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.regex">
+    package="com.uwutever.RegexApp">
 
     <application
         android:allowBackup="true"
@@ -10,23 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Regex">
         <activity
-            android:name=".ThirdActivity"
+            android:name="com.uwutever.RegexApp.ThirdActivity"
             android:label="Your Result"
-            android:parentActivityName=".SecondActivity">
+            android:parentActivityName="com.uwutever.RegexApp.SecondActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.regex.SecondActivity" />
+                android:value="com.uwutever.RegexApp.SecondActivity" />
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name="com.uwutever.RegexApp.SecondActivity"
             android:label="Your Compiler"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.uwutever.RegexApp.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.regex.MainActivity" />
+                android:value="com.uwutever.RegexApp.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.uwutever.RegexApp.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

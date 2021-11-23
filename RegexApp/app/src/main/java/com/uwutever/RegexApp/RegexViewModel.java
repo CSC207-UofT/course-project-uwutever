@@ -1,20 +1,18 @@
-package com.example.regex;
+package com.uwutever.RegexApp;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.regex.db.RegexObj;
-import com.example.regex.db.RegexRepository;
+import com.uwutever.RegexApp.db.RegexObj;
+import com.uwutever.RegexApp.db.RegexRepository;
 
 import java.util.List;
 
 /**
  * AndroidViewModel for RegexApp.
- * @param mRepository Repository for RegexApp.
- * @param LiveData<List<RegexObj>> mAllRegexes LiveData of all Regexes.
- * 
+ *
  * @author HanruiJerryFan, RealFakeAccount
  * @version 1.0
  * @since 1.0
