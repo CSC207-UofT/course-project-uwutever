@@ -1,9 +1,9 @@
-package com.terraincognita.automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
-import com.terraincognita.automata.*;
-import com.terraincognita.automata.states.DFAState;
-import com.terraincognita.automata.states.NFAState;
-import com.terraincognita.errors.*;
+import com.uwutever.RegexApp.utils.automata.*;
+import com.uwutever.RegexApp.utils.automata.states.DFAState;
+import com.uwutever.RegexApp.utils.automata.states.NFAState;
+import com.uwutever.RegexApp.utils.errors.*;
 
 import java.util.HashMap;
 import java.util.HashSet;

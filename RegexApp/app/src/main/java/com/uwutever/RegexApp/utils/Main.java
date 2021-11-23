@@ -1,4 +1,4 @@
-package com.terraincognita;
+package com.uwutever.RegexApp.utils;
 
 import java.util.List;
 import java.util.Scanner;

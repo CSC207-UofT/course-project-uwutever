@@ -1,8 +1,8 @@
 package demo;
 
-import com.terraincognita.automata.nfa.*;
-import com.terraincognita.compiler.*;
-import com.terraincognita.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.automata.nfa.*;
+import com.uwutever.RegexApp.utils.compiler.*;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 /** Demo for back-end for Phase 1
  * @author Arkaprava Choudhury

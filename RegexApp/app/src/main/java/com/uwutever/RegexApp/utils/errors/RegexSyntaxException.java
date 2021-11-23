@@ -1,6 +1,6 @@
-package com.terraincognita.errors;
+package com.uwutever.RegexApp.utils.errors;
 
-import com.terraincognita.RegEx;
+import com.uwutever.RegexApp.utils.RegEx;
 
 public class RegexSyntaxException extends RegexException {
     public RegexSyntaxException(String source, int position) {

@@ -1,8 +1,8 @@
-package com.terraincognita.automata.dfa;
+package com.uwutever.RegexApp.utils.automata.dfa;
 
-import com.terraincognita.automata.FSA;
-import com.terraincognita.automata.states.DFAState;
-import com.terraincognita.errors.*;
+import com.uwutever.RegexApp.utils.automata.FSA;
+import com.uwutever.RegexApp.utils.automata.states.DFAState;
+import com.uwutever.RegexApp.utils.errors.*;
 
 import java.util.*;
 

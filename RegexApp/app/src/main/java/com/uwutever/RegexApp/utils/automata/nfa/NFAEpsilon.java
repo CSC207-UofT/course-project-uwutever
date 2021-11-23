@@ -1,4 +1,4 @@
-package com.terraincognita.automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
 
 public class NFAEpsilon extends NFA {

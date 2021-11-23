@@ -1,7 +1,7 @@
-package com.terraincognita;
+package com.uwutever.RegexApp.utils;
 
-import com.terraincognita.automata.nfa.NFA;
-import com.terraincognita.errors.RegexSyntaxException;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.errors.RegexSyntaxException;
 
 import java.util.List;
 

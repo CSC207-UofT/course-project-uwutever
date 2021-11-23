@@ -1,6 +1,6 @@
-import com.terraincognita.automata.dfa.DFABuilder;
-import com.terraincognita.errors.*;
-import com.terraincognita.lexer.*;
+import com.uwutever.RegexApp.utils.automata.dfa.DFABuilder;
+import com.uwutever.RegexApp.utils.errors.*;
+import com.uwutever.RegexApp.utils.lexer.*;
 
 import org.junit.After;
 import org.junit.Before;

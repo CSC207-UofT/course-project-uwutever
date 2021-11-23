@@ -1,8 +1,8 @@
-package com.terraincognita.automata;
+package com.uwutever.RegexApp.utils.automata;
 
-import com.terraincognita.automata.states.FSAState;
-import com.terraincognita.errors.NullStartStateException;
-import com.terraincognita.errors.UnknownAlphabetException;
+import com.uwutever.RegexApp.utils.automata.states.FSAState;
+import com.uwutever.RegexApp.utils.errors.NullStartStateException;
+import com.uwutever.RegexApp.utils.errors.UnknownAlphabetException;
 
 import java.util.Collection;
 

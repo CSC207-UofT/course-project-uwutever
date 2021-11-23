@@ -1,8 +1,8 @@
-package com.terraincognita;
+package com.uwutever.RegexApp.utils;
 
-import com.terraincognita.automata.dfa.DFA;
-import com.terraincognita.compiler.ASTtoNFACompiler;
-import com.terraincognita.compiler.RegextoASTCompiler;
+import com.uwutever.RegexApp.utils.automata.dfa.DFA;
+import com.uwutever.RegexApp.utils.compiler.ASTtoNFACompiler;
+import com.uwutever.RegexApp.utils.compiler.RegextoASTCompiler;
 
 public class CompiledRegEx {
     private DFA dfa;

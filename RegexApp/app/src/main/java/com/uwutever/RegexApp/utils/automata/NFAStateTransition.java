@@ -1,7 +1,7 @@
-package com.terraincognita.automata;
+package com.uwutever.RegexApp.utils.automata;
 
-import com.terraincognita.automata.states.NFAState;
-import com.terraincognita.errors.NotImplementedException;
+import com.uwutever.RegexApp.utils.automata.states.NFAState;
+import com.uwutever.RegexApp.utils.errors.NotImplementedException;
 
 import java.util.Collection;
 import java.util.HashMap;

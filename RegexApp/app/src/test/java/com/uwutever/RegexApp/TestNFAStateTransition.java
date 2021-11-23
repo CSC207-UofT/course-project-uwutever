@@ -1,4 +1,4 @@
-import com.terraincognita.lexer.*;
+import com.uwutever.RegexApp.utils.lexer.*;
 
 import org.junit.After;
 import org.junit.Before;

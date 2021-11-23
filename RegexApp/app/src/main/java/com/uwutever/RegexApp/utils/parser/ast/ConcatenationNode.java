@@ -1,6 +1,6 @@
-package com.terraincognita.parser.ast;
+package com.uwutever.RegexApp.utils.parser.ast;
 
-import com.terraincognita.lexer.Token;
+import com.uwutever.RegexApp.utils.lexer.Token;
 
 import java.util.ArrayList;
 

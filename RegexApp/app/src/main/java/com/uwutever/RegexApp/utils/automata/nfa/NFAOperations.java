@@ -1,6 +1,6 @@
-package com.terraincognita.automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
-import com.terraincognita.automata.states.NFAState;
+import com.uwutever.RegexApp.utils.automata.states.NFAState;
 
 import java.util.ArrayList;
 import java.util.List;

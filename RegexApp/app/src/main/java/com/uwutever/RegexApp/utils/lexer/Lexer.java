@@ -1,6 +1,6 @@
-package com.terraincognita.lexer;
+package com.uwutever.RegexApp.utils.lexer;
 
-import com.terraincognita.errors.RegexSyntaxException;
+import com.uwutever.RegexApp.utils.errors.RegexSyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;

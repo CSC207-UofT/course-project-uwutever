@@ -1,6 +1,8 @@
-import com.terraincognita.errors.RegexSyntaxException;
-import com.terraincognita.lexer.Lexer;
-import com.terraincognita.lexer.Token;
+package com.uwutever.RegexApp;
+
+import com.uwutever.RegexApp.utils.errors.RegexSyntaxException;
+import com.uwutever.RegexApp.utils.lexer.Lexer;
+import com.uwutever.RegexApp.utils.lexer.Token;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

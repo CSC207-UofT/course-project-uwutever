@@ -1,6 +1,6 @@
-package com.terraincognita.lexer;
+package com.uwutever.RegexApp.utils.lexer;
 
-import com.terraincognita.errors.NotImplementedException;
+import com.uwutever.RegexApp.utils.errors.NotImplementedException;
 
 import java.util.Arrays;
 import java.util.HashSet;

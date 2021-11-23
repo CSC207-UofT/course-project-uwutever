@@ -1,4 +1,4 @@
-package com.terraincognita.automata.states;
+package com.uwutever.RegexApp.utils.automata.states;
 
 import java.util.HashMap;
 import java.util.Map;

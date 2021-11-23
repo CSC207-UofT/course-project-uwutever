@@ -1,7 +1,7 @@
-package com.terraincognita.compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
-import com.terraincognita.parser.ast.*;
-import com.terraincognita.automata.nfa.*;
+import com.uwutever.RegexApp.utils.parser.ast.*;
+import com.uwutever.RegexApp.utils.automata.nfa.*;
 
 /** Compiling NFA from AST
  * @author Arkaprava Choudhury

@@ -1,8 +1,8 @@
-package com.terraincognita.compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
-import com.terraincognita.lexer.Lexer;
-import com.terraincognita.parser.Parser;
-import com.terraincognita.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.lexer.Lexer;
+import com.uwutever.RegexApp.utils.parser.Parser;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 /** Compiling AST from Lexer
  * @author Brian Ho

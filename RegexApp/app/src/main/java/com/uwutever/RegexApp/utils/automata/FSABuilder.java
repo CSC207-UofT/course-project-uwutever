@@ -1,5 +1,5 @@
-package com.terraincognita.automata;
-import com.terraincognita.errors.*;
+package com.uwutever.RegexApp.utils.automata;
+import com.uwutever.RegexApp.utils.errors.*;
 
 public interface FSABuilder{
     /**

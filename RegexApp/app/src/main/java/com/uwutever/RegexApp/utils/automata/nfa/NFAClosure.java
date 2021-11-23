@@ -1,4 +1,4 @@
-package com.terraincognita.automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-import com.terraincognita.automata.nfa.NFABuilder;
-import com.terraincognita.automata.nfa.NFAOperations;
-import com.terraincognita.automata.states.NFAState;
+import com.uwutever.RegexApp.utils.automata.nfa.NFABuilder;
+import com.uwutever.RegexApp.utils.automata.nfa.NFAOperations;
+import com.uwutever.RegexApp.utils.automata.states.NFAState;
 
 public class TestNFAOperation {
     public static void main(String[] args) {

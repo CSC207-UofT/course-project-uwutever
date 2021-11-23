@@ -1,5 +1,5 @@
-import com.terraincognita.automata.dfa.*;
-import com.terraincognita.automata.nfa.*;
+import com.uwutever.RegexApp.utils.automata.dfa.*;
+import com.uwutever.RegexApp.utils.automata.nfa.*;
 
 import org.junit.Before;
 import org.junit.Test;

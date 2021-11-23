@@ -1,6 +1,6 @@
-package com.terraincognita.errors;
+package com.uwutever.RegexApp.utils.errors;
 
-import com.terraincognita.RegEx;
+import com.uwutever.RegexApp.utils.RegEx;
 
 public abstract class RegexException extends RuntimeException {
     public RegexException(RegEx source, String message, int location) {

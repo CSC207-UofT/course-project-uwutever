@@ -1,5 +1,5 @@
-import com.terraincognita.automata.nfa.NFABuilder;
-import com.terraincognita.errors.*;
+import com.uwutever.RegexApp.utils.automata.nfa.NFABuilder;
+import com.uwutever.RegexApp.utils.errors.*;
 
 import org.junit.After;
 import org.junit.Before;

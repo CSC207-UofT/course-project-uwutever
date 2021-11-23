@@ -1,8 +1,8 @@
-package com.terraincognita.automata.dfa;
-import com.terraincognita.errors.*;
+package com.uwutever.RegexApp.utils.automata.dfa;
+import com.uwutever.RegexApp.utils.errors.*;
 
-import com.terraincognita.automata.FSABuilder;
-import com.terraincognita.automata.states.DFAState;
+import com.uwutever.RegexApp.utils.automata.FSABuilder;
+import com.uwutever.RegexApp.utils.automata.states.DFAState;
 
 public class DFABuilder implements FSABuilder {
     private DFA dfa;

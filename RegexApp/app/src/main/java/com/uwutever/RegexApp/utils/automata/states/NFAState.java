@@ -1,6 +1,6 @@
-package com.terraincognita.automata.states;
+package com.uwutever.RegexApp.utils.automata.states;
 
-import com.terraincognita.automata.NFAStateTransition;
+import com.uwutever.RegexApp.utils.automata.NFAStateTransition;
 
 public class NFAState implements FSAState {
     private final String id;

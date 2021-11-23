@@ -1,9 +1,9 @@
-package com.terraincognita.parser;
+package com.uwutever.RegexApp.utils.parser;
 
-import com.terraincognita.lexer.Token;
-import com.terraincognita.lexer.TokenType;
-import com.terraincognita.parser.ast.ASTNode;
-import com.terraincognita.parser.ast.CharNode;
+import com.uwutever.RegexApp.utils.lexer.Token;
+import com.uwutever.RegexApp.utils.lexer.TokenType;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.parser.ast.CharNode;
 
 import java.util.HashMap;
 import java.util.Hashtable;

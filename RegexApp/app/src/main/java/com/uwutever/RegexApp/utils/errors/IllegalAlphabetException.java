@@ -1,4 +1,4 @@
-package com.terraincognita.errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class IllegalAlphabetException extends IllegalArgumentException{
     public IllegalAlphabetException(String alphabet){

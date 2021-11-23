@@ -1,12 +1,12 @@
 package demo;
 
-import com.terraincognita.automata.nfa.NFA;
-import com.terraincognita.automata.states.NFAState;
-import com.terraincognita.compiler.ASTtoNFACompiler;
-import com.terraincognita.lexer.Lexer;
-import com.terraincognita.lexer.TokenType;
-import com.terraincognita.parser.Parser;
-import com.terraincognita.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.automata.states.NFAState;
+import com.uwutever.RegexApp.utils.compiler.ASTtoNFACompiler;
+import com.uwutever.RegexApp.utils.lexer.Lexer;
+import com.uwutever.RegexApp.utils.lexer.TokenType;
+import com.uwutever.RegexApp.utils.parser.Parser;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 import java.util.Set;
 
