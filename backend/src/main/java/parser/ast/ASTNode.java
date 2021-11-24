@@ -1,6 +1,5 @@
 package parser.ast;
 
-
 import lexer.Token;
 
 import java.util.ArrayList;
