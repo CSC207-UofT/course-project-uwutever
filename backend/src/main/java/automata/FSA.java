@@ -1,12 +1,11 @@
 package automata;
 
 import automata.states.FSAState;
-import errors.NullStartStateException;
 import errors.UnknownAlphabetException;
 
 import java.util.Collection;
 
-/** Abstract class repersenting a FSA
+/** Abstract class representing an FSA
  * @author Man Chon (Brian) Ho
  * @author Arkaprava Choudhury
  */
@@ -50,13 +49,13 @@ public abstract class FSA <T extends FSAState>{
      * @param alphabets a given string to run the FSA
      * @return the reached state(s)
      */
-    public abstract Object transitions(String alphabets) throws NullStartStateException;
+    public abstract Object transitions(T fromState, String alphabets);
 
     /**
      * Return whether the input string is accepted by the FSA
      * @param alphabets the string to be tested
      * @return whether the input string is accepted by the FSA
      */
-    public abstract boolean accept(String alphabets) throws NullStartStateException;
+    public abstract boolean accept(String alphabets);
 
 }

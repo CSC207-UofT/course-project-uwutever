@@ -75,7 +75,6 @@ public class DFA extends FSA<DFAState> {
      *
      * @param fromState the state where the transition starts
      * @param alphabet  the alphabet for the transition
-     * @throws UnknownAlphabetException if the alphabet is not in the alphabets set
      */
     @Override
     public DFAState delta(DFAState fromState, String alphabet) {
@@ -83,7 +82,8 @@ public class DFA extends FSA<DFAState> {
         if(this.alphabets.contains(alphabet)){
             return this.transitionTable.get(fromStateId).get(alphabet);
         } else{
-            throw new UnknownIdException(alphabet);
+            // return null if the alphabet is invalid
+            return null;
         }
     }
 
@@ -94,14 +94,15 @@ public class DFA extends FSA<DFAState> {
      * @return the reached state(s)
      */
     @Override
-    public DFAState transitions(String alphabets) throws NullStartStateException {
-        if(this.startState == null){
-            throw new NullStartStateException();
-        }
-
-        DFAState curr = this.startState;
+    public DFAState transitions(DFAState fromState, String alphabets){
+        DFAState curr = fromState;
         for(int i = 0; i < alphabets.length(); i++){
             curr = delta(curr, String.valueOf(alphabets.charAt(i)));
+
+            if(curr == null){
+                //return null if runs into a deadstate due to invalid alphabet
+                return null;
+            }
         }
         return curr;
     }
@@ -113,11 +114,11 @@ public class DFA extends FSA<DFAState> {
      * @return whether the input string is accepted by the FSA
      */
     @Override
-    public boolean accept(String alphabets) throws NullStartStateException {
-        try{
-            return transitions(alphabets).isAccepting();
-        } catch (UnknownAlphabetException e){
+    public boolean accept(String alphabets){
+        if (transitions(this.startState, alphabets) == null){
             return false;
+        } else{
+            return transitions(this.startState, alphabets).isAccepting();
         }
     }
 }

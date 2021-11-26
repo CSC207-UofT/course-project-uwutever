@@ -90,26 +90,19 @@ public class NFA extends FSA<NFAState> {
      */
     @Override
     public Set<NFAState> delta(NFAState fromState, String alphabet) {
-        if(this.alphabets.contains(alphabet) || alphabet.equals("epsilon")){
-            String fromID = fromState.getId();
-            if(this.transitionTable.get(fromID).containsKey(alphabet)){
-                return this.transitionTable.get(fromID).get(alphabet);
-            } else{
-                return new HashSet<>();
-            }
-        } else{
-            throw new UnknownAlphabetException(alphabet);
+        String fromID = fromState.getId();
+        if (this.transitionTable.get(fromID).containsKey(alphabet)) {
+            return this.transitionTable.get(fromID).get(alphabet);
+        } else {
+            // return an empty set if there is no transitions for this alphabet
+            return new HashSet<>();
         }
     }
 
     @Override
-    public Set<NFAState> transitions(String alphabets) throws NullStartStateException {
-        if(this.startState == null){
-            throw new NullStartStateException();
-        }
-
+    public Set<NFAState> transitions(NFAState from, String alphabets){
         // starts from the epsilon of startState
-        Set<NFAState> fromStates = new HashSet<>(epsilon(this.startState));
+        Set<NFAState> fromStates = new HashSet<>(epsilon(from));
 
         // traverse every char in alphabets
         for(int i = 0; i < alphabets.length(); i++){
@@ -147,12 +140,8 @@ public class NFA extends FSA<NFAState> {
     }
 
     @Override
-    public boolean accept(String alphabets) throws NullStartStateException {
-        if(this.startState == null){
-            throw new NullStartStateException();
-        }
-
-        for(NFAState state:transitions(alphabets)){
+    public boolean accept(String alphabets){
+        for(NFAState state:transitions(this.startState, alphabets)){
             if (state.isAccepting()){
                 return true;
             }
@@ -168,7 +157,7 @@ public class NFA extends FSA<NFAState> {
     public Set<NFAState> epsilon(NFAState state){
         Set<NFAState> reached = new HashSet<>();
 
-        //DFS search
+        //DFS
         Stack<NFAState> stack = new Stack<>();
         stack.add(state);
         while (!stack.isEmpty()){
@@ -179,7 +168,6 @@ public class NFA extends FSA<NFAState> {
                 stack.addAll(epsilonStates);
             }
         }
-//        reached.add(state);
         return reached;
     }
 
