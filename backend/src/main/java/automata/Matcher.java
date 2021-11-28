@@ -1,9 +1,5 @@
 package automata;
 
-import automata.dfa.DFA;
-import automata.nfa.NFA;
-import automata.states.NFAState;
-
 public class Matcher {
     /**
      * Return whether the given fsa accepts text

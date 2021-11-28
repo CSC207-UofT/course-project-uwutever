@@ -1,6 +1,5 @@
 package automata.dfa;
 import automata.FSABuilder;
-import automata.states.DFAState;
 
 public class DFABuilder implements FSABuilder {
     private DFA dfa;
@@ -65,7 +64,4 @@ public class DFABuilder implements FSABuilder {
         DFAState toState = this.dfa.states.get(toIndex);
         fromState.addTransition(alphabet, toState);
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package automata.states;
+package automata;
 
 public abstract class FSAState{
     /**

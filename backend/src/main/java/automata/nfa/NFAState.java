@@ -1,4 +1,6 @@
-package automata.states;
+package automata.nfa;
+
+import automata.FSAState;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +10,7 @@ import java.util.Set;
 public class NFAState extends FSAState {
 
     /** The transition table for this state */
-    public Map<String, Set<NFAState>> transitionTable;
+    protected Map<String, Set<NFAState>> transitionTable;
 
     /**
      * Constructor of NFAState

@@ -1,8 +1,6 @@
 package automata.nfa;
 
 import automata.FSA;
-import automata.states.NFAState;
-import errors.*;
 
 import java.util.*;
 

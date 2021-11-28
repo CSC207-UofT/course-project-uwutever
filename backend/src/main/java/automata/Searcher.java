@@ -1,9 +1,5 @@
 package automata;
 
-import automata.nfa.NFA;
-import automata.states.FSAState;
-import automata.states.NFAState;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,6 @@
 package automata.nfa;
 
 import automata.FSABuilder;
-import automata.states.NFAState;
-import errors.InvalidStateException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /** Builder class for NFA
  * @author Brian Ho

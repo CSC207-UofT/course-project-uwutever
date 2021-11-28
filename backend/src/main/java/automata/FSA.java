@@ -1,7 +1,5 @@
 package automata;
 
-import automata.states.FSAState;
-
 import java.util.Collection;
 
 /** Abstract class representing an FSA

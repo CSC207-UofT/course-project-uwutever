@@ -1,4 +1,6 @@
-package automata.states;
+package automata.dfa;
+
+import automata.FSAState;
 
 import java.util.HashMap;
 import java.util.Map;

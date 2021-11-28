@@ -1,7 +1,5 @@
 package automata;
 
-import java.util.List;
-
 public interface FSABuilder{
     /**
      * Reset the builder by created a new FSA with the given id

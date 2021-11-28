@@ -1,7 +1,6 @@
 package automata.dfa;
 
 import automata.FSA;
-import automata.states.DFAState;
 
 import java.util.*;
 
