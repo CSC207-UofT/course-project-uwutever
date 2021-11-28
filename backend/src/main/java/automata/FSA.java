@@ -1,6 +1,7 @@
 package automata;
 
 import java.util.Collection;
+import java.util.Map;
 
 /** Abstract class representing an FSA
  * @author (Brian) Ho
@@ -54,4 +55,9 @@ public abstract class FSA <T extends FSAState>{
      */
     public abstract boolean accept(String alphabets);
 
+    /**
+     * Get quintuple form
+     * @return a quintuple dataclass
+     */
+    public abstract Object getQuintuple();
 }

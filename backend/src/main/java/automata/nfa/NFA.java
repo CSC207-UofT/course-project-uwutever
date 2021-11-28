@@ -142,6 +142,14 @@ public class NFA extends FSA<NFAState> {
     }
 
     /**
+     * Get quintuple form
+     */
+    @Override
+    public NFAQuintuple getQuintuple() {
+        return new NFAQuintuple(this);
+    }
+
+    /**
      * NFA pretty print
      */
     public void prettyPrint(){

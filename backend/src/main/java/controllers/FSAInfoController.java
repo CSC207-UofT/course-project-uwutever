@@ -1,29 +1,26 @@
 package controllers;
 
-import automata.dfa.DFA;
-import automata.dfa.DFAQuintuple;
-import automata.nfa.NFA;
-import automata.nfa.NFAQuintuple;
+import compiler.RegexNFAPattern;
 import compiler.RegexPattern;
-
-import java.util.List;
 
 public class FSAInfoController {
     private final RegexPattern regexPattern;
 
-    public FSAInfoController(RegexPattern regexPattern){
+    public FSAInfoController(RegexNFAPattern regexPattern){
         this.regexPattern = regexPattern;
     }
 
-    public Object graph() {
-        if (this.regexPattern.getFSAType().equals("NFA")) {
-            return new NFAQuintuple((NFA) this.regexPattern.getFsa());
-        }
-        if(this.regexPattern.getFSAType().equals("DFA")){
-            return new DFAQuintuple((DFA) this.regexPattern.getFsa());
-        }
-        else{
-            throw new IllegalArgumentException("Unknown FSA type");
-        }
+    /**
+     * Return a quintuple object which contains 5 public attributes
+     * - states: Set<String>
+     * - alphabets: Set<String>
+     * - startState: String
+     * - acceptingStates: Set<String>
+     * - transitionTable: Map<String, Map<String, String or Set<String>>>
+     * You can get these attributes by using .[attribute name] as they are public
+     * @return a NFAQuintuple object or a DFAQuintuple object
+     */
+    public Object getInfo() {
+        return this.regexPattern.getFSA().getQuintuple();
     }
 }

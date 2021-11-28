@@ -96,4 +96,14 @@ public class DFA extends FSA<DFAState> {
     public boolean accept(String alphabets){
         return this.acceptingStates.contains(this.transitions(this.startState, alphabets));
     }
+
+    /**
+     * Get quintuple form
+     *
+     * @return a quintuple dataclass
+     */
+    @Override
+    public Object getQuintuple() {
+        return new DFAQuintuple(this);
+    }
 }

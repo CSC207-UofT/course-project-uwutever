@@ -1,17 +1,17 @@
 package controllers;
 
 import automata.Searcher;
-import compiler.RegexPattern;
+import compiler.RegexNFAPattern;
 
 import java.util.List;
 
 public class SearchController {
-    private final RegexPattern regexPattern;
+    private final RegexNFAPattern regexPattern;
 
-    public SearchController(RegexPattern regexPattern){
+    public SearchController(RegexNFAPattern regexPattern){
         this.regexPattern = regexPattern;
     }
     public List<List<Integer>> search(String text){
-        return Searcher.search(this.regexPattern.getFsa(), text);
+        return Searcher.search(this.regexPattern.getFSA(), text);
     }
 }

@@ -11,6 +11,6 @@ public class MatchController {
     }
 
     public boolean match(String text){
-        return Matcher.match(this.regexPattern.getFsa(), text);
+        return Matcher.match(this.regexPattern.getFSA(), text);
     }
 }
