@@ -1,38 +1,39 @@
 package automata.states;
 
-public class DFAState implements FSAState {
-    private final String id;
-    private boolean isAccepting;
+import java.util.HashMap;
+import java.util.Map;
+
+public class DFAState extends FSAState {
+
+    /** The transition table for this state */
+    protected Map<String, DFAState> transitionTable;
 
     /**
      * Constructor of DFAState
      */
-    public DFAState(String id, boolean isAccepting){
-        this.id = id;
-        this.isAccepting = isAccepting;
+    public DFAState(){
+        this.transitionTable = new HashMap<>();
     }
 
     /**
-     * Getter method of id
-     */
-    public String getId(){
-        return this.id;
-    }
-
-    /**
-     * Setter method of isAccepting
-     */
-    public void setAccepting(boolean isAccepting){
-        this.isAccepting = isAccepting;
-    }
-
-    /**
-     * Return whether the state is an accepting state
+     * Return the output state of the delta function with the given alphabet
+     * Return null if there is no transitions for the given alphabet
      *
-     * @return whether the state is an accepting state
+     * @param alphabet the alphabet for the transition
+     * @return the output of the delta function
      */
     @Override
-    public boolean isAccepting() {
-        return this.isAccepting;
+    public DFAState delta(String alphabet){
+        return this.transitionTable.get(alphabet);
+    }
+
+    /**
+     * Add a transition to this FSAState
+     *
+     * @param alphabet the alphabet for the transition
+     * @param toState the to-state of the transition
+     */
+    public void addTransition(String alphabet, DFAState toState) {
+        this.transitionTable.put(alphabet, toState);
     }
 }

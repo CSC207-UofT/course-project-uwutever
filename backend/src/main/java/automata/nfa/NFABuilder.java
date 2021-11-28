@@ -2,21 +2,21 @@ package automata.nfa;
 
 import automata.FSABuilder;
 import automata.states.NFAState;
-import errors.*;
+import errors.InvalidStateException;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Builder class for NFA
  * @author Brian Ho
  */
 public class NFABuilder implements FSABuilder {
     private NFA nfa;
+
     /**
      * Get the NFA from the builder
      */
-    public NFA getResult(){
+    public NFA getResult() {
         return this.nfa;
     }
 
@@ -29,105 +29,141 @@ public class NFABuilder implements FSABuilder {
     }
 
     /**
-     * Set the start state of the FSA by id
+     * Set the start state of the FSA by index
      *
-     * @param id the id of the start state
-     * @throws UnknownIdException if the given ID is not in the FSA
+     * @param index the id of the start state
      */
     @Override
-    public void setStartState(String id) {
-        if(this.nfa.states.containsKey(id)){
-            this.nfa.startState = this.nfa.states.get(id);
-        }else {
-            throw new UnknownIdException(id);
-        }
+    public void setStartState(int index) {
+        this.nfa.startState = this.nfa.states.get(index);
     }
 
     /**
-     * Set the end state of the NFA by id
+     * Set a state in the FSA to be accepting
+     * In our implementation, the NFA has only ONE accepting state
+     * <p>
+     * To represent an NFA with multiple accepting states, use epsilon transition to transition
+     * all the accepting states to one accepting state.
      *
-     * @param id the id of the end state
-     * @throws UnknownIdException if the given ID is not in the NFA
+     * @param index the index of the state
      */
-    public void setEndState(String id){
-        if(this.nfa.states.containsKey(id)){
-            this.nfa.endState = this.nfa.states.get(id);
-        }else {
-            throw new UnknownIdException(id);
-        }
+    @Override
+    public void setAcceptingState(int index) {
+        this.nfa.endState = this.nfa.states.get(index);
     }
 
     /**
-     * Add a state to the FSA with a given id
-     *
-     * @param id the id of the state
-     * @throws OccupiedIdException if the ID is already occupied in the FSA
+     * Add a new state to the FSA
+     * @return a map with one key-value pair. The key is the index and the value is the state object
      */
     @Override
-    public void addState(String id) {
-        if(this.nfa.states.containsKey(id)){
-            throw new OccupiedIdException(id);
-        } else{
-            NFAState newState = new NFAState(id, false);
-            this.nfa.states.put(id, newState);
-            this.nfa.transitionTable.put(id, new HashMap<>());
-        }
+    public int addNewState() {
+        NFAState newState = new NFAState();
+        this.nfa.states.add(newState);
 
-    }
-
-    /**
-     * Add a state to the FSA while indicating whether it is an accepting state
-     *
-     * @param id          the id of the state
-     * @param isAccepting whether the state is an accepting state
-     * @throws OccupiedIdException if the ID is already occupied in the FSA
-     */
-    @Override
-    public void addState(String id, boolean isAccepting) {
-        if(this.nfa.states.containsKey(id)){
-            throw new OccupiedIdException(id);
-        } else{
-            NFAState newState = new NFAState(id, isAccepting);
-            this.nfa.states.put(id, newState);
-            this.nfa.transitionTable.put(id, new HashMap<>());
-        }
+        return this.nfa.states.indexOf(newState);
     }
 
     /**
      * Add a transition to the FSA
+     * Add the alphabet to the alphabet set if the alphabet is new
      *
-     * @param fromId   the ID of the start of the transition
-     * @param alphabet the alphabet of the transition
-     * @param toId     the ID of the end of the transition
-     * @throws UnknownIdException if either fromId or toId is not in the FSA
-     * @throws IllegalAlphabetException if the given alphabet is illegal
+     * @param fromIndex the ID of the start of the transition
+     * @param alphabet  the alphabet of the transition
+     * @param toIndex   the ID of the end of the transition
      */
     @Override
-    public void addTransition(String fromId, String alphabet, String toId) {
-        if(!this.nfa.states.containsKey(fromId)){
-            throw new UnknownIdException(fromId);
-        }
-
-        if(!this.nfa.states.containsKey(toId)){
-            throw new UnknownIdException(toId);
-        }
-
-        if(!alphabet.equals("epsilon") && alphabet.length() > 1){
-            throw new IllegalAlphabetException(alphabet);
-        }
-
-        if(!alphabet.equals("epsilon")){
-            this.nfa.alphabets.add(alphabet);
-        }
-
-        NFAState toState = nfa.states.get(toId);
-
-        if(this.nfa.transitionTable.get(fromId).containsKey(alphabet)){
-            this.nfa.transitionTable.get(fromId).get(alphabet).add(toState);
-        } else{
-            Set<NFAState> newToStates = new HashSet<>();
-            newToStates.add(toState);
-            this.nfa.transitionTable.get(fromId).put(alphabet, newToStates);
-        }
+    public void addTransition(int fromIndex, String alphabet, int toIndex) {
+        this.nfa.alphabets.add(alphabet);
+        NFAState fromState = this.nfa.states.get(fromIndex);
+        NFAState toState = this.nfa.states.get(toIndex);
+        fromState.addTransition(alphabet, toState);
     }
+
+    /**
+     * Overload addTransition method
+     * Allow adding transition from the given index state to another NFA
+     *
+     * Add the states of the NFA to this.nfa state list if it is not present
+     * The transition relationship of the NFA should remain unchanged
+     *
+     * @param fromIndex the given index for the transition
+     * @param alphabet the alphabet for the transition
+     * @param addNFA the NFA to be added in this.NFA
+     */
+    public void addTransition(int fromIndex, String alphabet, NFA addNFA){
+        this.nfa.alphabets.add(alphabet);
+
+        NFAState fromState = this.nfa.states.get(fromIndex);
+
+        // add the states of addNFA to this nfa if not present
+        for(NFAState state: addNFA.states){
+            if (!this.nfa.states.contains(state)){
+                this.nfa.states.add(state);
+            }
+        }
+
+        fromState.addTransition(alphabet, addNFA.startState);
+    }
+
+    /**
+     * Overload addTransition method
+     * Allow adding transition from the given index state to another NFA
+     *
+     * Add the states of the NFA to this.nfa state list if it is not present
+     * The transition relationship of the NFA should remain unchanged
+     *
+     * @param toIndex the index of the end state of the transition
+     * @param alphabet the alphabet for the transition
+     * @param addNFA the NFA to be added in this.NFA
+     */
+    public void addTransition(NFA addNFA, String alphabet, int toIndex){
+        this.nfa.alphabets.add(alphabet);
+        this.nfa.alphabets.addAll(addNFA.alphabets);
+
+        NFAState toState = this.nfa.states.get(toIndex);
+
+        // add the states of addNFA to this nfa if not present
+        for(NFAState state: addNFA.states){
+            if (!this.nfa.states.contains(state)){
+                this.nfa.states.add(state);
+            }
+        }
+
+        addNFA.endState.addTransition(alphabet, toState);
+    }
+
+    /**
+     * Overload addTransition method
+     * Allow adding transition from the given index state to another NFA
+     *
+     * Add the states of the NFA to this.nfa state list if it is not present
+     * The transition relationship of the NFA should remain unchanged
+     *
+     * @param addNFA1 the first NFA to be added in this.nfa
+     * @param alphabet the alphabet for the transition
+     * @param addNFA2 the second NFA to be added in this.NFA
+     */
+    public void addTransition(NFA addNFA1, String alphabet, NFA addNFA2){
+        this.nfa.alphabets.add(alphabet);
+        this.nfa.alphabets.addAll(addNFA1.alphabets);
+        this.nfa.alphabets.addAll(addNFA2.alphabets);
+
+        // add the states of addNFA1 to this nfa if not present
+        for(NFAState state: addNFA1.states){
+            if (!this.nfa.states.contains(state)){
+                this.nfa.states.add(state);
+            }
+        }
+
+        // add the states of addNFA2 to this nfa if not present
+        for(NFAState state: addNFA2.states){
+            if (!this.nfa.states.contains(state)){
+                this.nfa.states.add(state);
+            }
+        }
+
+        addNFA1.endState.addTransition(alphabet, addNFA2.startState);
+    }
+
 }

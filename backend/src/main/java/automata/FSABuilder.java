@@ -1,6 +1,6 @@
 package automata;
 
-import errors.*;
+import java.util.List;
 
 public interface FSABuilder{
     /**
@@ -10,32 +10,28 @@ public interface FSABuilder{
 
     /**
      * Set the start state of the FSA by index
-     * @param id the id of the start state
-     * @throws UnknownIdException if the given ID is not in the FSA
+     * @param index the id of the start state
      */
-    void setStartState(String id);
+    void setStartState(int index);
 
     /**
-     * Add a state to the FSA with a given id
-     * @param id the id of the state
-     * @throws OccupiedIdException if the ID is already occupied in the FSA
+     * Set a state in the FSA to be accepting
+     * @param index the index of the state
      */
-    void addState(String id);
+    void setAcceptingState(int index);
 
     /**
-     * Add a state to the FSA while indicating whether it is an accepting state
-     * @param id the id of the state
-     * @param isAccepting whether the state is an accepting state
-     * @throws OccupiedIdException if the ID is already occupied in the FSA
+     * Add a new state to the FSA
+     * @return the index of the addedState
      */
-    void addState(String id, boolean isAccepting);
+    int addNewState();
 
     /**
      * Add a transition to the FSA
-     * @param fromId the ID of the start of the transition
+     * Add the alphabet to the alphabet set if the alphabet is new
+     * @param fromIndex the ID of the start of the transition
      * @param alphabet the alphabet of the transition
-     * @param toId the ID of the end of the transition
-     * @throws UnknownIdException if either fromId or toId is not in the FSA
+     * @param toIndex the ID of the end of the transition
      */
-    void addTransition(String fromId, String alphabet, String toId);
+    void addTransition(int fromIndex, String alphabet, int toIndex);
 }

@@ -1,4 +1,4 @@
-package api;
+package controllers;
 
 import automata.Searcher;
 import compiler.RegexPattern;

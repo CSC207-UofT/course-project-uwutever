@@ -36,8 +36,8 @@ public abstract class ASTNode {
             return alt;
         }
         else if (operator.getValue() == '.') {
-            ASTNode left = operandStack.pop();
             ASTNode right = operandStack.pop();
+            ASTNode left = operandStack.pop();
             ConcatenationNode concat = new ConcatenationNode(left, right);
             concat.children.add(concat.left);
             concat.children.add(concat.right);

@@ -1,6 +1,5 @@
-package api;
+package controllers;
 
-import automata.Matcher;
 import automata.Searcher;
 import compiler.RegexPattern;
 

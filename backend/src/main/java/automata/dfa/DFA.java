@@ -2,24 +2,25 @@ package automata.dfa;
 
 import automata.FSA;
 import automata.states.DFAState;
-import errors.*;
 
 import java.util.*;
 
 public class DFA extends FSA<DFAState> {
-    protected Map<String, DFAState> states;
-    protected DFAState startState;
+    protected List<DFAState> states;
     protected Set<String> alphabets;
-    protected Map<String, Map<String, DFAState>> transitionTable;
+    protected DFAState startState;
+    protected Set<DFAState> acceptingStates;
+    protected DFAState deadState;
 
     /**
      * Constructor DFA
      */
     public DFA(){
-        this.states = new HashMap<>();
+        this.states = new ArrayList<>();
         this.startState = null;
         this.alphabets = new HashSet<>();
-        this.transitionTable = new HashMap<>();
+        this.acceptingStates = new HashSet<>();
+        this.deadState = null;
     }
 
     /**
@@ -35,30 +36,15 @@ public class DFA extends FSA<DFAState> {
      */
     @Override
     public Set<DFAState> getAcceptingStates() {
-        Set<DFAState> acceptingStates = new HashSet<>();
-
-        for(DFAState state: this.states.values()){
-            if(state.isAccepting()){
-                acceptingStates.add(state);
-            }
-        }
-        return acceptingStates;
+        return this.acceptingStates;
     }
 
     /**
      * Return the set of states of the FSA
      */
     @Override
-    public Collection<DFAState> getStates() {
-        return this.states.values();
-    }
-
-    /**
-     * Return the set of IDs of states of the FSA
-     */
-    @Override
-    public Collection<String> getStatesID() {
-        return this.states.keySet();
+    public List<DFAState> getStates() {
+        return this.states;
     }
 
     /**
@@ -78,12 +64,11 @@ public class DFA extends FSA<DFAState> {
      */
     @Override
     public DFAState delta(DFAState fromState, String alphabet) {
-        String fromStateId = fromState.getId();
-        if(this.alphabets.contains(alphabet)){
-            return this.transitionTable.get(fromStateId).get(alphabet);
+        if (fromState.delta(alphabet) != null){
+            return fromState.delta(alphabet);
         } else{
-            // return null if the alphabet is invalid
-            return null;
+            // return the dead state if the alphabet is invalid
+            return this.deadState;
         }
     }
 
@@ -97,12 +82,7 @@ public class DFA extends FSA<DFAState> {
     public DFAState transitions(DFAState fromState, String alphabets){
         DFAState curr = fromState;
         for(int i = 0; i < alphabets.length(); i++){
-            curr = delta(curr, String.valueOf(alphabets.charAt(i)));
-
-            if(curr == null){
-                //return null if runs into a deadstate due to invalid alphabet
-                return null;
-            }
+            curr = this.delta(curr, String.valueOf(alphabets.charAt(i)));
         }
         return curr;
     }
@@ -115,10 +95,6 @@ public class DFA extends FSA<DFAState> {
      */
     @Override
     public boolean accept(String alphabets){
-        if (transitions(this.startState, alphabets) == null){
-            return false;
-        } else{
-            return transitions(this.startState, alphabets).isAccepting();
-        }
+        return this.acceptingStates.contains(this.transitions(this.startState, alphabets));
     }
 }

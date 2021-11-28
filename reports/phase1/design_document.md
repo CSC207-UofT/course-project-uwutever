@@ -55,7 +55,7 @@ interface, which is a high level module of the actual SQL database.
 ## Clean Architecture
 ![UI UML Diagram](img/UI_UML_diagram.png "UI UML Diagram")
 
-This is a UML diagram for our user interface design. It can be seen that the UI controller (`MainActivity`, `SecondActivity`,
+This is a UML diagram for our user interface design. It can be seen that the UI controllers (`MainActivity`, `SecondActivity`,
 and `ThirdActivity`) controls the view of the viewmodel (./layout). Furthermore, the viewmodel depends on `Repository` 
 (`RegexRepository`) for data. `Repository`'s then use database packages (db) to get local data, 
 since we don’t need to get data from the internet for now. In Database, we got a DAO (`RegexDao`) in charge of the 

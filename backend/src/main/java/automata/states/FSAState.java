@@ -1,10 +1,11 @@
 package automata.states;
 
-public interface FSAState{
-
+public abstract class FSAState{
     /**
-     * Return whether the state is an accepting state
-     * @return whether the state is an accepting state
+     * Return the output of the delta function with the given alphabet
+     * Return null if there is no transition for the given alphabet
+     *
+     * @return the output of the delta function
      */
-    boolean isAccepting();
+    public abstract Object delta(String alphabet);
 }
