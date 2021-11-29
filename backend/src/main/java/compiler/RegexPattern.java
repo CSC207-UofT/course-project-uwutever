@@ -2,7 +2,9 @@ package compiler;
 
 import automata.FSA;
 
+import java.util.Map;
+
 public interface RegexPattern {
     String getRegexStr();
-    <T extends FSA> T getFSA();
+    Map<String, Object> getFSAQuintuple();
 }

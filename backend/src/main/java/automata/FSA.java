@@ -54,10 +54,4 @@ public abstract class FSA <T extends FSAState>{
      * @return whether the input string is accepted by the FSA
      */
     public abstract boolean accept(String alphabets);
-
-    /**
-     * Get quintuple form
-     * @return a quintuple dataclass
-     */
-    public abstract Object getQuintuple();
 }
