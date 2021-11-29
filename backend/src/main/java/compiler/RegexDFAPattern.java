@@ -15,7 +15,7 @@ public class RegexDFAPattern implements RegexPattern{
         ASTNode parsedAST = new RegextoASTCompiler(regexStr).compile();
         NFA nfa = new ASTtoNFACompiler(parsedAST).compile();
 
-        this.dfa = NFAtoDFAConverter.convert(nfa);
+        this.dfa = new NFAtoDFAConverter(nfa).convert();
     }
 
     public String getRegexStr() {

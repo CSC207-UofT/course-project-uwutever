@@ -1,13 +1,18 @@
 package controllers;
 
+import compiler.RegexDFAPattern;
 import compiler.RegexNFAPattern;
 import compiler.RegexPattern;
 
 public class FSAInfoController {
     private final RegexPattern regexPattern;
 
-    public FSAInfoController(RegexNFAPattern regexPattern){
-        this.regexPattern = regexPattern;
+    public FSAInfoController(String regexString, boolean compileDFA){
+        if(compileDFA){
+            this.regexPattern = new RegexDFAPattern(regexString);
+        } else{
+            this.regexPattern = new RegexNFAPattern(regexString);
+        }
     }
 
     /**
