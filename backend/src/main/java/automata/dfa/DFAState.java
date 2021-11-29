@@ -38,4 +38,5 @@ public class DFAState extends FSAState {
     public void addTransition(String alphabet, DFAState toState) {
         this.transitionTable.put(alphabet, toState);
     }
+
 }

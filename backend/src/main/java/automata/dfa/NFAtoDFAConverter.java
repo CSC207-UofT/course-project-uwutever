@@ -34,6 +34,7 @@ public class NFAtoDFAConverter {
 
         addSubsetState(dfaBuilder, orderedStates); //add states for each subset
 
+        dfaBuilder.setDeadState(0);
         dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState()), orderedStates));
         //set start state as epsilon of the nfa start state
 

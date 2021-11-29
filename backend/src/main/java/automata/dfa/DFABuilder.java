@@ -64,4 +64,13 @@ public class DFABuilder implements FSABuilder {
         DFAState toState = this.dfa.states.get(toIndex);
         fromState.addTransition(alphabet, toState);
     }
+
+    /**
+     * Set the dead state of the DFA
+     *
+     * @param index the index of the dead state
+     */
+    public void setDeadState(int index){
+        this.dfa.deadState = this.dfa.states.get(index);
+    }
 }
