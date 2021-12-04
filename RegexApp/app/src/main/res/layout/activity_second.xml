@@ -20,6 +20,7 @@
             android:id="@+id/editText_Language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lines="14"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -36,6 +37,7 @@
         android:id="@+id/editText_Regex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lines="14"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
