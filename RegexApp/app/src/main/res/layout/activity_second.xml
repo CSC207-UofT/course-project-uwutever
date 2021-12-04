@@ -12,15 +12,15 @@
         android:id="@+id/filledTextField_Language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:hint="@string/editText_Language"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_Language"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="14" />
+            android:layout_height="match_parent"
+            android:lines="7" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -28,24 +28,25 @@
         android:id="@+id/filledTextField_Regex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:hint="@string/editText_Regex"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_Regex"
-            android:layout_width="605dp"
-            android:layout_height="wrap_content"
-            android:lines="14" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lines="3" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
         android:id="@+id/compile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:onClick="launchThirdActivity"
-        android:text="@string/Compile" />
+        android:text="@string/Compile"
+        android:textSize="17sp" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>
