@@ -9,27 +9,37 @@
     tools:context=".SecondActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editText_Language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/editText_Language">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="256dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <EditText
-        android:id="@+id/editText_Regex"
+        android:id="@+id/filledTextField_Language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:ems="10"
-        android:inputType="textLongMessage"
+        android:hint="@string/editText_Language"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_Language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField_Regex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:hint="@string/editText_Regex"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="261dp" />
+        app:endIconMode="clear_text">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editText_Regex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/compile"
