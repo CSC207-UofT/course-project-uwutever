@@ -21,16 +21,29 @@ public class RegexRepository {
     private LiveData<List<RegexObj>> mAllRegex;
 
     public RegexRepository(Application application) {
+       /*
+       * The constructor of the class.
+       * @param application: The application context.
+       */
        RegexRoomDatabase db = RegexRoomDatabase.getDatabase(application);
        mRegexDao = db.RegexDao();
        mAllRegex = mRegexDao.getAllRegex();
     }
 
     public LiveData<List<RegexObj>> getAllRegex() {
+       /*
+         * Get all the regexes in the database.
+         * @return a list of regexes.
+       */
        return mAllRegex;
     }
 
     public void insert (RegexObj regex) {
+       /*
+         * Insert a new regex into the database.
+         * @param regex: The regex to be inserted.
+         * @return void
+         */
        new insertAsyncTask(mRegexDao).execute(regex);
     }
 
@@ -39,6 +52,10 @@ public class RegexRepository {
        private RegexDao mAsyncTaskDao;
 
        insertAsyncTask(RegexDao dao) {
+          /*
+            * The constructor of the class.
+            * @param dao: The dao to be used.
+         */
            mAsyncTaskDao = dao;
        }
 

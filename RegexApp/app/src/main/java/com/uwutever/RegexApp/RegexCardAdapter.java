@@ -33,12 +33,23 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
     @NonNull
     @Override
     public RegexViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        /* 
+        * Inflate the layout for each item in the list 
+        * @param parent: the parent view
+        * @param viewType: the view type
+        * @return: the view holder
+        */
         View itemView = mInflater.inflate(R.layout.recyclerview_regex, parent, false);
         return new RegexViewHolder(itemView, mOnRegexListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RegexViewHolder holder, int position) {
+        /* 
+        * Get the current RegexObj 
+        * @param holder: the view holder
+        * @param position: the position of the current item
+        */
         if (mRegexObjs != null) {
             RegexObj currentRegex = mRegexObjs.get(position);
             holder.RegexItemView.setText(currentRegex.getRegex());
@@ -48,6 +59,11 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
     }
 
     List<RegexObj> setRegexObjs(List<RegexObj> RegexObjs){
+        /*
+        * Set the list of RegexObjs
+        * @param RegexObjs: the list of RegexObjs
+        * @return: the list of RegexObjs 
+        */
         mRegexObjs = RegexObjs;
         notifyDataSetChanged();
         return RegexObjs;
@@ -55,12 +71,19 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
 
     @Override
     public int getItemCount() {
+        /*
+        * Get the size of the list of RegexObjs
+        * @return: the size of the list of RegexObjs 
+        */
         if (mRegexObjs != null)
             return mRegexObjs.size();
         else return 0;
     }
 
     class RegexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        /*
+        * ViewHolder for each item in the list
+        */
         private final TextView RegexItemView;
         OnRegexListener onRegexListener;
 
@@ -74,6 +97,9 @@ class RegexCardAdapter extends RecyclerView.Adapter<RegexCardAdapter.RegexViewHo
 
         @Override
         public void onClick(View v) {
+            /*
+            * When an item is clicked, call the onRegexListener
+            */
             onRegexListener.onRegexClick(getAdapterPosition());
         }
     }

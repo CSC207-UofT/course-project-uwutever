@@ -24,6 +24,9 @@ public abstract class RegexRoomDatabase extends RoomDatabase {
    private static RegexRoomDatabase INSTANCE;
 
    static RegexRoomDatabase getDatabase(final Context context) {
+       /*
+        *  The database is created in a separate thread to avoid blocking the UI.
+        */
        if (INSTANCE == null) {
            synchronized (RegexRoomDatabase.class) {
                if (INSTANCE == null) {
@@ -51,6 +54,9 @@ public abstract class RegexRoomDatabase extends RoomDatabase {
    };
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+        /**
+         * The RegexDao to insert the Regex objects into the database.
+         */
 
         private final RegexDao mDao;
         String[] RegexObjs = {"[0,1]*", "sample*"}; // example

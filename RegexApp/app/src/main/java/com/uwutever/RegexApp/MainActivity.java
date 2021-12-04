@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* This is the first method that is called when the activity is created.
+         * It is used to initialize the activity.
+         * @param savedInstanceState
+         * @return void
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -60,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /* This method is called when the user returns from the NewRegexActivity.
+         * It is used to update the list of Regex objects.
+         * @param requestCode
+         * @param resultCode
+         * @param data
+         * @return void
+         */
         super.onActivityResult(requestCode, resultCode, data);
 
         boolean no_duplicated_regex = true;
@@ -89,12 +101,22 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
     }
 
     public void launchSecondActivity(View view) {
+        /* This method is called when the user clicks the "New Regex" button.
+         * It is used to launch the NewRegexActivity.
+         * @param view
+         * @return void
+         */
         Intent intent = new Intent(this, SecondActivity.class);
         startActivityForResult(intent, NEW_REGEX_ACTIVITY_REQUEST_CODE);
     }
 
     @Override
     public void onRegexClick(int position) {
+        /* This method is called when the user clicks on a Regex object.
+         * It is used to launch the ThirdActivity.
+         * @param position
+         * @return void
+         */
         Log.d(TAG,"clicked " + position);
 
         Intent intent = new Intent(this, SecondActivity.class);

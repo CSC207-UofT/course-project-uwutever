@@ -29,8 +29,20 @@ public class RegexViewModel extends AndroidViewModel {
         mAllRegex = mRepository.getAllRegex();
     }
 
-    public LiveData<List<RegexObj>> getAllRegex() { return mAllRegex; }
+    public LiveData<List<RegexObj>> getAllRegex() {
+        /*
+        * This is a method that returns a LiveData object.
+        * This LiveData object is a list of all the RegexObj objects in the database.
+        */
+        return mAllRegex; 
+    }
 
-    public void insert(RegexObj insert_regex) { mRepository.insert(insert_regex); }
+    public void insert(RegexObj insert_regex) { 
+        /*
+        * This is a method that inserts a RegexObj object into the database.
+        * @param insert_regex is the RegexObj object to be inserted. 
+        */
+        mRepository.insert(insert_regex); 
+    }
 
 }
