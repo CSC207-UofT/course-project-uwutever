@@ -6,6 +6,10 @@ import compiler.RegexPattern;
 
 import java.util.Map;
 
+/**
+ * This class construct a regexPattern
+ * and users are able to get the quintuple form of the FSA by the getInfo method
+ */
 public class FSAInfoController {
     private final RegexPattern regexPattern;
 
@@ -24,8 +28,7 @@ public class FSAInfoController {
      * - startState: String
      * - acceptingStates: Set<String>
      * - transitionTable: Map<String, Map<String, String or Set<String>>>
-     * You can get these attributes by using .[attribute name] as they are public
-     * @return a NFAQuintuple object or a DFAQuintuple object
+     * @return a Map with 5 objects with keys "states", "alphabets", "start state", "accepting state" and "transitions"
      */
     public Map<String, Object> getInfo() {
         return this.regexPattern.getFSAQuintuple();

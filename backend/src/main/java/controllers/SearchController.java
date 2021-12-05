@@ -7,6 +7,10 @@ import compiler.RegexPattern;
 
 import java.util.List;
 
+/**
+ * This class construct a regexPattern
+ * and perform searching with a given test string
+ */
 public class SearchController {
     private final RegexPattern regexPattern;
 

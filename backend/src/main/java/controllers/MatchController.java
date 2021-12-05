@@ -5,6 +5,10 @@ import compiler.RegexDFAPattern;
 import compiler.RegexNFAPattern;
 import compiler.RegexPattern;
 
+/**
+ * This class construct a regexPattern
+ * and perform matching with a given test string
+ */
 public class MatchController {
     private final RegexPattern regexPattern;
 
