@@ -1,5 +1,3 @@
-package demo;
-
 import automata.nfa.NFA;
 import compiler.ASTtoNFACompiler;
 import compiler.RegextoASTCompiler;
@@ -14,10 +12,11 @@ public class DemoPhase1 {
         // Valid operators:
         // - Union |
         // - Zero or more *
-        // - One ore more +
+        // - One or more +
 
-        demo("(a|b)cd*", "acd");
+        demo("(a*)", "");
     }
+
 
     public static void demo(String regex, String demo){
         ASTNode parsedAST = new RegextoASTCompiler(regex).compile();

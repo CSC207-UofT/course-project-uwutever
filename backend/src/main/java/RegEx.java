@@ -1,11 +1,12 @@
 import automata.nfa.NFA;
+import compiler.RegexNFAPattern;
 import errors.RegexSyntaxException;
 
 import java.util.List;
 
 public class RegEx {
     private String regexString;
-    private CompiledRegEx compiledRegEx;
+    private RegexNFAPattern compiledRegEx;
     private NFA parsedNFA;
 
     public RegEx(String pattern) {
