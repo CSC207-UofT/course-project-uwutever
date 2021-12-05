@@ -2,7 +2,6 @@ package compiler;
 
 
 import automata.nfa.NFA;
-import automata.nfa.NFAChar;
 import automata.nfa.*;
 import parser.ast.ASTNode;
 import parser.ast.CharNode;
@@ -17,69 +16,67 @@ public class ASTtoNFACompiler implements Compiler{
     private final ASTNode ast;
     private NFA nfa;
 
-    //    Construct a NFA from a corresponding AST
+    /**
+     * Construct a NFA from a corresponding AST
+     */
+
     public ASTtoNFACompiler(ASTNode T) {
         this.ast = T;
     }
 
+    /**
+     * Compile the ast to an NFA
+     * @return
+     */
     @Override
     public NFA compile(){
         if(this.nfa == null){
-            this.nfa = constructNFA(this.ast, true, 1);
+            this.nfa = constructNFA(this.ast);
         }
         return this.nfa;
     }
 
-    public NFA constructNFA(ASTNode T, boolean terminating, Integer counter) {
+    /**
+     * Helper method of the compile method
+     * @param T The AST to be constructed into NFA
+     * @return the NFA constructed
+     */
+    public NFA constructNFA(ASTNode T) {
         NFA nfa = new NFA();
 
         if (T.operator == null) {
             CharNode node = (CharNode) T;
-            nfa = NFAChar.build(Character.toString(node.getLiteral()), true, counter);
+            nfa = new NFABasicChar().singleAlphabet(Character.toString(node.getLiteral()));
             return nfa;
         }
 
         if (T.operator.getValue() == '|') {
-            NFA midnfa1 = constructNFA(T.left, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = constructNFA(T.right, false, counter);
-            counter = midnfa2.getMaxCount() + 1;
+            NFA midnfa1 = constructNFA(T.left);
+            NFA midnfa2 = constructNFA(T.right);
 
-            nfa = NFAUnion.build(midnfa1, midnfa2, terminating, counter);
+            nfa = new NFABasicOperation().union(midnfa1, midnfa2);
         }
         else if (T.operator.getValue() == '.') {
-            NFA midnfa1 = constructNFA(T.left, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
-            NFA midnfa2 = constructNFA(T.right, false, counter);
-            counter = midnfa2.getMaxCount() + 1;
+            NFA midnfa1 = constructNFA(T.left);
+            NFA midnfa2 = constructNFA(T.right);
 
-            nfa = NFAConcat.build(midnfa2, midnfa1, terminating, counter);
+            nfa = new NFABasicOperation().concatenation(midnfa1, midnfa2);
         }
         else if (T.operator.getValue() == '*') {
-            NFA midnfa1 = constructNFA(T.exp, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
+            NFA midnfa1 = constructNFA(T.exp);
 
-            nfa = NFAClosure.build(midnfa1, terminating, counter);
+            nfa = new NFABasicOperation().kleeneStar(midnfa1);
         }
         else if (T.operator.getValue() == '+') {
-            NFA midnfa1 = constructNFA(T.exp, false, counter);
-            counter = midnfa1.getMaxCount() + 1;
+            NFA midnfa1 = constructNFA(T.exp);
 
-            NFA midnfa2 = NFAClosure.build(midnfa1, false, counter);
-            counter = midnfa2.getMaxCount() + 1;
-
-            nfa = NFAConcat.build(midnfa1, midnfa2, terminating, counter);
+            nfa = new NFAExtendOperation().OneOrMore(midnfa1);
         }
         else if (T.operator.getValue() == '?') {
-            NFA midNFA = constructNFA(T.exp, false, counter);
-            counter = midNFA.getMaxCount() + 1;
-            nfa = NFAZeroOrOne.build(midNFA, terminating, counter);
+            NFA midNFA = constructNFA(T.exp);
+            nfa = new NFAExtendOperation().ZeroOrOne(midNFA);
         }
 
-        return nfa;
-    }
-
-    public NFA getNFA() {
         return nfa;
     }
 }

@@ -1,7 +1,5 @@
 package automata.dfa;
 import automata.FSABuilder;
-import automata.states.DFAState;
-import errors.*;
 
 public class DFABuilder implements FSABuilder {
     private DFA dfa;
@@ -23,75 +21,56 @@ public class DFABuilder implements FSABuilder {
     }
 
     /**
-     * Set the start state of the FSA by id.
+     * Set the start state of the FSA by index
      *
-     * @param id the id of the start state
-     * @throws UnknownIdException if the given id is not in FSA
+     * @param index the id of the start state
      */
     @Override
-    public void setStartState(String id) {
-        if(this.dfa.states.containsKey(id)){
-            this.dfa.startState = this.dfa.states.get(id);
-        }else {
-            throw new UnknownIdException(id);
-        }
+    public void setStartState(int index) {
+        this.dfa.startState = this.dfa.states.get(index);
     }
 
     /**
-     * Add a state to the DFA with a given id
-     * @param id the id of the state
-     * @throws OccupiedIdException if the ID is already occupied in the DFA
+     * Set a state in the FSA to be accepting
+     *
+     * @param index the index of the state
      */
     @Override
-    public void addState(String id) {
-        if(this.dfa.states.containsKey(id)){
-            throw new OccupiedIdException(id);
-        } else{
-            DFAState newState = new DFAState(id, false);
-            this.dfa.states.put(id, newState);
-        }
+    public void setAcceptingState(int index) {
+        this.dfa.acceptingStates.add(this.dfa.states.get(index));
     }
 
     /**
-     * Add a state to the DFA while indicating whether it is an accepting state
-     * @param id the id of the state
-     * @param isAccepting whether the state is an accepting state
-     * @throws OccupiedIdException if the ID is already occupied in the DFA
+     * Add a new state to the FSA
      */
     @Override
-    public void addState(String id, boolean isAccepting) {
-        if(this.dfa.states.containsKey(id)){
-            throw new OccupiedIdException(id);
-        } else{
-            DFAState newState = new DFAState(id, false);
-            this.dfa.states.put(id, newState);
-        }
+    public int addNewState() {
+        DFAState newState = new DFAState();
+        this.dfa.states.add(newState);
+        return this.dfa.states.indexOf(newState);
     }
 
     /**
      * Add a transition to the FSA
-     * @param fromId the ID of the start of the transition
-     * @param alphabet the alphabet of the transition
-     * @param toId the ID of the end of the transition
-     * @throws UnknownIdException if either fromId or toId is not in the FSA
-     * @throws IllegalAlphabetException if the given alphabet is illegal
+     * Add the alphabet to the alphabet set if the alphabet is new
+     *
+     * @param fromIndex the index of the start of the transition
+     * @param alphabet  the alphabet of the transition
+     * @param toIndex   the index of the end of the transition
      */
     @Override
-    public void addTransition(String fromId, String alphabet, String toId) {
-        if(!this.dfa.states.containsKey(fromId)){
-            throw new UnknownIdException(fromId);
-        }
+    public void addTransition(int fromIndex, String alphabet, int toIndex) {
+        DFAState fromState = this.dfa.states.get(fromIndex);
+        DFAState toState = this.dfa.states.get(toIndex);
+        fromState.addTransition(alphabet, toState);
+    }
 
-        if(!this.dfa.states.containsKey(toId)){
-            throw new UnknownIdException(toId);
-        }
-
-        if(alphabet.length() > 1){
-            throw new IllegalAlphabetException(alphabet);
-        }
-
-        DFAState toState = this.dfa.states.get(toId);
-        this.dfa.alphabets.add(alphabet);
-        this.dfa.transitionTable.get(fromId).put(alphabet, toState);
+    /**
+     * Set the dead state of the DFA
+     *
+     * @param index the index of the dead state
+     */
+    public void setDeadState(int index){
+        this.dfa.deadState = this.dfa.states.get(index);
     }
 }
