@@ -1,15 +1,12 @@
 import automata.dfa.DFABuilder;
-import errors.*;
+import automata.dfa.DFAState;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
-
-/*
+/**
 These unit tests serve to test the NFABuilder class which implements the FSABuilder interface.
 We don't test reset(), getResult()
  */
@@ -21,41 +18,38 @@ public class TestDFABuilder {
     public void setUp() throws Exception {
         dfaBuilder = new DFABuilder();
         dfaBuilder.reset();
-        dfaBuilder.addState("1");
     }
 
     @Test
-    public void testNFABuilderAddState() {
-        dfaBuilder.addState("2");
-        assert dfaBuilder.getResult().getStatesID().contains("2");
+    public void testDFABuilderAddState() {
+        int index = dfaBuilder.addNewState();
+        assert dfaBuilder.getResult().getStates().get(index) != null;
     }
 
     @Test
-    public void testNFABuilderAddStateException() {
-        try {
-            dfaBuilder.addState("1");
-        } catch (OccupiedIdException e) {
-            assertEquals("The ID (1) is occupied in the FSA", e.getMessage());
-        }
+    public void testDFABuilderSetStartState() {
+        int index = dfaBuilder.addNewState();
+        dfaBuilder.setStartState(index);
+        assertEquals(dfaBuilder.getResult().getStartState(), dfaBuilder.getResult().getStates().get(index));
     }
 
     @Test
-    public void testNFABuilderSetStartState() {
-        dfaBuilder.setStartState("1");
-        assertEquals("1", dfaBuilder.getResult().getStartState().getId());
+    public void testDFABuilderSetAcceptingState(){
+        int index = dfaBuilder.addNewState();
+        dfaBuilder.setAcceptingState(index);
+        DFAState expectedAcceptingState = dfaBuilder.getResult().getStates().get(index);
+        assert dfaBuilder.getResult().getAcceptingStates().contains(expectedAcceptingState);
     }
 
     @Test
-    public void testNFABuilderSetStartStateException() {
-        try {
-            dfaBuilder.setStartState("2");
-        } catch (UnknownIdException e) {
-            assertEquals("The ID (2) is unknown to the FSA", e.getMessage());
-        }
-    }
+    public void testDFABuilderAddTransition(){
+        int s0 = dfaBuilder.addNewState();
+        int s1 = dfaBuilder.addNewState();
+        dfaBuilder.addTransition(s0, "a", s1);
 
-    @After
-    public void throwDown() throws Exception {
+        DFAState fromState = dfaBuilder.getResult().getStates().get(s0);
+        DFAState expectedToState = dfaBuilder.getResult().getStates().get(s1);
 
+        assertEquals(expectedToState, dfaBuilder.getResult().delta(fromState, "a"));
     }
 }
