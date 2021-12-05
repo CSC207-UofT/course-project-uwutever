@@ -13,6 +13,11 @@ public class RegexDFAPattern implements RegexPattern{
     private final String regexStr;
     private final DFA dfa;
 
+    /**
+     * Constructor of the class
+     * Construct the object by giving a regex pattern string
+     * @param regexStr the given regex pattern string
+     */
     public RegexDFAPattern(String regexStr){
         this.regexStr = regexStr;
 
@@ -22,8 +27,14 @@ public class RegexDFAPattern implements RegexPattern{
         this.dfa = new NFAtoDFAConverter(nfa).convert();
     }
 
+    @Override
     public String getRegexStr() {
         return regexStr;
+    }
+
+    @Override
+    public DFA getFSA(){
+        return this.dfa;
     }
 
     @Override

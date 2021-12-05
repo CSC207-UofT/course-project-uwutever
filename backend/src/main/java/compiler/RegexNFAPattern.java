@@ -11,6 +11,11 @@ public class RegexNFAPattern implements RegexPattern{
     private final String regexStr;
     private final NFA nfa;
 
+    /**
+     * Constructor of the class
+     * Construct the object by giving a regex pattern string
+     * @param regexStr the given regex pattern string
+     */
     public RegexNFAPattern(String regexStr){
         this.regexStr = regexStr;
 
@@ -18,8 +23,14 @@ public class RegexNFAPattern implements RegexPattern{
         this.nfa = new ASTtoNFACompiler(parsedAST).compile();
     }
 
+    @Override
     public String getRegexStr() {
         return regexStr;
+    }
+
+    @Override
+    public NFA getFSA(){
+        return this.nfa;
     }
 
     @Override
