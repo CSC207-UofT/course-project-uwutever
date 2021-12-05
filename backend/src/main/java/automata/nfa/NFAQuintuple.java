@@ -2,6 +2,11 @@ package automata.nfa;
 
 import java.util.*;
 
+/**
+ * This class converts a DFA from a graph form into a quintuple representation
+ * - Each State is represented by a unique String
+ * - Each Transition is represented in a nested map
+ */
 public class NFAQuintuple {
     public Set<String> states;
     public Set<String> alphabets;
@@ -9,6 +14,11 @@ public class NFAQuintuple {
     public Set<String> acceptingStates;
     public Map<String, Map<String, Set<String>>> transitionTable;
 
+    /**
+     * Constructor of the class
+     * Convert the input NFA into quintuple form directly
+     * @param nfa the NFA to be converted into Quintuple form
+     */
     public NFAQuintuple(NFA nfa){
         setStates(nfa);
         this.alphabets = nfa.getAlphabets();
@@ -17,21 +27,36 @@ public class NFAQuintuple {
         setTransitionTable(nfa);
     }
 
-    public void setStates(NFA nfa) {
+    /**
+     * Helper method of the constructor
+     * Set the states as Strings of int from 0 to n-1
+     * @param nfa the NFA to be converted into Quintuple form
+     */
+    private void setStates(NFA nfa) {
         this.states = new HashSet<>();
         for(int i = 0; i < nfa.states.size(); i++){
             this.states.add(String.valueOf(i));
         }
     }
 
-    public void setAcceptingStates(NFA nfa){
+    /**
+     * Helper method of the Constructor
+     * Set the accepting State as the index of the NFA accepting state indexes
+     * @param nfa the NFA to be converted into Quintuple form
+     */
+    private void setAcceptingStates(NFA nfa){
         this.acceptingStates = new HashSet<>();
         for (NFAState state : nfa.getAcceptingStates()){
             this.acceptingStates.add(String.valueOf(nfa.states.indexOf(state)));
         }
     }
 
-    public void setTransitionTable(NFA nfa){
+    /**
+     * Helper method of the Constructor
+     * Set the Transition Table to the corresponding nested map of Strings
+     * @param nfa the NFA to be converted into Quintuple form
+     */
+    private void setTransitionTable(NFA nfa){
         this.transitionTable = new HashMap<>();
 
         // loop over all the nfa state
