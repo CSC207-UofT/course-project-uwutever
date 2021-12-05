@@ -14,4 +14,8 @@
     <string name="navigation_drawer_open">Open the Navigation Drawer</string>
     <string name="navigation_drawer_close">Close the Navigation Drawer</string>
     <string name="AddRegex">Add a new Regex</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_help">Help Document</string>
+
+
 </resources>
