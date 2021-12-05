@@ -15,12 +15,21 @@ public class RegextoASTCompiler implements Compiler{
     private final Parser parser;
     private ASTNode ast;
 
+    /**
+     * Constructor of the class
+     * Construct a RegextoASTCompiler object with a given regex pattern string
+     * @param regex a regex patter string
+     */
     public RegextoASTCompiler(String regex){
         Lexer lexer = new Lexer(regex);
         lexer.tokenize();
         this.parser = new Parser(lexer.getTokens(), null);
     }
 
+    /**
+     * Compile the ast in the class
+     * @return an ast for the regex pattern in the class
+     */
     @Override
     public ASTNode compile() {
         if(this.ast == null){
@@ -29,6 +38,10 @@ public class RegextoASTCompiler implements Compiler{
         return this.ast;
     }
 
+    /**
+     * Getter method of the ast
+     * @return the ast in the class
+     */
     public ASTNode getAST() {
         return ast;
     }

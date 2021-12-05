@@ -1,41 +1,49 @@
 package automata.dfa;
 
 import automata.nfa.NFA;
-import automata.states.DFAState;
-import automata.states.NFAState;
+import automata.dfa.DFAState;
+import automata.nfa.NFAState;
 
 import java.util.*;
 
 public class NFAtoDFAConverter {
+    private NFA nfa;
+
+    public NFAtoDFAConverter(NFA nfa){
+        this.nfa = nfa;
+    }
+
     /**
      * Return the equivalent DFA of this.nfa using power set construction
      * 1. Get an ordered list of states of the NFA
      * 2. Add a state for every subset of the NFA
-     * 3. Get the new start state
-     * 4. Draw the transition between the subsets
+     * 3. Set the new start state
+     * 4. Set the new accepting state
+     * 5. Draw the transition between the subsets
      *
-     * DFA ID policy:
-     * The return DFA has states which IDs are Binary Strings from 00...0 to 11...1 (same length as NFA.states)
-     * The DFA State ID represents which NFA states are included in the subset
-     * For instance if the char at position i in the ID is 1, then NFAStates[i] is included in this DFA state
-     * (NFAStates is the ordered list obtained from step 1)
+     * The index of the DFAState, when converted into binary represent which NFAState is in the subset.
+     * For instance, dfa.state.get(0) is the empty set state (dead state)
      *
-     * @param nfa the NFA to be converted to DFA
      * @return an equivalent DFA
      */
-    public static DFA convert(NFA nfa) {
+    public DFA convert() {
         DFABuilder dfaBuilder = new DFABuilder();
+        dfaBuilder.reset();
 
         List<NFAState> orderedStates = new ArrayList<>(nfa.getStates()); //get the ordered states list of the NFA
 
         addSubsetState(dfaBuilder, orderedStates); //add states for each subset
 
+        dfaBuilder.setDeadState(0);
         dfaBuilder.setStartState(getDFAStateId(nfa.epsilon(nfa.getStartState()), orderedStates));
         //set start state as epsilon of the nfa start state
 
-        Set<String> alphabets = new HashSet<>(nfa.getAlphabets());
-        alphabets.remove("epsilon"); // remove epsilon in case it is in the alphabets
+        setAcceptingState(dfaBuilder, this.nfa, orderedStates); // set new accepting state
+
+        Set<String> alphabets = new HashSet<>(nfa.getAlphabets()); // set new alphabets
         alphabets.remove("");// remove the empty string in case it is in the alphabets
+        alphabets.remove("epsilon"); // remove epsilon in case it is in the alphabets
+
         addDFATransitions(dfaBuilder, alphabets, nfa, orderedStates); // draw the new transitions
 
         return dfaBuilder.getResult();
@@ -43,13 +51,13 @@ public class NFAtoDFAConverter {
 
     /**
      * Helper method of convert
-     * Given a set of NFAState, return the corresponding state id in NFA
+     * Given a set of NFAStates, return the corresponding state index in DFA
      *
      * @param NFASubsetStates a power set of NFA.states
      * @param orderedStates a list of NFAStates of the original NFA
      * @return the corresponding Binary String id of that power set in the DFA
      */
-    private static String getDFAStateId(Collection<NFAState> NFASubsetStates, List<NFAState> orderedStates){
+    private int getDFAStateId(Collection<NFAState> NFASubsetStates, List<NFAState> orderedStates){
         StringBuilder id = new StringBuilder();
 
         for(NFAState state:orderedStates){
@@ -60,21 +68,26 @@ public class NFAtoDFAConverter {
             }
         }
 
-        return id.toString();
+        return Integer.parseInt(id.toString(), 2);
     }
 
     /**
      * Helper method of convert
-     * Given a binary string DFAState id, return the corresponding subset of NFAStates
+     * Given an integer DFAState index, return the corresponding subset of NFAStates
      *
      * @param DFAStateId a binary string of DFAState id
      * @param orderedStates a list of NFAStates of the original NFA
      * @return a subset of nfa.states
      */
-    private static Set<NFAState> getNFAStateSubset(String DFAStateId, List<NFAState> orderedStates){
+    private static Set<NFAState> getNFAStateSubset(int DFAStateId, List<NFAState> orderedStates){
+        StringBuilder binaryIndex = new StringBuilder(Integer.toBinaryString(DFAStateId));
+        while(binaryIndex.length() != orderedStates.size()){
+            binaryIndex.insert(0, 0);
+        }
+
         Set<NFAState> ret = new HashSet<>();
-        for(int i = 0; i < DFAStateId.length(); i++){
-            if (DFAStateId.charAt(i)=='1'){
+        for(int i = 0; i < binaryIndex.length(); i++){
+            if (binaryIndex.charAt(i) == '1'){
                 ret.add(orderedStates.get(i));
             }
         }
@@ -89,56 +102,43 @@ public class NFAtoDFAConverter {
      * @param dfaBuilder the builder instance in convert
      * @param orderedStates an ordered list of NFA.states
      */
-    private static void addSubsetState(DFABuilder dfaBuilder, List<NFAState> orderedStates) {
+    private void addSubsetState(DFABuilder dfaBuilder, List<NFAState> orderedStates) {
         int n = orderedStates.size();
         for (int i = 0; i < Math.pow(2, n); i++) {
-            StringBuilder StateId = new StringBuilder(Integer.toBinaryString(i));
-
-            // add 0 in front if the id string is too short
-            while(StateId.length() < n){
-                StateId.insert(0, "0");
-            }
-
-            // add state to DFA with the binary string id and accepting status
-            dfaBuilder.addState(StateId.toString(), isAcceptingState(StateId.toString(), orderedStates));
+            dfaBuilder.addNewState();
         }
     }
 
     /**
-     * Helper method of addSubsetState
-     * Given a Binary String DFA state id indicating which states in the NFA are present
+     * Helper method of convert
+     * Set the accepting state in the resulting DFA after subset construction
+     *
+     * @param dfaBuilder the dfaBuilder instance
+     * @param nfa the nfa instance
+     */
+    private void setAcceptingState(DFABuilder dfaBuilder, NFA nfa, List<NFAState> orderedStates){
+        for (int i = 0; i < Math.pow(2, orderedStates.size()); i++){
+            if(isAcceptingState(i, nfa, orderedStates)){
+                dfaBuilder.setAcceptingState(i);
+            }
+        }
+    }
+
+    /**
+     * Helper method of convert
+     * Given an int DFA state index indicating which states in the NFA are present
      * return whether the state is accepting in the DFA
      *
-     * @param statusString a binary string representing which DFA state is present
-     * @param orderedStates a list of NFAStates
+     * @param stateIndex a binary string representing which DFA state is present
+     * @param nfa the nfa instance
      * @return whether the state is an accepting state in the DFA
      */
-    private static boolean isAcceptingState(String statusString, List<NFAState> orderedStates){
-        List<Integer> acceptingPos = getAcceptingPosition(orderedStates);
-        for(int pos: acceptingPos){
-            if(statusString.charAt(pos)=='1'){
-                return true;
-            }
-        }
-        return false;
-    }
+    private boolean isAcceptingState(int stateIndex, NFA nfa, List<NFAState> orderedStates){
+        Set<NFAState> nfaStateSet = getNFAStateSubset(stateIndex, orderedStates);
+        Set<NFAState> intersection = new HashSet<>(nfaStateSet);
+        intersection.removeAll(nfa.getAcceptingStates());
 
-    /**
-     * Helper method of isAcceptingState
-     * Given an order list of NFAStates, return a list of index of the accepting states
-     *
-     * @param orderedStates a list of NFAStates
-     * @return the indexes of the accepting states in orderedStates
-     */
-    private static List<Integer> getAcceptingPosition(List<NFAState> orderedStates){
-        List<Integer> acceptingPos = new ArrayList<>();
-
-        for (int i = 0; i < orderedStates.size(); i++){
-            if(orderedStates.get(i).isAccepting()){
-                acceptingPos.add(i);
-            }
-        }
-        return acceptingPos;
+        return !intersection.isEmpty();
     }
 
     /**
@@ -150,13 +150,13 @@ public class NFAtoDFAConverter {
      * @param nfa the nfa given in the convert function
      * @param orderedStates a list of NFAStates of the original NFA
      */
-    private static void addDFATransitions(DFABuilder dfaBuilder, Set<String> alphabets,
+    private void addDFATransitions(DFABuilder dfaBuilder, Set<String> alphabets,
                                           NFA nfa, List<NFAState> orderedStates){
-        for(DFAState state: dfaBuilder.getResult().getStates()){
+        for(int i = 0; i < Math.pow(2, orderedStates.size()); i++){
             for(String alphabet: alphabets){
                 // get the transition states with a fixed DFA state and alphabet
-                String toID = getTransitionOut(state, alphabet, nfa, orderedStates);
-                dfaBuilder.addTransition(state.getId(), alphabet, toID);
+                int toIndex = getTransitionOut(i, alphabet, nfa, orderedStates);
+                dfaBuilder.addTransition(i, alphabet, toIndex);
             }
         }
     }
@@ -165,18 +165,16 @@ public class NFAtoDFAConverter {
      * Helper method of addDFATransitions
      * Return the expected id of the delta function output state with a given DFAState and alphabet
      *
-     * @param dfaState the input DFAState of the transition
+     * @param fromIndex the input DFAState index of the transition
      * @param alphabet the alphabet of the transition
      * @param orderedStates a list of NFAStates of the original NFA
      * @return the id of output state of delta(dfaState, alphabet) transition
      */
-    private static String getTransitionOut(DFAState dfaState, String alphabet,
+    private int getTransitionOut(int fromIndex, String alphabet,
                                            NFA nfa, List<NFAState> orderedStates){
         Set<NFAState> transitToStates = new HashSet<>();
-        for (NFAState fromNfaState : getNFAStateSubset(dfaState.getId(), orderedStates)){
-            for (NFAState ToNfaState : nfa.delta(fromNfaState, alphabet)){
-                transitToStates.addAll(nfa.epsilon(ToNfaState));
-            }
+        for (NFAState fromNfaState : getNFAStateSubset(fromIndex, orderedStates)){
+            transitToStates.addAll(nfa.transitions(fromNfaState, alphabet));
         }
         return getDFAStateId(transitToStates, orderedStates);
     }
