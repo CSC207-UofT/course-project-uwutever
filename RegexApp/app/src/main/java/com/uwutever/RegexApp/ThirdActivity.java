@@ -25,6 +25,9 @@ public class ThirdActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*
+        * Set the layout of the activity.
+        */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
         Intent intent = getIntent();
@@ -44,6 +47,11 @@ public class ThirdActivity extends AppCompatActivity {
 
        final Button button = findViewById(R.id.Act3_button_save);
        button.setOnClickListener(new View.OnClickListener() {
+           /**
+            * Save the result of the regex match.
+            *
+            * @param view
+            */
            public void onClick(View view) {
                Intent replyIntent = new Intent();
                if (TextUtils.isEmpty(RegexStr)) {

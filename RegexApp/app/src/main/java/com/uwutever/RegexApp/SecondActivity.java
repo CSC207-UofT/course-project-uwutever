@@ -28,6 +28,9 @@ public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*
+        * onCreate: the onCreate method is called when the activity is first created.
+        */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
@@ -42,6 +45,10 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void launchThirdActivity(View view){
+        /*
+        * launchThirdActivity: launch the third activity.
+        * @param view: the view that is clicked.
+        */
         Intent intent = new Intent(this, ThirdActivity.class);
         String RegexStr = mMessageEditRegex.getText().toString(); // regex string
         String SampleText = mMessageEditSample.getText().toString(); // sample text

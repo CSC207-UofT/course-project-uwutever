@@ -17,6 +17,11 @@ import java.util.List;
  */
 @Dao
 public interface RegexDao {
+   /**
+    * insert a new regex into database.
+    * 
+    * @param regex the regex to be inserted.
+    */
 
    @Insert(onConflict = OnConflictStrategy.IGNORE)
    void insert(RegexObj regex);

@@ -27,6 +27,7 @@
         </activity>
         <activity
             android:name="com.uwutever.RegexApp.MainActivity"
+            android:theme="@style/AppTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

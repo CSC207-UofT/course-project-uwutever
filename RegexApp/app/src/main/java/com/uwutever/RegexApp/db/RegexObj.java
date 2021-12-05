@@ -25,7 +25,18 @@ public class RegexObj {
     private String mRegex;
 
     public RegexObj(@NonNull String regex){
+        /*
+        * Constructor for RegexObj
+        * @param regex: the regex string
+        */
+
         this.mRegex = regex;
     }
-    public String getRegex() {return this.mRegex;}
+    public String getRegex() {
+        /*
+        * Getter for mRegex
+        * @return mRegex: the regex string 
+        */
+        return this.mRegex;
+    }
 }
