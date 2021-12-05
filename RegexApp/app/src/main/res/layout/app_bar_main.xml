@@ -16,24 +16,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
-            app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:background="@color/UofTBlue"
+            app:titleTextColor="@color/white"
+            app:theme="@style/AppTheme.Toolbar">
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:contentDescription="AddRegex"
-        android:onClick="launchSecondActivity"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

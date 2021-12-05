@@ -4,7 +4,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">
             @android:style/TextAppearance.Large</item>
-        <item name="android:background">@color/purple_200</item>
+        <item name="android:background">@color/UofTLighterBlue</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:padding">16dp</item>
@@ -13,8 +13,10 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
 </resources>
