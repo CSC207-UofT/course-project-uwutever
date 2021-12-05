@@ -8,4 +8,7 @@
     <string name="Act3_save_button">save</string>
     <string name="empty_not_saved">Regex not saved because it is empty.</string>
     <string name="duplicate_not_saved">Regex not saved because it is duplicated.</string>
+    <string name="menu_information">About</string>
+    <string name="menu_help">Help Document</string>
+    <string name="menu_main">Start Your Regex</string>
 </resources>

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
          * @return void
          */
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_bar_main);
+        setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final RegexCardAdapter adapter = new RegexCardAdapter(this, this);
