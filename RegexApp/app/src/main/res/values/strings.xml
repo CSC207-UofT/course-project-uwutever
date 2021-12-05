@@ -11,4 +11,6 @@
     <string name="menu_information">About</string>
     <string name="menu_help">Help Document</string>
     <string name="menu_main">Start Your Regex</string>
+    <string name="navigation_drawer_open">Open the Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close the Navigation Drawer</string>
 </resources>

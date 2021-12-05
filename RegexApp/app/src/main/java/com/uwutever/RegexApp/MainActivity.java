@@ -3,7 +3,10 @@ package com.uwutever.RegexApp;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 //import androidx.lifecycle.ViewModelProviders;
@@ -47,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
          */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final RegexCardAdapter adapter = new RegexCardAdapter(this, this);
