@@ -27,6 +27,7 @@ import com.uwutever.RegexApp.utils.controllers.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * ThirdActivity: Show the result of the regex match.
@@ -68,7 +69,7 @@ public class ThirdActivity extends AppCompatActivity {
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
         Matched_Pattern.setText(message);
 
-        initialize_Visualization();
+        initialize_Visualization_NFA();
 
        final Button button = findViewById(R.id.Act3_button_save);
        button.setOnClickListener(new View.OnClickListener() {
@@ -99,38 +100,141 @@ public class ThirdActivity extends AppCompatActivity {
         return dfaGrapher.graph();
     }
 
-    private void initialize_Visualization() {
+    /**
+     * Return an NFAGraphData class
+     */
+    public NFAGraphData getNFAVisualization(String regex){
+        NFAGrapher nfaGrapher = new NFAGrapher(regex);
+        return nfaGrapher.graph();
+    }
+
+    public String StringToIntString(String str) {
+        int ans = 0;
+        while (!str.isEmpty()) {
+            ans += str.charAt(str.length() - 1) - '0';
+            ans *= 10;
+            str = str.substring(0, str.length() - 1);
+        }
+        ans /= 10;
+        return String.valueOf(ans);
+    }
+
+    private void initialize_Visualization_DFA() {
 
         DFAGraphData dfa = getDFAVisualization(RegexStr); // create DFA data object based on regex
 
         NetworkGraph graph = new NetworkGraph();
-        Map<String, Node> NodeMap = new HashMap<String, Node>();
+        Map<String, Node> NodeMap = new HashMap<>();
 
-        Node StartNode = new SimpleNode(dfa.startState);
+        Log.d(TAG, String.valueOf(dfa.acceptingState.size()));
 
         for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add node into NodeMap
-            String CurNodeName = entry.getKey();
-            Node CurNode = new SimpleNode(CurNodeName);
-            NodeMap.put(CurNodeName, CurNode);
+            String CurNodeName = StringToIntString(entry.getKey());
+
+            if(! NodeMap.containsKey(CurNodeName)) {
+                Node CurNode = new SimpleNode(CurNodeName);
+                NodeMap.put(CurNodeName, CurNode);
+            }
         }
 
-        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) {
+        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) {
+            Map<String, String> NextNodeData = entry.getValue();
+
+            for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
+                String CurNodeName = StringToIntString(entry1.getValue());
+
+                if(! NodeMap.containsKey(CurNodeName)) {
+                    Node CurNode = new SimpleNode(CurNodeName);
+                    NodeMap.put(CurNodeName, CurNode);
+                }
+            }
+        }
+
+        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) { // add node into graph
             Node CurNode = entry.getValue();
             graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
         }
 
         for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add edge
-            String CurNodeName = entry.getKey();
+            String CurNodeName = StringToIntString(entry.getKey());
 
             Map<String, String> NextNodeData = entry.getValue();
 
             Node CurNode = NodeMap.get(CurNodeName);
 
             for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
-                Node NextNode = NodeMap.get(entry1.getValue());
-                String EdgeLabel = entry1.getKey();
+                String NextNodeName = StringToIntString(entry1.getValue());
+                Node NextNode = NodeMap.get(NextNodeName);
+
+                String EdgeLabel = StringToIntString(entry1.getKey());
 
                 graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
+            }
+        }
+
+        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
+        surface.init(graph);
+    }
+
+
+    private void initialize_Visualization_NFA() {
+
+        NFAGraphData nfa = getNFAVisualization(RegexStr); // create DFA data object based on regex
+
+        NetworkGraph graph = new NetworkGraph();
+        Map<String, Node> NodeMap = new HashMap<>();
+
+        // DEBUG
+        Log.d(TAG, String.valueOf(nfa.acceptingState.size()));
+
+        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add node into NodeMap
+            String CurNodeName = StringToIntString(entry.getKey());
+
+            if(! NodeMap.containsKey(CurNodeName)) {
+                Node CurNode = new SimpleNode(CurNodeName);
+                NodeMap.put(CurNodeName, CurNode);
+            }
+        }
+
+        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) {// add node into NodeMap
+            Map<String, Set<String>> NextNodeData = entry.getValue();
+
+            for (Map.Entry<String, Set<String>> entry1: NextNodeData.entrySet()) {
+                Set<String> NextNodeSet = entry1.getValue();
+
+                for (String s: NextNodeSet) {
+                    String CurNodeName = StringToIntString(s);
+
+                    if(! NodeMap.containsKey(CurNodeName)) {
+                        Node CurNode = new SimpleNode(CurNodeName);
+                        NodeMap.put(CurNodeName, CurNode);
+                    }
+                }
+
+            }
+        }
+
+        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) { // add node into graph
+            Node CurNode = entry.getValue();
+            graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+        }
+
+        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add edge
+            String CurNodeName = StringToIntString(entry.getKey());
+
+            Map<String, Set<String>> NextNodeData = entry.getValue();
+
+            Node CurNode = NodeMap.get(CurNodeName);
+
+            for (Map.Entry<String, Set<String>> entry1: NextNodeData.entrySet()) {
+                for (String s: entry1.getValue()) {
+                    String NextNodeName = StringToIntString(s);
+                    Node NextNode = NodeMap.get(NextNodeName);
+
+                    String EdgeLabel = StringToIntString(entry1.getKey());
+
+                    graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
+                }
             }
         }
 
