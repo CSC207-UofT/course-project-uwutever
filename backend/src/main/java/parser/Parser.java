@@ -44,13 +44,11 @@ public class Parser {
         Stack<ASTNode> operands = new Stack<>();
         // Read the tokens sequentially and construct the AST similar
         // to the process of converting an expression into Reversed Polish Notation
-        for (int i = 0; i < this.tokens.size(); i++) {
-            Token currToken = this.tokens.get(i);
+        for (Token currToken : this.tokens) {
             if (currToken.getTokenType() == TokenType.LeftDelimiter) {
                 if (currToken.getValue() == '(')
                     operators.push(currToken);
-            }
-            else if (currToken.getTokenType() == TokenType.RightDelimiter) {
+            } else if (currToken.getTokenType() == TokenType.RightDelimiter) {
                 if (currToken.getValue() == ')') {
                     Token operatorTop = operators.pop();
                     // Keep popping from the operator stack until a open parenthesis is found
@@ -59,23 +57,20 @@ public class Parser {
                         operatorTop = operators.pop();
                     }
                 }
-            }
-            else if (currToken.getTokenType() == TokenType.Closure ||
+            } else if (currToken.getTokenType() == TokenType.Closure ||
                     currToken.getTokenType() == TokenType.Operator) {
                 while (!operators.empty()) {
                     Token operatorTop = operators.pop();
                     if (operatorTop.getValue() != '(' &&
                             OP_PREC.get(currToken.getValue()) <= OP_PREC.get(operatorTop.getValue())) {
                         operands.push(ASTNode.createASTNode(operatorTop, operands));
-                    }
-                    else {
+                    } else {
                         operators.push(operatorTop);
                         break;
                     }
                 }
                 operators.push(currToken);
-            }
-            else if (currToken.getTokenType() == TokenType.Char) {
+            } else if (currToken.getTokenType() == TokenType.Char) {
                 operands.push(new CharNode(currToken.getValue()));
             }
         }
