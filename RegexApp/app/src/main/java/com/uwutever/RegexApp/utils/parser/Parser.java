@@ -15,7 +15,7 @@ public class Parser {
     /***
      * HashMap storing the precedence of operators.
      */
-    private final HashMap<Character, Integer> OP_PREC = new HashMap<>() {{
+    private final HashMap<Character, Integer> OP_PREC = new HashMap<Character, Integer>() {{
         put('?', 3);
         put('+', 3);
         put('*', 3);
