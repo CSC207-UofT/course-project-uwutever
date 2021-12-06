@@ -5,6 +5,10 @@ import automata.nfa.NFABuilder;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static  org.junit.Assert.*;
 
 public class TestNFAtoDFAConverter {
@@ -63,7 +67,9 @@ public class TestNFAtoDFAConverter {
      */
     @Test
     public void testAlphabets(){
-        assertEquals(this.nfa.getAlphabets(), this.dfa.getAlphabets());
+        Set<String> dfaAlphabets = new HashSet<>(this.nfa.getAlphabets());
+        dfaAlphabets.remove("epsilon");
+        assertEquals(dfaAlphabets, this.dfa.getAlphabets());
     }
 
     /**
