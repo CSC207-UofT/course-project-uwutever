@@ -105,6 +105,7 @@ public class NFABuilder implements FSABuilder {
             throw new UnknownStateIndexException(fromIndex);
         }
         this.nfa.alphabets.add(alphabet);
+        this.nfa.alphabets.addAll(addNFA.alphabets);
 
         NFAState fromState = this.nfa.states.get(fromIndex);
 
