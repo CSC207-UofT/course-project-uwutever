@@ -108,13 +108,16 @@ public class ThirdActivity extends AppCompatActivity {
 
         Node StartNode = new SimpleNode(dfa.startState);
 
-        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) {
+        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add node into NodeMap
             String CurNodeName = entry.getKey();
             Node CurNode = new SimpleNode(CurNodeName);
             NodeMap.put(CurNodeName, CurNode);
         }
 
-        Log.d(TAG, "####################");
+        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) {
+            Node CurNode = entry.getValue();
+            graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+        }
 
         for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add edge
             String CurNodeName = entry.getKey();
