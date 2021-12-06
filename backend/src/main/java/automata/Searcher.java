@@ -14,25 +14,24 @@ public class Searcher {
         List<List<Integer>> ret = new ArrayList<>();
 
         // loop for every char in text as the starting char
-        for(int start = 0; start < text.length(); start++){
-            int end = start + 1;
+        int start = 0;
+        while (start < text.length()){
+            for(int end = start + 1; end <= text.length(); end ++){
+                // if match is found, get the longest match and append index pair
+                if (fsa.accept(text.substring(start, end))){
+                    if(end==text.length() || !fsa.accept(text.substring(start, end+1))){
+                        //append index pair
+                        List<Integer> indexPair = new ArrayList<>();
+                        indexPair.add(start);
+                        indexPair.add(end);
+                        ret.add(indexPair);
 
-            // if match is found, get the longest match and append index pair
-            if (fsa.accept(text.substring(start, end))){
-                //get the longest substring
-                while(fsa.accept(text.substring(start, end + 1))){
-                    end += 1;
+                        // shift start pointer to end
+                        start = end;
+                    }
                 }
-
-                //append index pair
-                List<Integer> indexPair = new ArrayList<>();
-                indexPair.add(start);
-                indexPair.add(end);
-                ret.add(indexPair);
             }
         }
-
         return ret;
     }
-
 }

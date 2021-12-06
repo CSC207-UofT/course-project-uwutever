@@ -14,7 +14,8 @@ public class Searcher {
         List<List<Integer>> ret = new ArrayList<>();
 
         // loop for every char in text as the starting char
-        for(int start = 0; start < text.length(); start++){
+        int start = 0;
+        while (start < text.length()){
             for(int end = start + 1; end <= text.length(); end ++){
                 // if match is found, get the longest match and append index pair
                 if (fsa.accept(text.substring(start, end))){
@@ -24,6 +25,9 @@ public class Searcher {
                         indexPair.add(start);
                         indexPair.add(end);
                         ret.add(indexPair);
+
+                        // shift start pointer to end
+                        start = end;
                     }
                 }
             }
