@@ -4,7 +4,7 @@ package automata.nfa;
  * This class implements the 3 basic operations:
  * - Union
  * - Concatenation
- * - kleene start closure
+ * - kleene star closure
  */
 public class NFABasicOperation {
     protected NFABuilder builder;
