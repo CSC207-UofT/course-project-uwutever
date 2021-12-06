@@ -8,7 +8,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-
+/*
+Unit test for the lexer.
+ */
 public class TestLexer {
 
 
