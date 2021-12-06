@@ -20,21 +20,18 @@
         tools:layout_editor_absoluteY="103dp" />
 
     <!--REPLACE BELOW PART WITH VISUALIZATION METHOD-->
-    <TextView
-        android:id="@+id/Text_Visualization"
+    <giwi.org.networkgraph.GraphSurfaceView
+        android:id="@+id/visualization"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <TextView
-        android:id="@+id/Text_Suggestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_height="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:layout_weight="6"
+        app:defaultColor="@android:color/black"
+        app:edgeColor="@color/UofTLighterBlue"
+        app:nodeBgColor="@android:color/white"
+        app:nodeColor="@color/UofTBlue" />
 
     <Button
         android:id="@+id/Act3_button_save"
