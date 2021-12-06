@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,9 @@ import com.uwutever.RegexApp.utils.controllers.MatchController;
 import net.xqhs.graphs.graph.Node;
 import net.xqhs.graphs.graph.SimpleEdge;
 import net.xqhs.graphs.graph.SimpleNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import giwi.org.networkgraph.GraphSurfaceView;
 import giwi.org.networkgraph.beans.NetworkGraph;
@@ -59,15 +63,30 @@ public class ThirdActivity extends AppCompatActivity {
         MatchController matchController = new MatchController(RegexStr,false);
         Boolean result = matchController.match(SampleText);
 
-        if (result){
-            message = "True!";
-        }
-        else {
-            message = "False!";
-        }
+        SearchController searchController = new SearchController(RegexStr,false);
+        Log.d(TAG, "what!");
+//        List<List<Integer>> matchedIntervals = searchController.search(SampleText);
+        Log.d(TAG, "what?");
+        List<List<Integer>> matchedIntervals = new ArrayList<>();
+        List<Integer> lst1 = new ArrayList<>();
+        lst1.add(0);
+        lst1.add(1);
+        List<Integer> lst2 = new ArrayList<>();
+        lst2.add(2);
+        lst2.add(5);
+        matchedIntervals.add(lst1);
+        matchedIntervals.add(lst2);
+        message = highlight_MatchedPattern(matchedIntervals);
+
+//        if (result){
+//            message = highlight_MatchedPattern(matchedIntervals);
+//        }
+//        else {
+//            message = "No Match Pattern Available!";
+//        }
 
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
-        Matched_Pattern.setText(message);
+        Matched_Pattern.setText(Html.fromHtml(message));
 
         initialize_Visualization_NFA();
 
@@ -98,6 +117,19 @@ public class ThirdActivity extends AppCompatActivity {
     public DFAGraphData getDFAVisualization(String regex){
         DFAGrapher dfaGrapher = new DFAGrapher(regex);
         return dfaGrapher.graph();
+    }
+
+    private String highlight_MatchedPattern(List<List<Integer>> matchedintervals){
+        String temp = "";
+        int end = 0;
+        Log.d(TAG, matchedintervals.get(0).get(0).toString());
+        for(int i = 0; i < matchedintervals.size(); i++){
+            Log.d(TAG, matchedintervals.get(i).get(0).toString());
+//            <span style='background-color:UofTLighterBlue'>
+            temp = temp + SampleText.substring(end, matchedintervals.get(i).get(0)) + "<font color='#226AD0'>"+ SampleText.substring(matchedintervals.get(i).get(0), matchedintervals.get(i).get(1)) + "</font>";
+            end = matchedintervals.get(i).get(1);
+        }
+        return temp + SampleText.substring(end, SampleText.length());
     }
 
     /**
