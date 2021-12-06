@@ -51,7 +51,7 @@ public class Parser {
             } else if (currToken.getTokenType() == TokenType.RightDelimiter) {
                 if (currToken.getValue() == ')') {
                     Token operatorTop = operators.pop();
-                    // Keep popping from the operator stack until a open parenthesis is found
+                    // Keep popping from the operator stack until an open parenthesis is found
                     while (operatorTop.getValue() != '(' && !operators.empty()) {
                         operands.push(ASTNode.createASTNode(operatorTop, operands));
                         operatorTop = operators.pop();
