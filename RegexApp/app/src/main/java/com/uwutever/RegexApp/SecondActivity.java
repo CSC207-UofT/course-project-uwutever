@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
         TextView Regex_input = findViewById(R.id.editText_Regex);
         Regex_input.setText(message);
 
-        mMessageEditRegex = findViewById(R.id.editText_Regex); // Need to replace with method from Regex Calculation Part
+        mMessageEditRegex = findViewById(R.id.editText_Regex);
         mMessageEditSample = findViewById(R.id.editText_Language);
     }
 
