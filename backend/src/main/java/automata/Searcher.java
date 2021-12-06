@@ -3,6 +3,10 @@ package automata;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Abstract class representing an FSA
+ * @author Brian Ho
+ * @author Arkaprava Choudhury
+ */
 public class Searcher {
     /**
      * Return a list of index pairs where the substring of that index pair is accepted by the fsa.

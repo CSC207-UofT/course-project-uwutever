@@ -4,6 +4,7 @@ import automata.Matcher;
 import compiler.RegexDFAPattern;
 import compiler.RegexNFAPattern;
 import compiler.RegexPattern;
+import errors.RegexException;
 
 /**
  * This class construct a regexPattern
@@ -12,7 +13,7 @@ import compiler.RegexPattern;
 public class MatchController {
     private final RegexPattern regexPattern;
 
-    public MatchController(String regexString, boolean compileDFA){
+    public MatchController(String regexString, boolean compileDFA) throws RegexException {
         if(compileDFA){
             this.regexPattern = new RegexDFAPattern(regexString);
         } else{
