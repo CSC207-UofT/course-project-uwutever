@@ -178,4 +178,34 @@ public class NFAtoDFAConverter {
         }
         return getDFAStateId(transitToStates, orderedStates);
     }
+
+    /**
+     * Helper method to clean up resulting DFA
+     *
+     * @param dfa the DFA which we wish to clean up
+     */
+    public DFA removeRedundantStates(DFA dfa) {
+        DFAState start = dfa.getStartState();
+
+        List<DFAState> visited = new ArrayList<>();
+        Queue<DFAState> queue = new LinkedList<>();
+
+        queue.add(start);
+        DFAState curr;
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            curr = queue.remove();
+            for (String alphabet : dfa.getAlphabets()) {
+                if (!visited.contains(dfa.delta(curr, alphabet))) {
+                    visited.add(dfa.delta(curr, alphabet));
+                    queue.add(dfa.delta(curr, alphabet));
+                }
+            }
+        }
+
+        dfa.states = visited;
+
+        return dfa;
+    }
 }
