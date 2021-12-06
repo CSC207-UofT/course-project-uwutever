@@ -18,6 +18,29 @@
     <string name="title_activity_help">Help Document</string>
     <string name="MatchedPattern">Matched Pattern:</string>
     <string name="Visualization">Visualization:</string>
-
-
+    <string name="AboutMe">
+        <h3 id="about">About</h3>\n
+        <p>This app is created as a course project for UofT CSC207 (Software Design) in Fall 2021 term.</p>\n
+        <p>This app aims to facilitate the teaching of regular expressions in computational language theory by providing features such as matching between text strings and a regular expression, and visualization of Finite State Automata (FSA).</p>\n
+        <p>Authors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeung, Letian Cheng</p>\n
+        <h3 id="license">License</h3>\n
+        <p>Copyright 2021 @uwutever </p>\n
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>\n
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>\n
+        <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>\n
+    </string>
+    <string name="Document">
+        <h1 id="design-document">Design Document</h1>\n
+<h2 id="solid-design-principles">SOLID Design Principles</h2>\n
+<h3 id="single-responsibility-principle">Single Responsibility Principle</h3>\n
+<p>Our design abided by the single responsibility principle: we created a separate class for each responsibility in our program, \n
+most according to the CRC model we created earlier in phase 0.</p>\n
+<p>There were a few improvements we made to the CRC model, including splitting the FSA/DFA/NFA class up, \n
+    making <code>DFA</code> and <code>NFA</code> subclasses of the <code>FSA</code> abstract class, since they have separate responsibilities.</p>\n
+<p>Both of these classes will be built utilizing the <code>FSABuilder</code> interface, however, they have different responsibilities:<br>The compiler</br> compiles the parsed Abstract Syntax Tree into an <code>NFA</code> since that can be done in a more straightforward manner. \n
+    The <code>NFA</code> is then converted into <code>DFA</code> to complete the matching since a <code>DFA</code> is more efficient (especially if the user will \n
+be matching the multiple strings to the same regular expression). This <code>DFA</code> will be stored for later use.</p>\n
+<p>In terms of the user interface, each of the activities (each screen) has a single object that is only responsible for \n
+that screen. We have separate view models for UI patterns.</p>\n
+    </string>
 </resources>
