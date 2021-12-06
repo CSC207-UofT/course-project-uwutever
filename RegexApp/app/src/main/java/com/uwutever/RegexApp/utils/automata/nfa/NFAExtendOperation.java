@@ -1,4 +1,4 @@
-package automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
 public class NFAExtendOperation{
 

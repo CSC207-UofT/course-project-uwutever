@@ -1,4 +1,4 @@
-package automata;
+package com.uwutever.RegexApp.utils.automata;
 
 public interface FSABuilder{
     /**

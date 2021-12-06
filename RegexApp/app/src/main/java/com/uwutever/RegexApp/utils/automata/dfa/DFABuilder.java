@@ -1,5 +1,5 @@
-package automata.dfa;
-import automata.FSABuilder;
+package com.uwutever.RegexApp.utils.automata.dfa;
+import com.uwutever.RegexApp.utils.automata.FSABuilder;
 
 public class DFABuilder implements FSABuilder {
     private DFA dfa;

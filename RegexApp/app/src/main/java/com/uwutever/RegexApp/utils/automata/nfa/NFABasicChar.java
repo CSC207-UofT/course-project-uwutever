@@ -1,4 +1,4 @@
-package automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
 /**
  * This class implements 2 basic NFA character:

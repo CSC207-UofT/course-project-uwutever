@@ -1,4 +1,4 @@
-package errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class NotImplementedException extends RuntimeException {
     private String className;

@@ -1,3 +1,5 @@
+package com.uwutever.RegexApp.utils;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Main {
             String testStr = scanner.nextLine();
             if (testStr.equals("exit"))
                 break;
-            List<FieldClassification.Match> matches = controller.getMatches(pattern, testStr);
+            List<Match> matches = controller.getMatches(pattern, testStr);
             System.out.println("Matches: ");
             for (Match match : matches) {
                 System.out.println(String.format("\t Start=%1$d, End=%2$d, Content=%3$s",

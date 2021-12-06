@@ -1,6 +1,8 @@
-import automata.nfa.NFA;
-import compiler.RegexNFAPattern;
-import errors.RegexSyntaxException;
+package com.uwutever.RegexApp.utils;
+
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.compiler.RegexNFAPattern;
+import com.uwutever.RegexApp.utils.errors.RegexSyntaxException;
 
 import java.util.List;
 

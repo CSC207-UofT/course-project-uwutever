@@ -1,4 +1,4 @@
-package parser.ast;
+package com.uwutever.RegexApp.utils.parser.ast;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package lexer;
+package com.uwutever.RegexApp.utils.lexer;
 
 public enum TokenType {
     Char,

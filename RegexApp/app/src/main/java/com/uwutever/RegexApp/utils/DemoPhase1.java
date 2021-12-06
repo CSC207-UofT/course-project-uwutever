@@ -1,7 +1,9 @@
-import automata.nfa.NFA;
-import compiler.ASTtoNFACompiler;
-import compiler.RegextoASTCompiler;
-import parser.ast.ASTNode;
+package com.uwutever.RegexApp.utils;
+
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.compiler.ASTtoNFACompiler;
+import com.uwutever.RegexApp.utils.compiler.RegextoASTCompiler;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 /** Demo for back-end for Phase 1
  * @author Arkaprava Choudhury

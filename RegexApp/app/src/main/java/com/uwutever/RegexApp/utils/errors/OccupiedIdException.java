@@ -1,4 +1,4 @@
-package errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class OccupiedIdException extends IllegalArgumentException{
     public OccupiedIdException(String Id){

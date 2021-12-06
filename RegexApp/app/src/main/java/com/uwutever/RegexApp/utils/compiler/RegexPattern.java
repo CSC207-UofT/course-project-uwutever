@@ -1,6 +1,6 @@
-package compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
-import automata.FSA;
+import com.uwutever.RegexApp.utils.automata.FSA;
 
 import java.util.Map;
 

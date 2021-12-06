@@ -1,6 +1,6 @@
-package automata.dfa;
+package com.uwutever.RegexApp.utils.automata.dfa;
 
-import automata.FSAState;
+import com.uwutever.RegexApp.utils.automata.FSAState;
 
 import java.util.HashMap;
 import java.util.Map;

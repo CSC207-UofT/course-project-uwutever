@@ -1,4 +1,4 @@
-package automata.dfa;
+package com.uwutever.RegexApp.utils.automata.dfa;
 
 import java.util.*;
 

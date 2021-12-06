@@ -1,10 +1,10 @@
-package compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
-import automata.dfa.DFA;
-import automata.dfa.DFAQuintuple;
-import automata.dfa.NFAtoDFAConverter;
-import automata.nfa.NFA;
-import parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.automata.dfa.DFA;
+import com.uwutever.RegexApp.utils.automata.dfa.DFAQuintuple;
+import com.uwutever.RegexApp.utils.automata.dfa.NFAtoDFAConverter;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 import java.util.HashMap;
 import java.util.Map;

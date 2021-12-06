@@ -1,4 +1,4 @@
-package errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class RegexSyntaxException extends RegexException {
     public RegexSyntaxException(String source, int position) {

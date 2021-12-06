@@ -1,8 +1,8 @@
-package controllers;
+package com.uwutever.RegexApp.utils.controllers;
 
-import compiler.RegexDFAPattern;
-import compiler.RegexNFAPattern;
-import compiler.RegexPattern;
+import com.uwutever.RegexApp.utils.compiler.RegexDFAPattern;
+import com.uwutever.RegexApp.utils.compiler.RegexNFAPattern;
+import com.uwutever.RegexApp.utils.compiler.RegexPattern;
 
 import java.util.Map;
 

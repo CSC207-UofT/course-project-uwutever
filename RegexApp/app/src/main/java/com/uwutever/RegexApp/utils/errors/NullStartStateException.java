@@ -1,4 +1,4 @@
-package errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class NullStartStateException extends Exception{
     public NullStartStateException(){

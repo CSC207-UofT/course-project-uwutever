@@ -1,7 +1,7 @@
-package lexer;
+package com.uwutever.RegexApp.utils.lexer;
 
 
-import errors.RegexSyntaxException;
+import com.uwutever.RegexApp.utils.errors.RegexSyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;

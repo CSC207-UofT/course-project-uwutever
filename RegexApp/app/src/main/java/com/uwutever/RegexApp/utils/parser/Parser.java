@@ -1,10 +1,10 @@
-package parser;
+package com.uwutever.RegexApp.utils.parser;
 
 
-import lexer.Token;
-import lexer.TokenType;
-import parser.ast.ASTNode;
-import parser.ast.CharNode;
+import com.uwutever.RegexApp.utils.lexer.Token;
+import com.uwutever.RegexApp.utils.lexer.TokenType;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.parser.ast.CharNode;
 
 import java.util.HashMap;
 import java.util.Hashtable;

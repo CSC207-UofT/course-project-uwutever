@@ -1,10 +1,10 @@
-package compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
 
-import automata.nfa.NFA;
-import automata.nfa.*;
-import parser.ast.ASTNode;
-import parser.ast.CharNode;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.automata.nfa.*;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.parser.ast.CharNode;
 
 /** Compiling NFA from AST
  * @author Arkaprava Choudhury

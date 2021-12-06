@@ -1,8 +1,8 @@
-package compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
-import automata.nfa.NFA;
-import automata.nfa.NFAQuintuple;
-import parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.automata.nfa.NFAQuintuple;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 import java.util.HashMap;
 import java.util.Map;

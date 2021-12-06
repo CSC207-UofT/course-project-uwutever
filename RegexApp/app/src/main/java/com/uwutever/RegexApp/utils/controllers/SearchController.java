@@ -1,9 +1,9 @@
-package controllers;
+package com.uwutever.RegexApp.utils.controllers;
 
-import automata.Searcher;
-import compiler.RegexDFAPattern;
-import compiler.RegexNFAPattern;
-import compiler.RegexPattern;
+import com.uwutever.RegexApp.utils.automata.Searcher;
+import com.uwutever.RegexApp.utils.compiler.RegexDFAPattern;
+import com.uwutever.RegexApp.utils.compiler.RegexNFAPattern;
+import com.uwutever.RegexApp.utils.compiler.RegexPattern;
 
 import java.util.List;
 

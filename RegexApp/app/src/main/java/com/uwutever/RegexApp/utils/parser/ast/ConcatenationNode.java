@@ -1,7 +1,7 @@
-package parser.ast;
+package com.uwutever.RegexApp.utils.parser.ast;
 
 
-import lexer.Token;
+import com.uwutever.RegexApp.utils.lexer.Token;
 
 import java.util.ArrayList;
 

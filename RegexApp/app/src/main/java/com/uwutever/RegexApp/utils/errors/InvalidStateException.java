@@ -1,4 +1,4 @@
-package errors;
+package com.uwutever.RegexApp.utils.errors;
 
 public class InvalidStateException extends IllegalArgumentException{
     public InvalidStateException(Object state){

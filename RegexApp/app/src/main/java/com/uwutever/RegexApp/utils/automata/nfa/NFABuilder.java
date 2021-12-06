@@ -1,6 +1,6 @@
-package automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
-import automata.FSABuilder;
+import com.uwutever.RegexApp.utils.automata.FSABuilder;
 
 /** Builder class for NFA
  * @author Brian Ho

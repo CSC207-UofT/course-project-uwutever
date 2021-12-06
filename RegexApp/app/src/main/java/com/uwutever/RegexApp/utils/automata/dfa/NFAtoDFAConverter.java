@@ -1,8 +1,8 @@
-package automata.dfa;
+package com.uwutever.RegexApp.utils.automata.dfa;
 
-import automata.nfa.NFA;
-import automata.dfa.DFAState;
-import automata.nfa.NFAState;
+import com.uwutever.RegexApp.utils.automata.nfa.NFA;
+import com.uwutever.RegexApp.utils.automata.dfa.DFAState;
+import com.uwutever.RegexApp.utils.automata.nfa.NFAState;
 
 import java.util.*;
 

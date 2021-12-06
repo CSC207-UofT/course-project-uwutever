@@ -1,9 +1,9 @@
-package compiler;
+package com.uwutever.RegexApp.utils.compiler;
 
 
-import lexer.Lexer;
-import parser.Parser;
-import parser.ast.ASTNode;
+import com.uwutever.RegexApp.utils.lexer.Lexer;
+import com.uwutever.RegexApp.utils.parser.Parser;
+import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 /** Compiling AST from Lexer
  * @author Brian Ho

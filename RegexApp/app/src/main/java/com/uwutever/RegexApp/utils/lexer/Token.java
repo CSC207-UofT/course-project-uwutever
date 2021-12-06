@@ -1,7 +1,7 @@
-package lexer;
+package com.uwutever.RegexApp.utils.lexer;
 
 
-import errors.NotImplementedException;
+import com.uwutever.RegexApp.utils.errors.NotImplementedException;
 
 import java.util.Arrays;
 import java.util.HashSet;

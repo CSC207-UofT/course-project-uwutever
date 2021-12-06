@@ -1,6 +1,6 @@
-package automata.nfa;
+package com.uwutever.RegexApp.utils.automata.nfa;
 
-import automata.FSA;
+import com.uwutever.RegexApp.utils.automata.FSA;
 
 import java.util.*;
 
