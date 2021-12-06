@@ -27,7 +27,7 @@ In this PR, I wrote the database and its connection.
 
 2. <https://github.com/CSC207-UofT/course-project-uwutever/pull/24>
 
-In this PR, I intergrate the front end with the backend.
+In this PR, I add visualizations algorithm intergration with backend for the regex.
 
 `HanruiJerryFan`: 
 
@@ -37,7 +37,7 @@ In this PR, I wrote the 3 activities for the front end. I also wrote the history
 
 2. <https://github.com/CSC207-UofT/course-project-uwutever/pull/24>
 
-In this PR, I wrote the drawer function and the about page. I also add visualizations for the regex.
+In this PR, I wrote the drawer function and the about page. I also applied material design to the app, and finish match highlighting.
 
 #### final words:
 
