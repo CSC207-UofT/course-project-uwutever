@@ -33,17 +33,7 @@ public class RegexNFAPattern implements RegexPattern{
         return this.nfa;
     }
 
-    @Override
-    public Map<String, Object> getFSAQuintuple() {
-        NFAQuintuple quintuple = new NFAQuintuple(this.nfa);
-        Map<String, Object> ret = new HashMap<>();
-
-        ret.put("states", quintuple.states);
-        ret.put("alphabets", quintuple.alphabets);
-        ret.put("start state" , quintuple.startState);
-        ret.put("accepting state", quintuple.acceptingStates);
-        ret.put("transitions", quintuple.transitionTable);
-
-        return ret;
+    public NFAQuintuple graph() {
+        return new NFAQuintuple(this.nfa);
     }
 }

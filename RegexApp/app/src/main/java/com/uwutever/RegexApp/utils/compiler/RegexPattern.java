@@ -3,6 +3,7 @@ package com.uwutever.RegexApp.utils.compiler;
 import com.uwutever.RegexApp.utils.automata.FSA;
 
 import java.util.Map;
+import java.util.List;
 
 /**
  * An interface for the RegexPattern
@@ -21,9 +22,4 @@ public interface RegexPattern {
      */
     <T extends FSA> T getFSA();
 
-    /**
-     * Get the quintuple form of the FSA in the object
-     * @return the quintuple form of the FSA
-     */
-    Map<String, Object> getFSAQuintuple();
 }
