@@ -59,7 +59,7 @@ public abstract class RegexRoomDatabase extends RoomDatabase {
          */
 
         private final RegexDao mDao;
-        String[] RegexObjs = {"[0,1]*", "sample*"}; // example
+        String[] RegexObjs = {"(a)*", "sample*"}; // example
 
         PopulateDbAsync(RegexRoomDatabase db) {
             mDao = db.RegexDao();

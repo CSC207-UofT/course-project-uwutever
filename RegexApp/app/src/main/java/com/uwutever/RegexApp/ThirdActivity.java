@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.uwutever.RegexApp.utils.controllers.MatchController;
+
 import net.xqhs.graphs.graph.Node;
 import net.xqhs.graphs.graph.SimpleEdge;
 import net.xqhs.graphs.graph.SimpleNode;
@@ -34,6 +36,7 @@ public class ThirdActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "com.example.android.Regex.REPLY";
     private String RegexStr;
     private String SampleText;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,19 @@ public class ThirdActivity extends AppCompatActivity {
         RegexStr = intent.getStringExtra(SecondActivity.EXTRA_REGEX);
         SampleText = intent.getStringExtra(SecondActivity.EXTRA_SAMPLE);
 
-        String message = "Hello World!"; // need to replace with the algorithm object
+        MatchController matchController = new MatchController(RegexStr,false);
+        Boolean result = matchController.match(SampleText);
+
+        if (result){
+            message = "True!";
+        }
+        else {
+            message = "False!";
+        }
 
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
         Matched_Pattern.setText(message);
 
-        Log.d(TAG,"matched_pattern");
         initialize_Visualization();
 
        final Button button = findViewById(R.id.Act3_button_save);
