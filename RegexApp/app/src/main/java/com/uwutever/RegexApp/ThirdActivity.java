@@ -3,7 +3,6 @@ package com.uwutever.RegexApp;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,18 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.uwutever.RegexApp.utils.controllers.MatchController;
+import com.uwutever.RegexApp.beans.RegexGraph;
 
 import net.xqhs.graphs.graph.Node;
 import net.xqhs.graphs.graph.SimpleEdge;
 import net.xqhs.graphs.graph.SimpleNode;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import giwi.org.networkgraph.GraphSurfaceView;
-import giwi.org.networkgraph.beans.NetworkGraph;
-import giwi.org.networkgraph.beans.Vertex;
 
 import com.uwutever.RegexApp.utils.controllers.*;
 
@@ -62,8 +56,7 @@ public class ThirdActivity extends AppCompatActivity {
 
         SearchController searchController = new SearchController(RegexStr,false);
         List<List<Integer>> matchedIntervals = searchController.search(SampleText);
-        Log.d(TAG, "what?");
-        Boolean result = !(matchedIntervals.size() == 0);
+        boolean result = !(matchedIntervals.size() == 0);
 
         if (result){
             message = highlight_MatchedPattern(matchedIntervals);
@@ -143,13 +136,13 @@ public class ThirdActivity extends AppCompatActivity {
 
         DFAGraphData dfa = getDFAVisualization(RegexStr); // create DFA data object based on regex
 
-        NetworkGraph graph = new NetworkGraph();
+        RegexGraph graph = new RegexGraph();
         Map<String, Node> NodeMap = new HashMap<>();
 
         Log.d(TAG, String.valueOf(dfa.acceptingState.size()));
 
         for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add node into NodeMap
-            String CurNodeName = StringToIntString(entry.getKey());
+            String CurNodeName = entry.getKey();
 
             if(! NodeMap.containsKey(CurNodeName)) {
                 Node CurNode = new SimpleNode(CurNodeName);
@@ -161,7 +154,7 @@ public class ThirdActivity extends AppCompatActivity {
             Map<String, String> NextNodeData = entry.getValue();
 
             for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
-                String CurNodeName = StringToIntString(entry1.getValue());
+                String CurNodeName = entry1.getValue();
 
                 if(! NodeMap.containsKey(CurNodeName)) {
                     Node CurNode = new SimpleNode(CurNodeName);
@@ -172,21 +165,21 @@ public class ThirdActivity extends AppCompatActivity {
 
         for (Map.Entry<String, Node> entry: NodeMap.entrySet()) { // add node into graph
             Node CurNode = entry.getValue();
-            graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+            graph.addNode(CurNode);
         }
 
         for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add edge
-            String CurNodeName = StringToIntString(entry.getKey());
+            String CurNodeName = entry.getKey();
 
             Map<String, String> NextNodeData = entry.getValue();
 
             Node CurNode = NodeMap.get(CurNodeName);
 
             for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
-                String NextNodeName = StringToIntString(entry1.getValue());
+                String NextNodeName = entry1.getValue();
                 Node NextNode = NodeMap.get(NextNodeName);
 
-                String EdgeLabel = StringToIntString(entry1.getKey());
+                String EdgeLabel = entry1.getKey();
 
                 graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
             }
@@ -201,18 +194,18 @@ public class ThirdActivity extends AppCompatActivity {
 
         NFAGraphData nfa = getNFAVisualization(RegexStr); // create DFA data object based on regex
 
-        NetworkGraph graph = new NetworkGraph();
+        RegexGraph graph = new RegexGraph();
         Map<String, Node> NodeMap = new HashMap<>();
 
 
         for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add node into NodeMap
-            String CurNodeName = StringToIntString(entry.getKey());
+            String CurNodeName = entry.getKey();
 
             if(! NodeMap.containsKey(CurNodeName)) {
                 Node CurNode = new SimpleNode(CurNodeName);
                 NodeMap.put(CurNodeName, CurNode);
                 Log.d(TAG, "Add Node:" + CurNodeName);
-                graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+                graph.addNode(CurNode);
             }
         }
 
@@ -223,13 +216,13 @@ public class ThirdActivity extends AppCompatActivity {
                 Set<String> NextNodeSet = entry1.getValue();
 
                 for (String s: NextNodeSet) {
-                    String CurNodeName = StringToIntString(s);
+                    String CurNodeName = s;
 
                     if(! NodeMap.containsKey(CurNodeName)) {
                         Node CurNode = new SimpleNode(CurNodeName);
                         NodeMap.put(CurNodeName, CurNode);
                         Log.d(TAG, "Add Node:" + CurNodeName);
-                        graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+                        graph.add(CurNode);
                     }
                 }
 
@@ -238,7 +231,7 @@ public class ThirdActivity extends AppCompatActivity {
 
         int cnt = 0;
         for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add edge
-            String CurNodeName = StringToIntString(entry.getKey());
+            String CurNodeName = entry.getKey();
 
             Map<String, Set<String>> NextNodeData = entry.getValue();
 
@@ -246,11 +239,10 @@ public class ThirdActivity extends AppCompatActivity {
 
             for (Map.Entry<String, Set<String>> entry1: NextNodeData.entrySet()) {
                 for (String s: entry1.getValue()) {
-                    String NextNodeName = StringToIntString(s);
+                    String NextNodeName = s;
                     Node NextNode = NodeMap.get(NextNodeName);
 
-                    String EdgeLabel = StringToIntString(entry1.getKey());
-                    if (EdgeLabel.length() > 1) EdgeLabel = EdgeLabel.substring(0, 1);
+                    String EdgeLabel = entry1.getKey();
                     ++cnt;
                     graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
                     Log.d(TAG, "Add Edge: " + CurNodeName + " to " + NextNodeName + " label " + EdgeLabel);
@@ -264,20 +256,20 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     private void initialize_Visualization_test() {
-        NetworkGraph graph = new NetworkGraph();
+        RegexGraph graph = new RegexGraph();
 
-        Node v0 = new SimpleNode("0");
-        Node v1 = new SimpleNode("1");
-        Node v2 = new SimpleNode("2");
+        Node v0 = new SimpleNode("V0");
+        Node v1 = new SimpleNode("V1");
+        Node v2 = new SimpleNode("V2");
 
 
-        graph.getVertex().add(new Vertex(v0, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.getVertex().add(new Vertex(v2, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+        graph.add(v0);
+        graph.add(v1);
+        graph.add(v2);
 
-        graph.addEdge(new SimpleEdge(v0, v1, "1"));
-        graph.addEdge(new SimpleEdge(v1, v2, "2"));
-        graph.addEdge(new SimpleEdge(v2, v0, "3"));
+        graph.addEdge(new SimpleEdge(v0, v1, "v1"));
+        graph.addEdge(new SimpleEdge(v1, v2, "v2"));
+        graph.addEdge(new SimpleEdge(v2, v0, "v3"));
 
         GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
         surface.init(graph);

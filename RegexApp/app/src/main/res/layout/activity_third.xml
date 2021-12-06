@@ -59,7 +59,7 @@
                 android:text="@string/Visualization"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <giwi.org.networkgraph.GraphSurfaceView
+            <com.uwutever.RegexApp.GraphSurfaceView
                 android:id="@+id/visualization"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
