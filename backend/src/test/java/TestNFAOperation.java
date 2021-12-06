@@ -1,21 +1,24 @@
+import automata.nfa.NFA;
 import automata.nfa.NFABuilder;
-import automata.nfa.NFAOperations;
+import automata.nfa.NFABasicOperation;
+import automata.nfa.NFAExtendOperation;
 
 public class TestNFAOperation {
     public static void main(String[] args) {
         NFABuilder nfaBuilder = new NFABuilder();
         nfaBuilder.reset();
-        nfaBuilder.addState("1", true);
-        nfaBuilder.setStartState("1");
+        int state = nfaBuilder.addNewState();
+        nfaBuilder.setStartState(state);
 
         NFABuilder nfaBuilder1 = new NFABuilder();
         nfaBuilder1.reset();
-        nfaBuilder1.addState("1");
-        nfaBuilder1.setStartState("1");
-        nfaBuilder1.addState("2", true);
-        nfaBuilder1.addTransition("1", "epsilon",  "2");
-        nfaBuilder1.setEndState("2");
+        int state1 = nfaBuilder1.addNewState();
+        nfaBuilder1.setStartState(state1);
+        int state2 = nfaBuilder1.addNewState();
+        nfaBuilder1.addTransition(state1, "epsilon", state2);
+        nfaBuilder1.setAcceptingState(state2);
 
-        NFAOperations.appendMidNFA(nfaBuilder, nfaBuilder1.getResult(), 2);
+        NFABasicOperation basicOperation = new NFABasicOperation();
+        NFA union = basicOperation.union(nfaBuilder.getResult(), nfaBuilder1.getResult());
     }
 }
