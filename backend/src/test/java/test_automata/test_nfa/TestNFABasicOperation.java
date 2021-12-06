@@ -18,33 +18,41 @@ because of the TestNFABasicChar unit tests.
 public class TestNFABasicOperation {
 
     private NFABasicOperation nfaBasicOperation;
+    private NFA midnfa1;
+    private NFA midnfa2;
 
     @Before
     public void setUp() {
         nfaBasicOperation = new NFABasicOperation();
         NFABasicChar nfaBasicChar1 = new NFABasicChar();
-        NFA midnfa1 = nfaBasicChar1.singleAlphabet("a");
+        midnfa1 = nfaBasicChar1.singleAlphabet("a");
         NFABasicChar nfaBasicChar2 = new NFABasicChar();
-        NFA midnfa2 = nfaBasicChar2.singleAlphabet("b");
+        midnfa2 = nfaBasicChar2.singleAlphabet("b");
     }
 
     @After
-    public void throwDown() throws Exception {
+    public void throwDown() {
 
     }
 
     @Test
     public void testUnion() {
-        // TODO
+        NFA nfa = nfaBasicOperation.union(midnfa1, midnfa2);
+        assertTrue(nfa.accept("b"));
+        assertTrue(nfa.accept("a"));
     }
 
     @Test
     public void testConcat() {
-
+        NFA nfa = nfaBasicOperation.concatenation(midnfa1, midnfa2);
+        assertTrue(nfa.accept("ab"));
+        assertFalse(nfa.accept("b"));
+        assertFalse(nfa.accept("a"));
     }
 
     @Test
     public void testStar() {
-
+        NFA nfa = nfaBasicOperation.kleeneStar(midnfa1);
+        assertTrue(nfa.accept("aa"));
     }
 }
