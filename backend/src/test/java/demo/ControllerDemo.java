@@ -1,10 +1,7 @@
 package demo;
 import controllers.*;
-import errors.RegexException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ControllerDemo {
     /**
@@ -24,11 +21,20 @@ public class ControllerDemo {
         return matchController.match(text);
     }
 
-//    /**
-//     * Return an adjacency list
-//     */
-//    public getDFAVisualization(String text, String regex){
-//        DFAGrapher dfaGrapher = new DFAGrapher(regex);
-//        DFAGraphData dfaGraphData = dfaGrapher.graph();
-//    }
+    /**
+     * Return a DFAGraphData class
+     */
+    public DFAGraphData getDFAVisualization(String regex){
+        DFAGrapher dfaGrapher = new DFAGrapher(regex);
+        return dfaGrapher.graph();
+    }
+
+    /**
+     * Return an NFAGraphData class
+     */
+    public NFAGraphData getNFAVisualization(String regex){
+        NFAGrapher nfaGrapher = new NFAGrapher(regex);
+        return nfaGrapher.graph();
+    }
+
 }
