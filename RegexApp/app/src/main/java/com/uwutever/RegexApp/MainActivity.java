@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
                 }
             }
             if (no_duplicated_regex){
+                assert new_regex_text != null;
                 RegexObj regex = new RegexObj(new_regex_text);
                 mRegexViewModel.insert(regex);
             }
@@ -150,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
         startActivityForResult(intent, NEW_REGEX_ACTIVITY_REQUEST_CODE);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;

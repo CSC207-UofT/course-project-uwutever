@@ -26,7 +26,6 @@ import com.uwutever.RegexApp.utils.controllers.MatchController;
 public class SecondActivity extends AppCompatActivity {
     private EditText mMessageEditRegex;
     private EditText mMessageEditSample;
-    private EditText mMessageEditText;
 
     public static final String EXTRA_MESSAGE = "com.example.regex.extra.MESSAGE";
     public final static String EXTRA_REGEX = "com.example.android.Regex.REGEX";
