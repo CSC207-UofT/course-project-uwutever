@@ -2,6 +2,7 @@ package compiler;
 
 import automata.FSA;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,10 +21,4 @@ public interface RegexPattern {
      * @return the DFA / NFA in the class
      */
     <T extends FSA> T getFSA();
-
-    /**
-     * Get the quintuple form of the FSA in the object
-     * @return the quintuple form of the FSA
-     */
-    Map<String, Object> getFSAQuintuple();
 }
