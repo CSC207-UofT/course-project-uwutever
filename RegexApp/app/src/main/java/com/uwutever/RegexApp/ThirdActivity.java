@@ -135,6 +135,7 @@ public class ThirdActivity extends AppCompatActivity {
             str = str.substring(0, str.length() - 1);
         }
         ans /= 10;
+        ans %= 64;
         return String.valueOf(ans);
     }
 
@@ -203,8 +204,6 @@ public class ThirdActivity extends AppCompatActivity {
         NetworkGraph graph = new NetworkGraph();
         Map<String, Node> NodeMap = new HashMap<>();
 
-        // DEBUG
-        Log.d(TAG, String.valueOf(nfa.acceptingState.size()));
 
         for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add node into NodeMap
             String CurNodeName = StringToIntString(entry.getKey());
@@ -212,6 +211,8 @@ public class ThirdActivity extends AppCompatActivity {
             if(! NodeMap.containsKey(CurNodeName)) {
                 Node CurNode = new SimpleNode(CurNodeName);
                 NodeMap.put(CurNodeName, CurNode);
+                Log.d(TAG, "Add Node:" + CurNodeName);
+                graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
             }
         }
 
@@ -227,17 +228,15 @@ public class ThirdActivity extends AppCompatActivity {
                     if(! NodeMap.containsKey(CurNodeName)) {
                         Node CurNode = new SimpleNode(CurNodeName);
                         NodeMap.put(CurNodeName, CurNode);
+                        Log.d(TAG, "Add Node:" + CurNodeName);
+                        graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
                     }
                 }
 
             }
         }
 
-        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) { // add node into graph
-            Node CurNode = entry.getValue();
-            graph.getVertex().add(new Vertex(CurNode, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        }
-
+        int cnt = 0;
         for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add edge
             String CurNodeName = StringToIntString(entry.getKey());
 
@@ -251,11 +250,34 @@ public class ThirdActivity extends AppCompatActivity {
                     Node NextNode = NodeMap.get(NextNodeName);
 
                     String EdgeLabel = StringToIntString(entry1.getKey());
-
+                    if (EdgeLabel.length() > 1) EdgeLabel = EdgeLabel.substring(0, 1);
+                    ++cnt;
                     graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
+                    Log.d(TAG, "Add Edge: " + CurNodeName + " to " + NextNodeName + " label " + EdgeLabel);
                 }
             }
         }
+
+        Log.d(TAG, "Number of Edges:" + cnt);
+        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
+        surface.init(graph);
+    }
+
+    private void initialize_Visualization_test() {
+        NetworkGraph graph = new NetworkGraph();
+
+        Node v0 = new SimpleNode("0");
+        Node v1 = new SimpleNode("1");
+        Node v2 = new SimpleNode("2");
+
+
+        graph.getVertex().add(new Vertex(v0, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+        graph.getVertex().add(new Vertex(v2, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
+
+        graph.addEdge(new SimpleEdge(v0, v1, "1"));
+        graph.addEdge(new SimpleEdge(v1, v2, "2"));
+        graph.addEdge(new SimpleEdge(v2, v0, "3"));
 
         GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
         surface.init(graph);
