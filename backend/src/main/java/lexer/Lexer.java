@@ -9,11 +9,11 @@ import java.util.Stack;
 
 public class Lexer {
     private List<Token> tokens;
-    private String inputStr;
+    private final String inputStr;
 
     // for testing purpose only, remove in production.
     public static void main(String[] args) {
-        Lexer lexer = new Lexer("((xx))**");
+        Lexer lexer = new Lexer("((a)+b*)+e+|f*(g**)+");
         lexer.tokenize();
         for (Token t: lexer.getTokens()) {
             System.out.print(t.getTokenType() + " " + t.getValue());
@@ -34,8 +34,8 @@ public class Lexer {
      * Tokenize the string input into a list of tokens.
      */
     public void tokenize() {
-        Stack<Token> stack = new Stack<Token>();
-        this.tokens = new ArrayList<Token>();
+        Stack<Token> stack = new Stack<>();
+        this.tokens = new ArrayList<>();
 
         for (int i = 0; i < this.inputStr.length(); i++) {
             char currentChar = this.inputStr.charAt(i);
@@ -77,21 +77,27 @@ public class Lexer {
     }
 
     /**
-     * Insert the concatenation operators between every pair of characters and between the right
-     * parenthesis and characters.
-     * <p>
-     * For example, an expression of "(ab)c" will become "(a.b).c" after inserting the concatenation
-     * operators.
+     * Insert the concatenation operators for the following cases:
+     *  - closure and something that is not right parentheses, operator, or closure
+     *  - pair of characters
+     *  - character and left parentheses
+     *  - right parentheses and character
+     *  - right parentheses and left parentheses
+     *
+     * For example, an expression of "(ab*)+c*|d" will become "(a.b*)+.c*|d" after the insertions.
      */
     private void insertConcat() {
         for (int i = this.tokens.size() - 1; i > 0; i-=2) {
-            if (tokens.get(i).getTokenType() == TokenType.Char &&
-                    tokens.get(i-1).getTokenType() == TokenType.Char) {
+            TokenType right = tokens.get(i).getTokenType();
+            TokenType left = tokens.get(i-1).getTokenType();
+            if (left == TokenType.Closure &&
+                    !(right == TokenType.RightDelimiter || right == TokenType.Operator || right == TokenType.Closure)) {
                 tokens.add(i, Token.createConcat());
             }
-            else if (tokens.get(i).getTokenType() == TokenType.Char &&
-                    tokens.get(i-1).getTokenType() == TokenType.RightDelimiter) {
-                tokens.add(i, Token.createConcat());
+            else if (right == TokenType.Char || right == TokenType.LeftDelimiter) {
+                if (left == TokenType.Char || left == TokenType.RightDelimiter) {
+                    tokens.add(i, Token.createConcat());
+                }
             }
         }
     }
