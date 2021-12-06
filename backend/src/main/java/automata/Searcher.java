@@ -3,10 +3,6 @@ package automata;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Abstract class representing an FSA
- * @author Brian Ho
- * @author Arkaprava Choudhury
- */
 public class Searcher {
     /**
      * Return a list of index pairs where the substring of that index pair is accepted by the fsa.
@@ -19,20 +15,22 @@ public class Searcher {
 
         // loop for every char in text as the starting char
         for(int start = 0; start < text.length(); start++){
-            for(int end = start + 1; end <= text.length(); end ++){
+            for(int end = start + 1; end <= text.length(); end++){
                 // if match is found, get the longest match and append index pair
                 if (fsa.accept(text.substring(start, end))){
-                    if(end==text.length() || !fsa.accept(text.substring(start, end+1))){
+                    if(!fsa.accept(text.substring(start, end + 1))){
                         //append index pair
                         List<Integer> indexPair = new ArrayList<>();
                         indexPair.add(start);
                         indexPair.add(end);
                         ret.add(indexPair);
+
+                        // move start pointer to end
+                        start = end;
                     }
                 }
             }
         }
-
         return ret;
     }
 
