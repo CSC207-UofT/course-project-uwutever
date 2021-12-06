@@ -13,7 +13,6 @@ public class ParserDemo {
     public static void main(String[] args) {
         Lexer lexer = new Lexer("((a)+b*)+e+|f*(g**)+");
         lexer.tokenize();
-        System.out.println(lexer.getTokens());
         Parser parser = new Parser(lexer.getTokens(), null);
         ASTNode parsedAST = parser.parse();
         System.out.print(parsedAST.prettyPrintAST());
