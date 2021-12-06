@@ -1,6 +1,7 @@
 package automata.nfa;
 
 import automata.FSABuilder;
+import errors.UnknownStateIndexException;
 
 /** Builder class for NFA
  * @author Brian Ho
@@ -30,7 +31,11 @@ public class NFABuilder implements FSABuilder {
      */
     @Override
     public void setStartState(int index) {
-        this.nfa.startState = this.nfa.states.get(index);
+        try {
+            this.nfa.startState = this.nfa.states.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new UnknownStateIndexException(index);
+        }
     }
 
     /**
