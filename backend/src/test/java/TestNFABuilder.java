@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /*
@@ -48,6 +50,25 @@ public class TestNFABuilder {
             assertEquals("The index (2) is unknown to the FSA", e.getMessage());
         }
         NFAState after = nfaBuilder.getResult().getStartState();
+        assertEquals(before, after);
+    }
+
+    @Test
+    public void testNFABuilderSetAcceptingState() {
+        nfaBuilder.setAcceptingState(state);
+        NFA nfa = nfaBuilder.getResult();
+        assertTrue(nfa.getAcceptingStates().contains(nfa.getStates().get(state)));
+    }
+
+    @Test
+    public void testNFABuilderSetAcceptingStateException() {
+        Set<NFAState> before = nfaBuilder.getResult().getAcceptingStates();
+        try {
+            nfaBuilder.setAcceptingState(2);
+        } catch (UnknownStateIndexException e) {
+            assertEquals("The index (2) is unknown to the FSA", e.getMessage());
+        }
+        Set<NFAState> after = nfaBuilder.getResult().getAcceptingStates();
         assertEquals(before, after);
     }
 
