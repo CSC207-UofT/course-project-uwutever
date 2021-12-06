@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 29
 
     defaultConfig {
         applicationId "com.uwutever.RegexApp"
