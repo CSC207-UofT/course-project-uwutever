@@ -29,6 +29,16 @@ In this PR, I wrote the database and its connection.
 
 In this PR, I intergrate the front end with the backend.
 
+`HanruiJerryFan`: 
+
+1. <https://github.com/CSC207-UofT/course-project-uwutever/pull/7>
+
+In this PR, I wrote the 3 activities for the front end. I also wrote the history function of the app.
+
+2. <https://github.com/CSC207-UofT/course-project-uwutever/pull/24>
+
+In this PR, I wrote the drawer function and the about page. I also add visualizations for the regex.
+
 #### final words:
 
 I (`RealFakeAccount`) would like thanks to `HanruiJerryFan` for the hard work and the help during the whole UI development.
