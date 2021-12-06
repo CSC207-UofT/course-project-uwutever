@@ -58,19 +58,27 @@ public class SecondActivity extends AppCompatActivity {
 
         String RegexStr = mMessageEditRegex.getText().toString(); // regex string
         String SampleText = mMessageEditSample.getText().toString(); // sample text
+        if (RegexStr.length() == 0){
+            Toast.makeText( // show toast warning
+                    getApplicationContext(),
+                    "Regex Pattern cannot be empty",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            if (catchException(RegexStr, SampleText)){
+                Log.d(TAG,"Catch Exception!");
+            }
+            else {
+                catchException(RegexStr, SampleText);
+                Intent intent = new Intent(this, ThirdActivity.class);
+                intent.putExtra(EXTRA_REGEX, RegexStr); // add to data field
+                intent.putExtra(EXTRA_SAMPLE, SampleText);
+                intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT); // forward the action chain
+                startActivity(intent);
+                finish();
+            }
+        }
 
-        if (catchException(RegexStr, SampleText)){
-            Log.d(TAG,"Catch Exception!");
-        }
-        else {
-            catchException(RegexStr, SampleText);
-            Intent intent = new Intent(this, ThirdActivity.class);
-            intent.putExtra(EXTRA_REGEX, RegexStr); // add to data field
-            intent.putExtra(EXTRA_SAMPLE, SampleText);
-            intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT); // forward the action chain
-            startActivity(intent);
-            finish();
-        }
     }
 
     public boolean catchException(String regexStr, String sampleText) {
@@ -78,7 +86,6 @@ public class SecondActivity extends AppCompatActivity {
             MatchController matchController = new MatchController(regexStr, false);
             matchController.match(sampleText);
         } catch (Exception e) {
-            Log.d(TAG,"Catch Exception!");
             Toast.makeText( // show toast warning
                     getApplicationContext(),
                     e.getMessage(),
