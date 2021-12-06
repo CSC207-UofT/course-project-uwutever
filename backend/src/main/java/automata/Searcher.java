@@ -19,6 +19,7 @@ public class Searcher {
 
         // loop for every char in text as the starting char
         for(int start = 0; start < text.length(); start++){
+
             // if character not in alphabet, continue
             if (!fsa.getAlphabets().contains(text.charAt(start))) {
                 continue;
