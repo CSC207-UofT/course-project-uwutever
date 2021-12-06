@@ -1,5 +1,6 @@
 import automata.nfa.NFA;
 import automata.nfa.NFABuilder;
+import automata.nfa.NFAState;
 import errors.*;
 
 import org.junit.After;
@@ -26,7 +27,9 @@ public class TestNFABuilder {
 
     @Test
     public void testNFABuilderAddState() {
-        int state1 = nfaBuilder.addNewState();
+        assertEquals(nfaBuilder.getResult().getStates().size(), 1);
+        nfaBuilder.addNewState();
+        assertEquals(nfaBuilder.getResult().getStates().size(), 2);
     }
 
     @Test
@@ -38,11 +41,14 @@ public class TestNFABuilder {
 
     @Test
     public void testNFABuilderSetStartStateException() {
+        NFAState before = nfaBuilder.getResult().getStartState();
         try {
             nfaBuilder.setStartState(2);
         } catch (UnknownStateIndexException e) {
             assertEquals("The index (2) is unknown to the FSA", e.getMessage());
         }
+        NFAState after = nfaBuilder.getResult().getStartState();
+        assertEquals(before, after);
     }
 
     @After
