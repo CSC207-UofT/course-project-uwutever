@@ -16,6 +16,8 @@
     <string name="AddRegex">Add a new Regex</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_help">Help Document</string>
+    <string name="MatchedPattern">Matched Pattern:</string>
+    <string name="Visualization">Visualization:</string>
 
 
 </resources>

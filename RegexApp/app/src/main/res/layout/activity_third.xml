@@ -8,30 +8,70 @@
     tools:context=".ThirdActivity"
     tools:ignore="ExtraText">
 
-    <TextView
-        android:id="@+id/Text_MatchedPattern"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/MatchedPatternCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="22sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="103dp" />
+        android:layout_margin="8dp"
+        android:layout_weight="2">
 
-    <!--REPLACE BELOW PART WITH VISUALIZATION METHOD-->
-    <giwi.org.networkgraph.GraphSurfaceView
-        android:id="@+id/visualization"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/MatchedPattern"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <TextView
+                android:id="@+id/Text_MatchedPattern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/VisualizationCard"
         android:layout_width="match_parent"
-        android:layout_height="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="5dp"
-        android:layout_weight="6"
-        app:defaultColor="@android:color/black"
-        app:edgeColor="@color/UofTLighterBlue"
-        app:nodeBgColor="@android:color/white"
-        app:nodeColor="@color/UofTBlue" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Visualization"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <giwi.org.networkgraph.GraphSurfaceView
+                android:id="@+id/visualization"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_margin="5dp"
+                app:defaultColor="@android:color/black"
+                app:edgeColor="@color/UofTLighterBlue"
+                app:nodeBgColor="@android:color/white"
+                app:nodeColor="@color/UofTBlue" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <Button
         android:id="@+id/Act3_button_save"
