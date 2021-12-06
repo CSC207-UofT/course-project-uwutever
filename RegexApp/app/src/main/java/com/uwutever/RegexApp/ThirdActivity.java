@@ -60,30 +60,17 @@ public class ThirdActivity extends AppCompatActivity {
         RegexStr = intent.getStringExtra(SecondActivity.EXTRA_REGEX);
         SampleText = intent.getStringExtra(SecondActivity.EXTRA_SAMPLE);
 
-        MatchController matchController = new MatchController(RegexStr,false);
-        Boolean result = matchController.match(SampleText);
-
         SearchController searchController = new SearchController(RegexStr,false);
-        Log.d(TAG, "what!");
-//        List<List<Integer>> matchedIntervals = searchController.search(SampleText);
+        List<List<Integer>> matchedIntervals = searchController.search(SampleText);
         Log.d(TAG, "what?");
-        List<List<Integer>> matchedIntervals = new ArrayList<>();
-        List<Integer> lst1 = new ArrayList<>();
-        lst1.add(0);
-        lst1.add(1);
-        List<Integer> lst2 = new ArrayList<>();
-        lst2.add(2);
-        lst2.add(5);
-        matchedIntervals.add(lst1);
-        matchedIntervals.add(lst2);
-        message = highlight_MatchedPattern(matchedIntervals);
+        Boolean result = !(matchedIntervals.size() == 0);
 
-//        if (result){
-//            message = highlight_MatchedPattern(matchedIntervals);
-//        }
-//        else {
-//            message = "No Match Pattern Available!";
-//        }
+        if (result){
+            message = highlight_MatchedPattern(matchedIntervals);
+        }
+        else {
+            message = "No Match Pattern Available!";
+        }
 
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
         Matched_Pattern.setText(Html.fromHtml(message));
@@ -122,10 +109,10 @@ public class ThirdActivity extends AppCompatActivity {
     private String highlight_MatchedPattern(List<List<Integer>> matchedintervals){
         String temp = "";
         int end = 0;
-        Log.d(TAG, matchedintervals.get(0).get(0).toString());
+        Log.d(TAG, ((Integer) matchedintervals.size()).toString());
         for(int i = 0; i < matchedintervals.size(); i++){
-            Log.d(TAG, matchedintervals.get(i).get(0).toString());
-//            <span style='background-color:UofTLighterBlue'>
+            Log.d(TAG, matchedintervals.get(i).get(0).toString()+matchedintervals.get(i).get(1).toString());
+
             temp = temp + SampleText.substring(end, matchedintervals.get(i).get(0)) + "<font color='#226AD0'>"+ SampleText.substring(matchedintervals.get(i).get(0), matchedintervals.get(i).get(1)) + "</font>";
             end = matchedintervals.get(i).get(1);
         }
