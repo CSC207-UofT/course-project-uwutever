@@ -31,11 +31,10 @@ public class NFABuilder implements FSABuilder {
      */
     @Override
     public void setStartState(int index) {
-        try {
-            this.nfa.startState = this.nfa.states.get(index);
-        } catch (IndexOutOfBoundsException e) {
+        if(index < 0 || index >= this.nfa.states.size()) {
             throw new UnknownStateIndexException(index);
         }
+            this.nfa.startState = this.nfa.states.get(index);
     }
 
     /**
@@ -49,6 +48,9 @@ public class NFABuilder implements FSABuilder {
      */
     @Override
     public void setAcceptingState(int index) {
+        if(index < 0 || index >= this.nfa.states.size()) {
+            throw new UnknownStateIndexException(index);
+        }
         this.nfa.endState = this.nfa.states.get(index);
     }
 
@@ -74,6 +76,13 @@ public class NFABuilder implements FSABuilder {
      */
     @Override
     public void addTransition(int fromIndex, String alphabet, int toIndex) {
+        if(fromIndex < 0 || fromIndex >= this.nfa.states.size()) {
+            throw new UnknownStateIndexException(fromIndex);
+        }
+        if(toIndex < 0 || toIndex >= this.nfa.states.size()) {
+            throw new UnknownStateIndexException(toIndex);
+        }
+
         this.nfa.alphabets.add(alphabet);
         NFAState fromState = this.nfa.states.get(fromIndex);
         NFAState toState = this.nfa.states.get(toIndex);
@@ -92,6 +101,9 @@ public class NFABuilder implements FSABuilder {
      * @param addNFA the NFA to be added in this.NFA
      */
     public void addTransition(int fromIndex, String alphabet, NFA addNFA){
+        if(fromIndex < 0 || fromIndex >= this.nfa.states.size()) {
+            throw new UnknownStateIndexException(fromIndex);
+        }
         this.nfa.alphabets.add(alphabet);
 
         NFAState fromState = this.nfa.states.get(fromIndex);
@@ -108,7 +120,7 @@ public class NFABuilder implements FSABuilder {
 
     /**
      * Overload addTransition method
-     * Allow adding transition from the given index state to another NFA
+     * Allow adding transition from the given NFA to another index state
      *
      * Add the states of the NFA to this.nfa state list if it is not present
      * The transition relationship of the NFA should remain unchanged
@@ -118,6 +130,9 @@ public class NFABuilder implements FSABuilder {
      * @param addNFA the NFA to be added in this.NFA
      */
     public void addTransition(NFA addNFA, String alphabet, int toIndex){
+        if(toIndex < 0 || toIndex >= this.nfa.states.size()) {
+            throw new UnknownStateIndexException(toIndex);
+        }
         this.nfa.alphabets.add(alphabet);
         this.nfa.alphabets.addAll(addNFA.alphabets);
 
@@ -135,7 +150,7 @@ public class NFABuilder implements FSABuilder {
 
     /**
      * Overload addTransition method
-     * Allow adding transition from the given index state to another NFA
+     * Allow adding transition from the given NFA to another NFA
      *
      * Add the states of the NFA to this.nfa state list if it is not present
      * The transition relationship of the NFA should remain unchanged
