@@ -1,19 +1,35 @@
-## Progress Report (Phase 1)
+## Progress Report (Phase 2)
 ### FrontEnd: 
 
-We have finished the front end. We have a working front end with database, history and add function now. 
+Proudly Using **UofT Blue**
 
-In compare to Phase 1, we have connected the front end with the backend. We make the UI looks better by applying material desigh, and also add about page and user document page for accessibility. Most importantly, we finished the visualization of the regex.
+We have finished the front end. We have a working front end with database, history and add function now. 
 
 The frontend is developed by `HanruiJerryFan` and `RealFakeAccount`.
 To specify, `HanruiJerryFan` did the activities and the view models.
 `HanruiJerryFan` also did the Adapter and the click function for reviewing the history regex.
 `RealFakeAccount` did the database and its interface, together with the activity chain of the activities.
 
-In compare to Phase 1, `HanruiJerryFan` add the drawer review for about page and document and intergrate the front end with the backend.
-`RealFakeAccount` refactored the project, added javadoc and unit test, together with any reports related to UI. 
+In Phase 2, we have connected the front end with the backend. We make the UI looks better by applying material design, and also add about page and user document page for accessibility. Most importantly, we finished the visualization of the regex.
+
+In Phase 2, `HanruiJerryFan` add the drawer review for about page and document, and add the important visualizations for the regex. 
+`RealFakeAccount` refactored the project, added javadoc and intergrate the front end with the backend, together with reports related to UI. 
 Together, we change the theme to material design.
 
+
+#### independent contribution:
+
+`RealFakeAccount`
+
+1. <https://github.com/CSC207-UofT/course-project-uwutever/pull/7>
+
+In this PR, I wrote the database and its connection.
+
+2. <https://github.com/CSC207-UofT/course-project-uwutever/pull/24>
+
+In this PR, I intergrate the front end with the backend.
+
+#### final words:
 
 I (`RealFakeAccount`) would like thanks to `HanruiJerryFan` for the hard work and the help during the whole UI development.
 He is really responsible and friendly person, and a quick learner. I am really glad to have him as a part of our team.

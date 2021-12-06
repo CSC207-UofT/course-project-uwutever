@@ -1,7 +1,5 @@
 # Design Document
 
-Proudly Using **UofT Blue**
-
 ## SOLID Design Principles
 ### Single Responsibility Principle
 Our design abided by the single responsibility principle: we created a separate class for each responsibility in our program, 
@@ -92,6 +90,8 @@ independently of others, with its own set of branches and pull requests and disc
 
 We manually resolved merge conflicts and gradle issues arising from trying to merge branches or forks using git when the
 automatic system of GitHub was unsuccessful in the merging of the branches/forks.
+
+We use github issues and PR to track our process and feature requests.
 
 ## Code Style and Documentation
 So far throughout the entire project, we have only received two style warnings and several deprecation warnings 
