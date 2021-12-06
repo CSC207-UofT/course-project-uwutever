@@ -4,6 +4,7 @@ import com.uwutever.RegexApp.utils.automata.Searcher;
 import com.uwutever.RegexApp.utils.compiler.RegexDFAPattern;
 import com.uwutever.RegexApp.utils.compiler.RegexNFAPattern;
 import com.uwutever.RegexApp.utils.compiler.RegexPattern;
+import com.uwutever.RegexApp.utils.errors.RegexException;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
 public class SearchController {
     private final RegexPattern regexPattern;
 
-    public SearchController(String regexString, boolean compileDFA){
-        if(compileDFA){
+    public SearchController(String regexString, boolean compileDFA) throws RegexException {
+        if (compileDFA) {
             this.regexPattern = new RegexDFAPattern(regexString);
-        } else{
+        } else {
             this.regexPattern = new RegexNFAPattern(regexString);
         }
     }

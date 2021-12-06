@@ -8,6 +8,8 @@ import com.uwutever.RegexApp.utils.parser.ast.ASTNode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegexDFAPattern implements RegexPattern{
     private final String regexStr;
@@ -37,17 +39,7 @@ public class RegexDFAPattern implements RegexPattern{
         return this.dfa;
     }
 
-    @Override
-    public Map<String, Object> getFSAQuintuple() {
-        DFAQuintuple quintuple = new DFAQuintuple(this.dfa);
-        Map<String, Object> ret = new HashMap<>();
-
-        ret.put("states", quintuple.states);
-        ret.put("alphabets", quintuple.alphabets);
-        ret.put("start state" , quintuple.startState);
-        ret.put("accepting state", quintuple.acceptingStates);
-        ret.put("transitions", quintuple.transitionTable);
-
-        return ret;
+    public DFAQuintuple graph() {
+        return new DFAQuintuple(this.dfa);
     }
 }
