@@ -26,7 +26,7 @@ public class ASTtoNFACompiler implements Compiler{
 
     /**
      * Compile the ast to an NFA
-     * @return the compile NFA
+     * @return the compiled NFA
      */
     @Override
     public NFA compile(){
