@@ -1,6 +1,8 @@
 package automata.dfa;
 import automata.FSABuilder;
 
+import java.util.Objects;
+
 public class DFABuilder implements FSABuilder {
     private DFA dfa;
 
@@ -60,6 +62,9 @@ public class DFABuilder implements FSABuilder {
      */
     @Override
     public void addTransition(int fromIndex, String alphabet, int toIndex) {
+        if(!alphabet.equals("epsilon")){
+            this.dfa.alphabets.add(alphabet);
+        }
         DFAState fromState = this.dfa.states.get(fromIndex);
         DFAState toState = this.dfa.states.get(toIndex);
         fromState.addTransition(alphabet, toState);

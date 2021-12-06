@@ -2,23 +2,26 @@ package com.uwutever.RegexApp;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-//import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.uwutever.RegexApp.db.RegexObj;
 
 import java.util.List;
@@ -33,13 +36,14 @@ import java.util.List;
  * @since 1.0
  */
 
-public class MainActivity extends AppCompatActivity implements RegexCardAdapter.OnRegexListener {
+public class MainActivity extends AppCompatActivity implements RegexCardAdapter.OnRegexListener, NavigationView.OnNavigationItemSelectedListener {
     public static final int NEW_REGEX_ACTIVITY_REQUEST_CODE = 1;
 
     private RegexViewModel mRegexViewModel;
     private List<RegexObj> mRegexObjs;
 
     public static final String EXTRA_MESSAGE = "com.example.regex.extra.MESSAGE";
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +55,23 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        // Create a toolbar and a drawer for tool bar
+        drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Regex");
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        // Create a Recyclerview for each regex like different regex cards in the demo
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final RegexCardAdapter adapter = new RegexCardAdapter(this, this);
         recyclerView.setAdapter(adapter);
@@ -136,5 +148,34 @@ public class MainActivity extends AppCompatActivity implements RegexCardAdapter.
         String message = mRegexObjs.get(position).getRegex();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivityForResult(intent, NEW_REGEX_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                break;
+            case R.id.nav_help:
+                intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

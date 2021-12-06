@@ -26,7 +26,7 @@ public class ASTtoNFACompiler implements Compiler{
 
     /**
      * Compile the ast to an NFA
-     * @return
+     * @return the corresponding NFA for the input AST
      */
     @Override
     public NFA compile(){
@@ -70,11 +70,11 @@ public class ASTtoNFACompiler implements Compiler{
         else if (T.operator.getValue() == '+') {
             NFA midnfa1 = constructNFA(T.exp);
 
-            nfa = new NFAExtendOperation().OneOrMore(midnfa1);
+            nfa = new NFAExtendOperation().oneOrMore(midnfa1);
         }
         else if (T.operator.getValue() == '?') {
             NFA midNFA = constructNFA(T.exp);
-            nfa = new NFAExtendOperation().ZeroOrOne(midNFA);
+            nfa = new NFAExtendOperation().zeroOrOne(midNFA);
         }
 
         return nfa;
