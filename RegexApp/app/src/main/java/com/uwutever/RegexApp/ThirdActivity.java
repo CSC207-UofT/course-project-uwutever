@@ -21,6 +21,11 @@ import giwi.org.networkgraph.GraphSurfaceView;
 import giwi.org.networkgraph.beans.NetworkGraph;
 import giwi.org.networkgraph.beans.Vertex;
 
+import com.uwutever.RegexApp.utils.controllers.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * ThirdActivity: Show the result of the regex match.
  *
@@ -76,31 +81,45 @@ public class ThirdActivity extends AppCompatActivity {
        });
     }
 
+    /**
+     * Return a DFAGraphData class
+     */
+    public DFAGraphData getDFAVisualization(String regex){
+        DFAGrapher dfaGrapher = new DFAGrapher(regex);
+        return dfaGrapher.graph();
+    }
+
     private void initialize_Visualization() {
+
+        DFAGraphData dfa = getDFAVisualization(RegexStr); // create DFA data object based on regex
+
         NetworkGraph graph = new NetworkGraph();
+        Map<String, Node> NodeMap = new HashMap<String, Node>();
 
-        Node v1 = new SimpleNode("18");
-        Node v2 = new SimpleNode("24");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.getVertex().add(new Vertex(v2, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v1, v2, "12"));
+        Node StartNode = new SimpleNode(dfa.startState);
 
-        Node v3 = new SimpleNode("7");
-        graph.getVertex().add(new Vertex(v3, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v2, v3, "23"));
+        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) {
+            String CurNodeName = entry.getKey();
+            Node CurNode = new SimpleNode(CurNodeName);
+            NodeMap.put(CurNodeName, CurNode);
+        }
 
-        v1 = new SimpleNode("14");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v3, v1, "34"));
+        Log.d(TAG, "####################");
 
-        v1 = new SimpleNode("10");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v3, v1, "35"));
+        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add edge
+            String CurNodeName = entry.getKey();
 
-        v1 = new SimpleNode("11");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v1, v3, "36"));
-        graph.addEdge(new SimpleEdge(v3, v1, "6"));
+            Map<String, String> NextNodeData = entry.getValue();
+
+            Node CurNode = NodeMap.get(CurNodeName);
+
+            for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
+                Node NextNode = NodeMap.get(entry1.getValue());
+                String EdgeLabel = entry1.getKey();
+
+                graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
+            }
+        }
 
         GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
         surface.init(graph);
