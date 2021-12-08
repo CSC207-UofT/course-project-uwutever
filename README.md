@@ -18,10 +18,9 @@ To see the back-end demo, please visit src/test/demo/DemoPhase1 and follow the i
 
 ### UI Demo:
 
-![UI demo 1](reports/phase1/img/State1.png "State 1")
-![UI demo 2](reports/phase1/img/State2.png "State 2")
-![UI demo 3](reports/phase1/img/State3.png "State 3")
-![UI demo 4](reports/phase1/img/State4.png "State 4")
+![UI demo 1](Demo/Screen1.png "State 1")
+![UI demo 2](Demo/Screen2.png "State 2")
+![UI demo 3](Demo/Screen3.png "State 3")
 
 Phase 2 plans: implementing pattern matching to meet specifications, and visualizing ASTs, FSAs in GUI.
 
