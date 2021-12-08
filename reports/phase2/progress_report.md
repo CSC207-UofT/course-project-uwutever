@@ -39,10 +39,13 @@ In this PR, I wrote the 3 activities for the front end. I also wrote the history
 
 In this PR, I wrote the drawer function and the about page. I also applied material design to the app, and finish match highlighting.
 
-#### final words:
+#### Final Words:
 
 I (`RealFakeAccount`) would like thanks to `HanruiJerryFan` for the hard work and the help during the whole UI development.
 He is really responsible and friendly person, and a quick learner. I am really glad to have him as a part of our team.
+
+I (`HanruiJerryFan`) would like thanks to `RealFakeAccount` for playing the role of communication throughout the project. 
+He kept the front-end and back-end teams informed of each other's progress and needs. He was also extremely talented in the programming part, he built the database with his own knowledge and took care of a series of procedures to store the user's data into the database in the backend and followed the Clean Architecture and SOLID principles perfectly. I am very glad to be a team member with him for the front-end part and thank him for his help.
 
 ### Backend:
 
