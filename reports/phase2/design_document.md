@@ -16,6 +16,9 @@ be matching the multiple strings to the same regular expression). This `DFA` wil
 In terms of the user interface, each of the activities (each screen) has a single object that is only responsible for 
 that screen. We have separate view models for UI patterns.
 
+FrontEnd: All our frontend code suit SRP. For example, We split the activities into separate classes. Therefore, if we want to modify a single activity,
+only one activity class needs to be modified.
+
 ### Open/Closed Principle
 Back-end: We have created subclasses for the nodes in the AST and subclasses for different `NFA`'s (based on their construction),
 if needed, more subclasses can be created and added without affecting the behaviour of the existing ones.
@@ -93,6 +96,11 @@ automatic system of GitHub was unsuccessful in the merging of the branches/forks
 
 We use github issues and PR to track our process and feature requests.
 
+We also set up a discord bot to automatically post the status of the project to the discord channel.
+
+![Discord Hook](img/DiscordHook.png "Discord Hook")
+
+
 ## Code Style and Documentation
 So far throughout the entire project, we have only received two style warnings and several deprecation warnings 
 by IntelliJ. One style warning pertains to an unchecked casting in one of the DFA classes, which can be easily remedied 
@@ -138,7 +146,8 @@ and without using a separate class to store the states. In turn, the results of 
 
 We even had to refactor the NFA class with the builder pattern, as seen in the pull request by Brian titled **NFA builder implementation**.
 
-Frontend: We have not done any refactoring for now, we will do so if we deem it necessary in the future.
+Frontend: We refactored graph algorithm to suit SOLID design. We also refactored the UI to make it more intuitive.
+In the progress of intergrading the front-end with the backend, we did a few more refactorings.
 
 ## Code Organization
 We use the “by component” packaging strategy for our project, similar to the packaging strategy used by JavaShell. 
@@ -160,6 +169,4 @@ functionality of controlling the program using the Android interface can be comp
 to improve upon the front end to make it more visually appealing and user-friendly.
 
 ## Future Plans
-Below is a summary of our plans in the future:
- - Implement pattern matching, which looks for substring that are in the described language in addition to just looking at the string as a whole.
- - Use Factory method for Compiler
+
