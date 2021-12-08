@@ -3,23 +3,19 @@ package com.uwutever.RegexApp;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import net.xqhs.graphs.graph.Node;
-import net.xqhs.graphs.graph.SimpleEdge;
-import net.xqhs.graphs.graph.SimpleNode;
+import java.util.List;
 
-import giwi.org.networkgraph.GraphSurfaceView;
-import giwi.org.networkgraph.beans.NetworkGraph;
-import giwi.org.networkgraph.beans.Vertex;
+import com.uwutever.RegexApp.utils.controllers.*;
 
 /**
  * ThirdActivity: Show the result of the regex match.
@@ -34,6 +30,7 @@ public class ThirdActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY = "com.example.android.Regex.REPLY";
     private String RegexStr;
     private String SampleText;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +44,20 @@ public class ThirdActivity extends AppCompatActivity {
         RegexStr = intent.getStringExtra(SecondActivity.EXTRA_REGEX);
         SampleText = intent.getStringExtra(SecondActivity.EXTRA_SAMPLE);
 
-        String message = "Hello World!"; // need to replace with the algorithm object
+        SearchController searchController = new SearchController(RegexStr,false);
+        List<List<Integer>> matchedIntervals = searchController.search(SampleText);
+        boolean result = !(matchedIntervals.size() == 0);
+
+        if (result){
+            message = highlight_MatchedPattern(matchedIntervals);
+        }
+        else {
+            message = "No Match Pattern Available!";
+        }
 
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
-        Matched_Pattern.setText(message);
+        Matched_Pattern.setText(Html.fromHtml(message));
 
-        Log.d(TAG,"matched_pattern");
         initialize_Visualization();
 
        final Button button = findViewById(R.id.Act3_button_save);
@@ -77,47 +82,28 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     private void initialize_Visualization() {
-        NetworkGraph graph = new NetworkGraph();
-
-        Node v1 = new SimpleNode("18");
-        Node v2 = new SimpleNode("24");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.getVertex().add(new Vertex(v2, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v1, v2, "12"));
-
-        Node v3 = new SimpleNode("7");
-        graph.getVertex().add(new Vertex(v3, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v2, v3, "23"));
-
-        v1 = new SimpleNode("14");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v3, v1, "34"));
-
-        v1 = new SimpleNode("10");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v3, v1, "35"));
-
-        v1 = new SimpleNode("11");
-        graph.getVertex().add(new Vertex(v1, ContextCompat.getDrawable(this, R.drawable.smallpixel)));
-        graph.addEdge(new SimpleEdge(v1, v3, "36"));
-        graph.addEdge(new SimpleEdge(v3, v1, "6"));
+        /*
+        * Initialize the visualization of the regex match.
+        */
+        GraphVisualizationPresenter Graph = new GraphVisualizationPresenter(RegexStr);
 
         GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
-        surface.init(graph);
+        surface.init(Graph.initialize_Visualization_NFA());
     }
 
-//    public void CallBackMainActivity(View view){
-//
-////        String RegexStr, SampleText;
-//
-////        if(bundle != null){
-////            RegexStr = (String) bundle.get("RegexStr");
-////            SampleText = (String) bundle.get("SampleText");
-////        }
-//
-//        // jump to main activity
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtras(getIntent().getExtras()); // send Regex pattern and sample text to main activity
-//        startActivity(intent);
-//    }
+    private String highlight_MatchedPattern(List<List<Integer>> matchedintervals){
+        /*
+        * Highlight the matched pattern.
+        */
+        String temp = "";
+        int end = 0;
+        Log.d(TAG, ((Integer) matchedintervals.size()).toString());
+        for(int i = 0; i < matchedintervals.size(); i++){
+            Log.d(TAG, matchedintervals.get(i).get(0).toString()+matchedintervals.get(i).get(1).toString());
+
+            temp = temp + SampleText.substring(end, matchedintervals.get(i).get(0)) + "<font color='#226AD0'>"+ SampleText.substring(matchedintervals.get(i).get(0), matchedintervals.get(i).get(1)) + "</font>";
+            end = matchedintervals.get(i).get(1);
+        }
+        return temp + SampleText.substring(end, SampleText.length());
+    }
 }

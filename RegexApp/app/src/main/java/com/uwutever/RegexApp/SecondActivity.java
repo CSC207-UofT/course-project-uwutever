@@ -1,12 +1,18 @@
 package com.uwutever.RegexApp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.uwutever.RegexApp.utils.controllers.MatchController;
 
 /**
  * SecondActivity: Let user input a regular expression.
@@ -20,7 +26,6 @@ import android.widget.TextView;
 public class SecondActivity extends AppCompatActivity {
     private EditText mMessageEditRegex;
     private EditText mMessageEditSample;
-    private EditText mMessageEditText;
 
     public static final String EXTRA_MESSAGE = "com.example.regex.extra.MESSAGE";
     public final static String EXTRA_REGEX = "com.example.android.Regex.REGEX";
@@ -49,14 +54,44 @@ public class SecondActivity extends AppCompatActivity {
         * launchThirdActivity: launch the third activity.
         * @param view: the view that is clicked.
         */
-        Intent intent = new Intent(this, ThirdActivity.class);
+
         String RegexStr = mMessageEditRegex.getText().toString(); // regex string
         String SampleText = mMessageEditSample.getText().toString(); // sample text
-        intent.putExtra(EXTRA_REGEX, RegexStr); // add to data field
-        intent.putExtra(EXTRA_SAMPLE, SampleText);
+        if (RegexStr.length() == 0){
+            Toast.makeText( // show toast warning
+                    getApplicationContext(),
+                    "Regex Pattern cannot be empty",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            if (catchException(RegexStr, SampleText)){
+                Log.d(TAG,"Catch Exception!");
+            }
+            else {
+                catchException(RegexStr, SampleText);
+                Intent intent = new Intent(this, ThirdActivity.class);
+                intent.putExtra(EXTRA_REGEX, RegexStr); // add to data field
+                intent.putExtra(EXTRA_SAMPLE, SampleText);
+                intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT); // forward the action chain
+                startActivity(intent);
+                finish();
+            }
+        }
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT); // forward the action chain
-        startActivity(intent);
-        finish();
+    }
+
+    public boolean catchException(String regexStr, String sampleText) {
+        try {
+            MatchController matchController = new MatchController(regexStr, false);
+            matchController.match(sampleText);
+        } catch (Exception e) {
+            Toast.makeText( // show toast warning
+                    getApplicationContext(),
+                    e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            return true;
+        }
+        Log.d(TAG,"No Exception!");
+        return false;
     }
 }

@@ -11,7 +11,7 @@ public class Token {
     private final char value;
 
     protected static final HashSet<Character> LEFT = new HashSet<Character>(Arrays.asList('(', '[', '{'));
-    protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')', ')', '}'));
+    protected static final HashSet<Character> RIGHT = new HashSet<Character>(Arrays.asList(')', ']', '}'));
     protected static final HashSet<Character> OPS = new HashSet<Character>(Arrays.asList('|'));
     protected static final HashSet<Character> QUANTIFIERS = new HashSet<>(Arrays.asList('*', '+', '?'));
 
