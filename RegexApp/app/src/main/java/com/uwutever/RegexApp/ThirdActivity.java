@@ -13,19 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.uwutever.RegexApp.beans.RegexGraph;
-
-import net.xqhs.graphs.graph.Node;
-import net.xqhs.graphs.graph.SimpleEdge;
-import net.xqhs.graphs.graph.SimpleNode;
-
 import java.util.List;
 
 import com.uwutever.RegexApp.utils.controllers.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ThirdActivity: Show the result of the regex match.
@@ -68,7 +58,7 @@ public class ThirdActivity extends AppCompatActivity {
         TextView Matched_Pattern = findViewById(R.id.Text_MatchedPattern);
         Matched_Pattern.setText(Html.fromHtml(message));
 
-        initialize_Visualization_NFA();
+        initialize_Visualization();
 
        final Button button = findViewById(R.id.Act3_button_save);
        button.setOnClickListener(new View.OnClickListener() {
@@ -91,12 +81,11 @@ public class ThirdActivity extends AppCompatActivity {
        });
     }
 
-    /**
-     * Return a DFAGraphData class
-     */
-    public DFAGraphData getDFAVisualization(String regex){
-        DFAGrapher dfaGrapher = new DFAGrapher(regex);
-        return dfaGrapher.graph();
+    private void initialize_Visualization() {
+        GraphVisualizationPresenter Graph = new GraphVisualizationPresenter(RegexStr);
+
+        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
+        surface.init(Graph.initialize_Visualization_NFA());
     }
 
     private String highlight_MatchedPattern(List<List<Integer>> matchedintervals){
@@ -111,182 +100,4 @@ public class ThirdActivity extends AppCompatActivity {
         }
         return temp + SampleText.substring(end, SampleText.length());
     }
-
-    /**
-     * Return an NFAGraphData class
-     */
-    public NFAGraphData getNFAVisualization(String regex){
-        NFAGrapher nfaGrapher = new NFAGrapher(regex);
-        return nfaGrapher.graph();
-    }
-
-    public String StringToIntString(String str) {
-        int ans = 0;
-        while (!str.isEmpty()) {
-            ans += str.charAt(str.length() - 1) - '0';
-            ans *= 10;
-            str = str.substring(0, str.length() - 1);
-        }
-        ans /= 10;
-        ans %= 64;
-        return String.valueOf(ans);
-    }
-
-    private void initialize_Visualization_DFA() {
-
-        DFAGraphData dfa = getDFAVisualization(RegexStr); // create DFA data object based on regex
-
-        RegexGraph graph = new RegexGraph();
-        Map<String, Node> NodeMap = new HashMap<>();
-
-        Log.d(TAG, String.valueOf(dfa.acceptingState.size()));
-
-        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add node into NodeMap
-            String CurNodeName = entry.getKey();
-
-            if(! NodeMap.containsKey(CurNodeName)) {
-                Node CurNode = new SimpleNode(CurNodeName);
-                NodeMap.put(CurNodeName, CurNode);
-            }
-        }
-
-        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) {
-            Map<String, String> NextNodeData = entry.getValue();
-
-            for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
-                String CurNodeName = entry1.getValue();
-
-                if(! NodeMap.containsKey(CurNodeName)) {
-                    Node CurNode = new SimpleNode(CurNodeName);
-                    NodeMap.put(CurNodeName, CurNode);
-                }
-            }
-        }
-
-        for (Map.Entry<String, Node> entry: NodeMap.entrySet()) { // add node into graph
-            Node CurNode = entry.getValue();
-            graph.addNode(CurNode);
-        }
-
-        for (Map.Entry<String, Map<String, String>> entry: dfa.transitionTable.entrySet()) { // add edge
-            String CurNodeName = entry.getKey();
-
-            Map<String, String> NextNodeData = entry.getValue();
-
-            Node CurNode = NodeMap.get(CurNodeName);
-
-            for (Map.Entry<String, String> entry1: NextNodeData.entrySet()) {
-                String NextNodeName = entry1.getValue();
-                Node NextNode = NodeMap.get(NextNodeName);
-
-                String EdgeLabel = entry1.getKey();
-
-                graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
-            }
-        }
-
-        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
-        surface.init(graph);
-    }
-
-
-    private void initialize_Visualization_NFA() {
-
-        NFAGraphData nfa = getNFAVisualization(RegexStr); // create DFA data object based on regex
-
-        RegexGraph graph = new RegexGraph();
-        Map<String, Node> NodeMap = new HashMap<>();
-
-
-        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add node into NodeMap
-            String CurNodeName = entry.getKey();
-
-            if(! NodeMap.containsKey(CurNodeName)) {
-                Node CurNode = new SimpleNode(CurNodeName);
-                NodeMap.put(CurNodeName, CurNode);
-                Log.d(TAG, "Add Node:" + CurNodeName);
-                graph.addNode(CurNode);
-            }
-        }
-
-        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) {// add node into NodeMap
-            Map<String, Set<String>> NextNodeData = entry.getValue();
-
-            for (Map.Entry<String, Set<String>> entry1: NextNodeData.entrySet()) {
-                Set<String> NextNodeSet = entry1.getValue();
-
-                for (String s: NextNodeSet) {
-                    String CurNodeName = s;
-
-                    if(! NodeMap.containsKey(CurNodeName)) {
-                        Node CurNode = new SimpleNode(CurNodeName);
-                        NodeMap.put(CurNodeName, CurNode);
-                        Log.d(TAG, "Add Node:" + CurNodeName);
-                        graph.add(CurNode);
-                    }
-                }
-
-            }
-        }
-
-        int cnt = 0;
-        for (Map.Entry<String, Map<String, Set<String>>> entry: nfa.transitionTable.entrySet()) { // add edge
-            String CurNodeName = entry.getKey();
-
-            Map<String, Set<String>> NextNodeData = entry.getValue();
-
-            Node CurNode = NodeMap.get(CurNodeName);
-
-            for (Map.Entry<String, Set<String>> entry1: NextNodeData.entrySet()) {
-                for (String s: entry1.getValue()) {
-                    String NextNodeName = s;
-                    Node NextNode = NodeMap.get(NextNodeName);
-
-                    String EdgeLabel = entry1.getKey();
-                    ++cnt;
-                    graph.addEdge(new SimpleEdge(CurNode, NextNode, EdgeLabel));
-                    Log.d(TAG, "Add Edge: " + CurNodeName + " to " + NextNodeName + " label " + EdgeLabel);
-                }
-            }
-        }
-
-        Log.d(TAG, "Number of Edges:" + cnt);
-        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
-        surface.init(graph);
-    }
-
-    private void initialize_Visualization_test() {
-        RegexGraph graph = new RegexGraph();
-
-        Node v0 = new SimpleNode("V0");
-        Node v1 = new SimpleNode("V1");
-        Node v2 = new SimpleNode("V2");
-
-
-        graph.add(v0);
-        graph.add(v1);
-        graph.add(v2);
-
-        graph.addEdge(new SimpleEdge(v0, v1, "v1"));
-        graph.addEdge(new SimpleEdge(v1, v2, "v2"));
-        graph.addEdge(new SimpleEdge(v2, v0, "v3"));
-
-        GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
-        surface.init(graph);
-    }
-
-//    public void CallBackMainActivity(View view){
-//
-////        String RegexStr, SampleText;
-//
-////        if(bundle != null){
-////            RegexStr = (String) bundle.get("RegexStr");
-////            SampleText = (String) bundle.get("SampleText");
-////        }
-//
-//        // jump to main activity
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtras(getIntent().getExtras()); // send Regex pattern and sample text to main activity
-//        startActivity(intent);
-//    }
 }
