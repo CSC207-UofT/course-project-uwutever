@@ -25,6 +25,9 @@ import com.uwutever.RegexApp.beans.ArcUtils;
 import com.uwutever.RegexApp.beans.RegexLayout;
 
 public class GraphSurfaceView extends SurfaceView {
+    /**
+     * The visualization graph to be drawn.
+     */
 
     private static final String TAG = "";
     private final ScaleGestureDetector mScaleDetector;
@@ -34,23 +37,37 @@ public class GraphSurfaceView extends SurfaceView {
     private float mScaleFactor = 1.f;
 
     public GraphSurfaceView(Context context) {
+        /*
+         * This constructor is used when the class is built from an XML
+         * file.
+         */
         super(context);
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public GraphSurfaceView(Context context, AttributeSet attrs) {
+        /*
+         * This constructor is used by the layout editor.
+         */
         super(context, attrs);
         attributes = getContext().obtainStyledAttributes(attrs, R.styleable.GraphSurfaceView);
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public GraphSurfaceView(Context context, AttributeSet attrs, int defStyle) {
+        /*
+         * This constructor is used by the layout editor.
+         */
         super(context, attrs, defStyle);
         attributes = getContext().obtainStyledAttributes(attrs, R.styleable.GraphSurfaceView);
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     public void init(final RegexGraph graph) {
+        /*
+         * This method is called by the layout editor.
+         * @param graph: The graph to be drawn.
+         */
         setZOrderOnTop(true);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
         getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -71,6 +88,12 @@ public class GraphSurfaceView extends SurfaceView {
     }
 
     private void drawGraph(final Canvas canvas, final RegexGraph graph) {
+        /*
+         * This method is called by the layout editor.
+         * @param canvas: The canvas to draw on.
+         * @param graph: The graph to be drawn.
+         * @return: None.
+         */
         Paint paint = new Paint();
         Paint whitePaint = new Paint();
         paint.setAntiAlias(true);
@@ -117,15 +140,25 @@ public class GraphSurfaceView extends SurfaceView {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent ev) {
+        /* @param ev: The motion event to be handled.
+         * @return: True if the event was handled, false otherwise.
+         */
         mScaleDetector.onTouchEvent(ev);
         return true;
     }
 
     public float getScaleFactor() {
+        /*
+         * This method is called by the layout editor.
+         * @return: The scale factor.
+         */
         return this.mScaleFactor;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        /*
+         * This class is used to handle the scale gesture.
+         */
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             mScaleFactor *= detector.getScaleFactor();

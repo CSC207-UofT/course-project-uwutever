@@ -39,6 +39,10 @@ public class GraphVisualizationPresenter {
 
 
     public RegexGraph initialize_Visualization_DFA() {
+        /*
+        * Initialize a DFA graph
+        * @return a RegexGraph object
+        */
 
         DFAGraphData dfa = getDFAGraphData(RegexStr); // create DFA data object based on regex
 
@@ -94,6 +98,10 @@ public class GraphVisualizationPresenter {
 
 
     public RegexGraph initialize_Visualization_NFA() {
+        /*
+        * Initialize a NFA graph
+        * @return a RegexGraph object
+        */
 
         NFAGraphData nfa = getNFAGraphData(RegexStr); // create DFA data object based on regex
 
@@ -150,6 +158,10 @@ public class GraphVisualizationPresenter {
     }
 
     public RegexGraph initialize_Visualization_test() {
+        /*
+        * Initialize a test graph
+        * @return a RegexGraph object
+        */
         RegexGraph graph = new RegexGraph();
 
         Node v0 = new SimpleNode("V0");

@@ -82,6 +82,9 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     private void initialize_Visualization() {
+        /*
+        * Initialize the visualization of the regex match.
+        */
         GraphVisualizationPresenter Graph = new GraphVisualizationPresenter(RegexStr);
 
         GraphSurfaceView surface = (GraphSurfaceView) findViewById(R.id.visualization);
@@ -89,6 +92,9 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     private String highlight_MatchedPattern(List<List<Integer>> matchedintervals){
+        /*
+        * Highlight the matched pattern.
+        */
         String temp = "";
         int end = 0;
         Log.d(TAG, ((Integer) matchedintervals.size()).toString());
