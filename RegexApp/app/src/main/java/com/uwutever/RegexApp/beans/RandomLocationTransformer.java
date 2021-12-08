@@ -13,8 +13,13 @@ import java.util.Random;
  * and provides a random location for unmapped vertices
  * the first time they are accessed.
  *
+ * 2021/12/8 Update:
+ * According to Tom Nelson's RandomLocationTransformer,
+ * I(Hanrui Fan) add the boundary for RandomLocation,
+ * in order to limit the node in the boundary of graph.
+ *
  * @param <V> the type parameter
- * @author Tom Nelson
+ * @author Tom Nelson, Hanrui Fan
  */
 public class RandomLocationTransformer<V> implements Transformer<V, Point2D> {
 
