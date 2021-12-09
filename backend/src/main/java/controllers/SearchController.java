@@ -23,6 +23,11 @@ public class SearchController {
         }
     }
 
+    /**
+     * Get a list of matches in the given string
+     * @param text string to be searched
+     * @return
+     */
     public List<List<Integer>> search(String text){
         return Searcher.search(this.regexPattern.getFSA(), text);
     }

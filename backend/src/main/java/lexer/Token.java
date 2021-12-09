@@ -20,10 +20,19 @@ public class Token {
         this.value = value;
     }
 
+    /**
+     * Create the special concatenation operator
+     * @return a concatenation operator token
+     */
     public static Token createConcat() {
         return new Token(TokenType.Operator, '.');
     }
 
+    /**
+     * Given a token of type char, return the correct token
+     * @param token: character representation of the token
+     * @return the Token
+     */
     public static Token createToken(char token) {
         if (LEFT.contains(token)) {
             return new Token(TokenType.LeftDelimiter, token);
@@ -43,10 +52,18 @@ public class Token {
         }
     }
 
+    /**
+     * Get the type of this Token
+     * @return type of Token
+     */
     public TokenType getTokenType() {
         return this.tokenType;
     }
 
+    /**
+     * Get the character representation of this Token
+     * @return character representation of this Toke
+     */
     public char getValue() {
         return this.value;
     }

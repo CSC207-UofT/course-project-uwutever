@@ -11,16 +11,6 @@ public class Lexer {
     private List<Token> tokens;
     private final String inputStr;
 
-    // for testing purpose only, remove in production.
-    public static void main(String[] args) {
-        Lexer lexer = new Lexer("((a)+b*)+e+|f*(g**)+");
-        lexer.tokenize();
-        for (Token t: lexer.getTokens()) {
-            System.out.print(t.getTokenType() + " " + t.getValue());
-            System.out.println();
-        }
-    }
-
     /**
      * Initialize a <code>Lexer</code>. Note that this constructor only constructs the <code>Lexer</code>
      * without actually tokenize the input.
