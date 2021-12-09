@@ -1,5 +1,7 @@
 # Design Document
 
+This design document was initially made for the final phase of the CSC207 course project by team uwutever.
+
 ## SOLID Design Principles
 ### Single Responsibility Principle
 Our design abided by the single responsibility principle: we created a separate class for each responsibility in our program, 
@@ -32,8 +34,9 @@ Back-end: We must have that any object of a particular type must be replaceable 
 if such a superclass exists. Indeed, in our implementation of the algorithm, we have multiple such cases of subclasses, 
 which we shall now see, case-by-case.
 
-Firstly, we consider the case of the `ASTNode` abstract superclass and its subclasses. Each subclass can be substituted
-for by the `ASTNode` superclass, and represents a particular case of ASTs. Next, we consider ...
+As a particular example, we consider the case of the `ASTNode` abstract superclass and its subclasses. Each subclass can 
+be substituted for by the `ASTNode` superclass, and represents a particular case of ASTs. There are many more such 
+examples in the code which we shall not name in this document since attempting to create a .
 
 Front-end: We extended many of the classes in the Android framework to implement our own functionality without breaking 
 the system (such as `RegexRoomDatabase extends RoomDataBase`, which is a system super class.)
@@ -41,22 +44,32 @@ the system (such as `RegexRoomDatabase extends RoomDataBase`, which is a system 
 ### Interface Segregation Principle
 In Phase 1, the `StateTransition` class did not follow the interface segregation principle, but now we have resolved this 
 issue by completely revamping the implementation of the automata. We have ensured that all interfaces are concise and carry
-precise information and relevant methods only. For instance, the 
+precise information and relevant methods only. For instance, the `Compiler` interface only enforces the `compile` method,
+while the `RegexPattern` interface only enforces the `getFSA` and `getRegexStr` methods, and so on.
 
 FrondEnd: UI only depends on android system interface and backend API
 
 ### Dependency Inversion Principle
-Backend: The only major couplings existing in our design are between `NFA` and `NFAState`, and between `Parser` and `ASTNode`, 
-all of which are low-level classes, so the dependency inversion principle is upheld.
+Backend: There is no coupling between classes and the dependency only travels in one direction between layers, as can be 
+verified by the UML diagram attached in the following section.
 
 FrontEnd: For example, the UI accesses a database from the repository object, which is a high-level module for deciding
 where the data should be accessed from (e.g. remote or local). The repository module is then dependent on the `RoomDatabase`
 interface, which is a high level module of the actual SQL database.
 
+---
 
 ## Clean Architecture
 ### Backend
-TODO
+![Backend clean architecture layers](img/backend-architecture-layers.png "Clean architecture layers")
+In brief, this diagram summarizes the high-level overview of our back-end architecture divided into the four layers of 
+the clean architecture. This model has come a long way from the initial CRC models we had proposed in Phase 0 with the 
+addition of more classes and better structure to make the code more readable and easier to maintain in the future.
+
+The following diagram is also included as a means to offer more elaborate insight into the workings of the program and 
+highlight key dependencies between all the classes involved in constructing the back-end of this project.
+![Backend classes dependency](img/backend-architecture-dependency.png "Clean architecture class dependency")
+
 ### Frontend
 ![UI UML Diagram](img/UI_UML_diagram.png "UI UML Diagram")
 
@@ -65,6 +78,8 @@ and `ThirdActivity`) controls the view of the viewmodel (./layout). Furthermore,
 (`RegexRepository`) for data. `Repository`'s then use database packages (db) to get local data, 
 since we don’t need to get data from the internet for now. In Database, we got a DAO (`RegexDao`) in charge of the 
 interface for database accessing. Then, the `RegexRoomDatabase` implements the details of accessing.
+
+---
 
 ## Design Patterns
 ### Back-end: 
@@ -105,6 +120,8 @@ We use github issues and PR to track our process and feature requests.
 We also set up a discord bot to automatically post the status of the project to the discord channel.
 
 ![Discord Hook](img/DiscordHook.png "Discord Hook")
+
+---
 
 
 ## Code Style and Documentation
