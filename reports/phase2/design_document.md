@@ -160,7 +160,7 @@ Another issue we faced was that the backend and frontend teams had inadvertently
 code in Phase 1, and the resolution of this issue is visible in the issue titled **Development Environment**
 
 Frontend: We refactored graph algorithm to suit SOLID design. We also refactored the UI to make it more intuitive.
-In the progress of intergrading the front-end with the backend, we did a few more refactorings.
+In the progress of integrating the front-end with the backend, we did a few more refactorings.
 
 ## Code Organization
 We use the “by component” packaging strategy for our project, similar to the packaging strategy used by JavaShell.
