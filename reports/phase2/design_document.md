@@ -176,9 +176,18 @@ objects.
 ### Meeting specifications
 We have completed all specifications which were listed in the Phase 0 project proposal.
 ### Principles of Universal Design
-TODO
+- The UI we have created is minimalistic, thus satisfying Principle 3. 
+- It takes very little effort to navigate between pages, thus satisfying Principle 6. 
+- Since there is no personal information being stored, the tolerance for error is significant, thus satisfting Principle 5. 
+- Our design communicates the necessary pieces of information in a concise manner, and even provides further details in the Help page, thus satisfying Principle 4. 
+- Since there are no barriers to using our program, it is equitable in its use, thus satisfying Principle 1.
 
 ## Future Plans
 
-Export to image, NFA minimization, add other stuff here.
+We plan to continue this project beyond the scope of this course, In particular, we wish to expand the scope of the regex
+which can be recognized by our program, as well as expand to other flavours of regular expressions. We also wish to implement
+a feature which will allow users to export the resulting graphs to other popular platforms, such as JFLAP or TikZ.
+
+Since there are evidently many redundant states in our automata, we also plan on implementing DFA and NFA minimization 
+algorithms and improve upon our current implementation of the subset construction algorithm used in the `NFAtoDFAConverter`.
 
