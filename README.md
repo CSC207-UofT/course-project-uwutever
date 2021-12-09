@@ -8,11 +8,14 @@ as matching between text strings and  a regular expression, and visualization of
 
 Contributors: Kevin Gao, Hanrui Fan, Arkaprava Choudhury, Brian Ho, Franklin Yeung, Letian Cheng
 
+![UI gif](Demo/demo.gif "gif")
+
 #### Back-end
 To see the back-end demo, please visit src/test/demo/DemoPhase1 and follow the instructions there to use the CLI for text-matching
 
 #### Front-end
 
+See RegexApp. *Note:* if you are using android studio, please open folder `RegexApp`.
 ### UI Demo:
 
 ![UI demo 1](Demo/Screen1.png "State 1")
