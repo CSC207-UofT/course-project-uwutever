@@ -13,6 +13,12 @@ import errors.RegexException;
 public class MatchController {
     private final RegexPattern regexPattern;
 
+    /**
+     * Create a MatchController
+     * @param regexString the regular expression pattern to be used
+     * @param compileDFA whether to compile a DFA instead of NFA
+     * @throws RegexException
+     */
     public MatchController(String regexString, boolean compileDFA) throws RegexException {
         if(compileDFA){
             this.regexPattern = new RegexDFAPattern(regexString);
