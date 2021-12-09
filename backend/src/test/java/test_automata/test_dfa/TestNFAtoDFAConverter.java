@@ -1,3 +1,5 @@
+package test_automata.test_dfa;
+
 import automata.dfa.DFA;
 import automata.dfa.NFAtoDFAConverter;
 import automata.nfa.NFA;
@@ -5,10 +7,6 @@ import automata.nfa.NFABuilder;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import static  org.junit.Assert.*;
 
 public class TestNFAtoDFAConverter {
@@ -67,9 +65,7 @@ public class TestNFAtoDFAConverter {
      */
     @Test
     public void testAlphabets(){
-        Set<String> dfaAlphabets = new HashSet<>(this.nfa.getAlphabets());
-        dfaAlphabets.remove("epsilon");
-        assertEquals(dfaAlphabets, this.dfa.getAlphabets());
+        assertEquals(this.nfa.getAlphabets(), this.dfa.getAlphabets());
     }
 
     /**
@@ -81,5 +77,13 @@ public class TestNFAtoDFAConverter {
         for (String testStr : testStrings){
             assert this.nfa.accept(testStr) == this.dfa.accept(testStr);
         }
+    }
+
+    /**
+     * Test the cleanup method
+     */
+    @Test
+    public void testRemoveRedundancy(){
+
     }
 }

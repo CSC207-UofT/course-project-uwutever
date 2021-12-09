@@ -8,7 +8,7 @@ most according to the CRC model we created earlier in phase 0.
 There were a few improvements we made to the CRC model, including splitting the FSA/DFA/NFA class up, 
 making `DFA` and `NFA` subclasses of the `FSA` abstract class, since they have separate responsibilities.
 
-Both of these classes will be built utilizing the `FSABuilder` interface, however, they have different responsibilities:  
+Both of these classes are built utilizing the `FSABuilder` interface, however, they have different responsibilities:  
 The compiler compiles the parsed Abstract Syntax Tree into an `NFA` since that can be done in a more straightforward manner. 
 The `NFA` is then converted into `DFA` to complete the matching since a `DFA` is more efficient (especially if the user will 
 be matching the multiple strings to the same regular expression). This `DFA` will be stored for later use.
@@ -32,17 +32,16 @@ Back-end: We must have that any object of a particular type must be replaceable 
 if such a superclass exists. Indeed, in our implementation of the algorithm, we have multiple such cases of subclasses, 
 which we shall now see, case-by-case.
 
-Firstly, we have six subclasses of the `NFA` class, which are seen in the nfa package in the code; as can be verified, 
-each of these subclasses is replaceable instead by an object of type NFA. Next, the `NFA` and `DFA` classes are subclasses 
-of the `FSA` class. Even though each of the subclasses of NFA also represents an `FSA`, we rely upon this additional layer 
-of inheritance in order to preserve the property of utilizing any subclass instead of its superclass without encountering 
-any errors. A similar example holds true for the case of the `ASTNode` abstract superclass and its subclasses.
+Firstly, we consider the case of the `ASTNode` abstract superclass and its subclasses. Each subclass can be substituted
+for by the `ASTNode` superclass, and represents a particular case of ASTs. Next, we consider ...
 
 Front-end: We extended many of the classes in the Android framework to implement our own functionality without breaking 
 the system (such as `RegexRoomDatabase extends RoomDataBase`, which is a system super class.)
 
 ### Interface Segregation Principle
-Currently, the `StateTransition` class **DOES NOT** follow the interface segregation principle
+In Phase 1, the `StateTransition` class did not follow the interface segregation principle, but now we have resolved this 
+issue by completely revamping the implementation of the automata. We have ensured that all interfaces are concise and carry
+precise information and relevant methods only. For instance, the 
 
 FrondEnd: UI only depends on android system interface and backend API
 
@@ -56,6 +55,9 @@ interface, which is a high level module of the actual SQL database.
 
 
 ## Clean Architecture
+### Backend
+TODO
+### Frontend
 ![UI UML Diagram](img/UI_UML_diagram.png "UI UML Diagram")
 
 This is a UML diagram for our user interface design. It can be seen that the UI controller (`MainActivity`, `SecondActivity`,
@@ -65,10 +67,14 @@ since we don’t need to get data from the internet for now. In Database, we got
 interface for database accessing. Then, the `RegexRoomDatabase` implements the details of accessing.
 
 ## Design Patterns
-Back-end: 
-We used the **Builder** design pattern in `FSA` and `FSAState`, and we used inheritance between `NFA`, `DFA`, and `FSA`.
+### Back-end: 
+- We used the **Bridge** design pattern to decouple the abstraction for `FSA` from its two implementations - `DFA` and `NFA` - so that they can be independently extended or composed.
+- We also used the **Builder** design patterns in the compiler package twice: first, to compile a `NFA` object according to the specifications of an AST, and next, to compile a `DFA` object from the specifications given by an `NFA`.
+- In doing so, we also used the **Strategy** design pattern to implement different, but similar, algorithms regarding compilation by creating the `Compiler` interface.
+- We used **Factory** method in the lexer package to create `Token` objects and in the parser package to create `ASTNode` objects.
+- We used inheritance between `NFA`, `DFA`, and `FSA`.
 
-Front-end:  
+### Front-end:  
 - We used the **Observer** Design Pattern, the whole process is that we set up an observer on the datalist which looked 
 for insertion of any new LiveData storing (`Regex`) to the database and update the datalist. The observer is then used 
 to notify that there is a change and has a method onChanged() when changes happen. This method will call `RegexCardAdapter`
@@ -115,36 +121,26 @@ in the algorithm that explain how the algorithm works. The authors feel confiden
 sufficiently intuitive such that the intent of any member class can be understood by a Java programmer via the name of 
 the class and documentation provided.
 
-However, the code is not without its flaws. Admittedly, the construction of the NFA class does not make full use of the 
-builder design pattern, and we can note the existence of certain code smells such as duplicated code in some parts of the 
-project code. Most prominently, we wish to replace the various subclasses of the NFA superclass with an implementation 
-that uses only two Reader and Builder objects to complete the necessary construction.
+---
 
 ## Testing
 
-Currently, since we have not yet integrated the backend of the project with the Android UI, the two parts have their own
-testing packages.
-
 Front-end: We manually test our UI.
 
-Back-end: We have a unittest for most of the classes we created, including the automata and the two Builders, and so far
-no issues have been found with our code. In the coming weeks we aim to added more test to increase both their breadth 
-and depth.
+Back-end: We have a unit test for most of the classes we created, and certainly for every non-trivial class, and so far
+no issues have been found with our code. We do not include unit tests for the controllers because they have very simple 
+functionality and no complicated algorithms, and so they do not need to be tested.
 
 ## Refactoring
-Indeed, our group has had multiple instances of refactoring in our code, although it is not apparent while simply 
-looking at the pull requests. This is because we kept all moments of uncertainty leading up to potential refactoring 
-contained within a single branch to not disrupt the other branches and any other progress made by the rest of the group.
+Indeed, our group has had multiple instances of refactoring in our code. To keep track of all of these changes, we used 
+GitHub issues and pull requests to properly communicate with other team members about what we were doing, and gain advice 
+during group discussions.
 
-When speaking about the implementation of the regex algorithms, the evidence of refactoring can be seen through various 
-commits in each of the branches in the GitHub repository.
+For instance, we had to completely refactor the implementation of the automata package to better reflect the guidelines 
+of clean architecture.
 
-In particular, the two branches NFAImplementation and NFAImplementation2 can be seen to demonstrate the most prominent 
-example of refactoring; Here, we experimented with two vastly different methods of implementing the `NFA` objects, with 
-and without using a separate class to store the states. In turn, the results of such refactoring is visible in the branch
-*phase1*. NOTE: Point to specific commits.
-
-We even had to refactor the NFA class with the builder pattern, as seen in the pull request by Brian titled **NFA builder implementation**.
+Another issue we faced was that the backend and frontend teams had inadvertently used different Java environments for 
+code in Phase 1, and the resolution of this issue is visible in the issue titled **Development Environment**
 
 Frontend: We refactored graph algorithm to suit SOLID design. We also refactored the UI to make it more intuitive.
 In the progress of intergrading the front-end with the backend, we did a few more refactorings.
@@ -160,13 +156,12 @@ We have further sub-divided each of the above packages depending on the level of
 objects.
 
 ## Functionality
-
-As far as functionality goes, we have been able to achieve text matching, that is, checking whether a given input string
-is in the language described by the regular expression. 
-
-The front-end part of the project is basically finished, but we have yet to integrate the back-end with it, we expect the
-functionality of controlling the program using the Android interface can be completed very soon. In the future, we hope
-to improve upon the front end to make it more visually appealing and user-friendly.
+### Meeting specifications
+We have completed all specifications which were listed in the Phase 0 project proposal.
+### Principles of Universal Design
+TODO
 
 ## Future Plans
+
+Export to image, NFA minimization, add other stuff here.
 

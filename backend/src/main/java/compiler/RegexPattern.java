@@ -2,9 +2,6 @@ package compiler;
 
 import automata.FSA;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * An interface for the RegexPattern
  */
